@@ -1,0 +1,19 @@
+# Abdul Habeeb
+
+> Data science and full-stack developer based in Saarbrücken, Germany.
+
+Abdul Habeeb is a data science and full-stack developer focused on building clear, reliable digital experiences and turning complex systems and datasets into useful products.
+
+## Portfolio
+
+- [Portfolio homepage](https://abdulhabeeb.com/): Profile, experience, workshops, education, awards, volunteering, and contact information.
+- [Resume (PDF)](https://abdulhabeeb.com/public/resources/Abdul_Habeeb_Resume.pdf): Download Abdul Habeeb's current resume.
+
+## Profiles
+
+- [GitHub](https://github.com/Habeeb9731): Public source code and projects.
+- [LinkedIn](https://linkedin.com/in/abdulhabeeb9731): Professional profile.
+
+## Contact
+
+- [Contact section](https://abdulhabeeb.com/#contact): Ways to get in touch with Abdul Habeeb.

@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20261002-stacked-projects-v2" />
+  <link rel="stylesheet" href="styles.css?v=20261002-stacked-projects-v3" />
 </head>
 <body>
 <main class="page">
@@ -77,8 +77,36 @@ const projectList=document.querySelector('.project-scroll-list');
 projectList.innerHTML=projectItems.map((project,index)=>{
   const openLabel=project.fallback?'View repository':'Open project';
   const title=project.title.split(' ').map((word,wordIndex)=>wordIndex===1?`<br />${word}`:word).join(' ');
-  return `<article class="stacked-project-card" style="--card-index:${index}"><div class="stacked-project-visual"><img src="${project.image}" alt="${project.alt}" loading="lazy" decoding="async" /></div><div class="stacked-project-details"><div class="project-meta"><span>${String(index+1).padStart(3,'0')}</span><span>${project.meta}</span></div><h3>${title}</h3><p>${project.description}</p><div class="project-stack">${project.tags.map(tag=>`<span>${tag}</span>`).join('')}</div><div class="project-actions"><a class="project-link primary" href="${project.open}" target="_blank" rel="noopener">${openLabel} <span>↗</span></a>${project.github&&!project.fallback?`<a class="project-link" href="${project.github}" target="_blank" rel="noopener">View on GitHub <span>↗</span></a>`:''}</div></div></article>`;
+  return `<article class="stacked-project-card${index===0?' is-active':''}" data-project-index="${index}" style="--card-index:${index}"><div class="stacked-project-visual"><img src="${project.image}" alt="${project.alt}" loading="lazy" decoding="async" /></div><div class="stacked-project-details"><div class="project-meta"><span>${String(index+1).padStart(3,'0')}</span><span>${project.meta}</span></div><h3>${title}</h3><p>${project.description}</p><div class="project-stack">${project.tags.map(tag=>`<span>${tag}</span>`).join('')}</div><div class="project-actions"><a class="project-link primary" href="${project.open}" target="_blank" rel="noopener">${openLabel} <span>↗</span></a>${project.github&&!project.fallback?`<a class="project-link" href="${project.github}" target="_blank" rel="noopener">View on GitHub <span>↗</span></a>`:''}</div></div></article>`;
 }).join('');
+const projectCards=[...projectList.querySelectorAll('.stacked-project-card')];
+let projectFrame;
+function animateProjectStack(){
+  const focusLine=window.innerHeight*.34;
+  let activeIndex=0;
+  let closestDistance=Infinity;
+  projectCards.forEach((card,index)=>{
+    const rect=card.getBoundingClientRect();
+    const distance=Math.abs(rect.top-focusLine);
+    if(rect.top<=focusLine+140&&rect.bottom>=focusLine&&distance<closestDistance){activeIndex=index;closestDistance=distance;}
+  });
+  projectCards.forEach((card,index)=>{
+    const rect=card.getBoundingClientRect();
+    const relative=(rect.top-focusLine)/Math.max(window.innerHeight*.62,1);
+    const clamped=Math.max(-1,Math.min(1,relative));
+    const lift=clamped>0?clamped*34:clamped*22;
+    const scale=1-Math.min(Math.abs(clamped)*.025,.035);
+    card.style.zIndex=String(index===activeIndex?1000:100-index);
+    card.style.transform=`translate3d(0,${lift}px,0) scale(${scale})`;
+    card.querySelector('.stacked-project-visual').style.transform=`translate3d(0,${clamped*-18}px,0)`;
+    card.classList.toggle('is-active',index===activeIndex);
+  });
+  projectFrame=undefined;
+}
+function requestProjectAnimation(){if(!projectFrame)projectFrame=requestAnimationFrame(animateProjectStack)}
+window.addEventListener('scroll',requestProjectAnimation,{passive:true});
+window.addEventListener('resize',requestProjectAnimation);
+requestProjectAnimation();
 </script>
 </body>
 </html>

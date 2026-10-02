@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20261003-coverflow-zoom" />
+  <link rel="stylesheet" href="styles.css?v=20261003-coverflow-links" />
 </head>
 <body>
 <main class="page">
@@ -74,7 +74,7 @@ const projectItems=[
   {title:'Ecliniqs',meta:'WEB · HEALTHCARE',description:'An online speech therapy service provider website based in Dubai.',image:'public/resources/projects/ecliniqs.png?v=20261002-resized-v2',alt:'Ecliniqs speech therapy website preview',open:'https://github.com/Habeeb9731/ecliniqs_deploy',github:'https://github.com/Habeeb9731/ecliniqs_deploy',tags:['Frontend'],fallback:true}
 ];
 const projectList=document.querySelector('.project-scroll-list');
-projectList.innerHTML=`<div class="coverflow-stage" tabindex="0" aria-label="Project carousel"><button class="coverflow-nav previous" type="button" aria-label="Previous project">←</button><div class="coverflow-cards">${projectItems.map((project,index)=>`<article class="coverflow-card${index===0?' is-active':''}" data-project-index="${index}"><div class="coverflow-art"><img src="${project.image}" alt="${project.alt}" loading="lazy" decoding="async" /></div><div class="coverflow-caption"><span>${String(index+1).padStart(3,'0')}</span><strong>${project.title}</strong><small>${project.meta}</small><a href="${project.open}" target="_blank" rel="noopener">${project.fallback?'View repository':'Open project'} ↗</a></div></article>`).join('')}</div><button class="coverflow-nav next" type="button" aria-label="Next project">→</button></div><div class="coverflow-status" aria-live="polite"></div>`;
+projectList.innerHTML=`<div class="coverflow-stage" tabindex="0" aria-label="Project carousel"><button class="coverflow-nav previous" type="button" aria-label="Previous project">←</button><div class="coverflow-cards">${projectItems.map((project,index)=>`<article class="coverflow-card${index===0?' is-active':''}" data-project-index="${index}"><div class="coverflow-art"><img src="${project.image}" alt="${project.alt}" loading="lazy" decoding="async" /></div><div class="coverflow-caption"><span>${String(index+1).padStart(3,'0')}</span><strong>${project.title}</strong><small>${project.meta}</small><div class="coverflow-links"><a href="${project.open}" target="_blank" rel="noopener">${project.fallback?'View repository':'Open project'} ↗</a>${project.github&&!project.fallback?`<a href="${project.github}" target="_blank" rel="noopener">View repository ↗</a>`:''}</div></div></article>`).join('')}</div><button class="coverflow-nav next" type="button" aria-label="Next project">→</button></div><div class="coverflow-status" aria-live="polite"></div>`;
 const coverflowStage=projectList.querySelector('.coverflow-stage');
 const projectCards=[...projectList.querySelectorAll('.coverflow-card')];
 const projectStatus=projectList.querySelector('.coverflow-status');

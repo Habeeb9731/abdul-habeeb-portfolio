@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20261002-stacked-projects-v5" />
+  <link rel="stylesheet" href="styles.css?v=20261002-stacked-projects-v6" />
 </head>
 <body>
 <main class="page">
@@ -84,12 +84,7 @@ let projectFrame;
 function animateProjectStack(){
   const focusLine=window.innerHeight*.34;
   let activeIndex=0;
-  let closestDistance=Infinity;
-  projectCards.forEach((card,index)=>{
-    const rect=card.getBoundingClientRect();
-    const distance=Math.abs(rect.top-focusLine);
-    if(rect.top<=focusLine+140&&rect.bottom>=focusLine&&distance<closestDistance){activeIndex=index;closestDistance=distance;}
-  });
+  projectCards.forEach((card,index)=>{if(card.getBoundingClientRect().top<=focusLine+32)activeIndex=index;});
   projectCards.forEach((card,index)=>{
     const rect=card.getBoundingClientRect();
     const relative=(rect.top-focusLine)/Math.max(window.innerHeight*.62,1);

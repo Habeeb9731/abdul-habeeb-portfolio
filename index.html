@@ -100,6 +100,11 @@ function animateProjectStack(){
 function requestProjectAnimation(){if(!projectFrame)projectFrame=requestAnimationFrame(animateProjectStack)}
 window.addEventListener('scroll',requestProjectAnimation,{passive:true});
 window.addEventListener('resize',requestProjectAnimation);
+projectCards.forEach(card=>card.addEventListener('click',event=>{
+  if(event.target.closest('a'))return;
+  const targetTop=card.getBoundingClientRect().top+window.scrollY-105;
+  window.scrollTo({top:Math.max(0,targetTop),behavior:'smooth'});
+}));
 requestProjectAnimation();
 </script>
 </body>

@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20261002-stacked-projects-v8" />
+  <link rel="stylesheet" href="styles.css?v=20261003-coverflow-projects" />
 </head>
 <body>
 <main class="page">
@@ -74,38 +74,41 @@ const projectItems=[
   {title:'Ecliniqs',meta:'WEB · HEALTHCARE',description:'An online speech therapy service provider website based in Dubai.',image:'public/resources/projects/ecliniqs.png?v=20261002-resized-v2',alt:'Ecliniqs speech therapy website preview',open:'https://github.com/Habeeb9731/ecliniqs_deploy',github:'https://github.com/Habeeb9731/ecliniqs_deploy',tags:['Frontend'],fallback:true}
 ];
 const projectList=document.querySelector('.project-scroll-list');
-projectList.innerHTML=projectItems.map((project,index)=>{
-  const openLabel=project.fallback?'View repository':'Open project';
-  const title=project.title.split(' ').map((word,wordIndex)=>wordIndex===1?`<br />${word}`:word).join(' ');
-  return `<article class="stacked-project-card${index===0?' is-active':''}" data-project-index="${index}" style="--card-index:${index}"><div class="stacked-project-visual"><img src="${project.image}" alt="${project.alt}" loading="lazy" decoding="async" /></div><div class="stacked-project-details"><div class="project-meta"><span>${String(index+1).padStart(3,'0')}</span><span>${project.meta}</span></div><h3>${title}</h3><p>${project.description}</p><div class="project-stack">${project.tags.map(tag=>`<span>${tag}</span>`).join('')}</div><div class="project-actions"><a class="project-link primary" href="${project.open}" target="_blank" rel="noopener">${openLabel} <span>↗</span></a>${project.github&&!project.fallback?`<a class="project-link" href="${project.github}" target="_blank" rel="noopener">View on GitHub <span>↗</span></a>`:''}</div></div></article>`;
-}).join('');
-const projectCards=[...projectList.querySelectorAll('.stacked-project-card')];
-let projectFrame;
-function animateProjectStack(){
-  const focusLine=window.innerHeight*.34;
-  let activeIndex=0;
-  projectCards.forEach((card,index)=>{if(card.getBoundingClientRect().top<=focusLine+32)activeIndex=index;});
+projectList.innerHTML=`<div class="coverflow-stage" tabindex="0" aria-label="Project carousel"><button class="coverflow-nav previous" type="button" aria-label="Previous project">←</button><div class="coverflow-cards">${projectItems.map((project,index)=>`<article class="coverflow-card${index===0?' is-active':''}" data-project-index="${index}"><div class="coverflow-art"><img src="${project.image}" alt="${project.alt}" loading="lazy" decoding="async" /></div><div class="coverflow-caption"><span>${String(index+1).padStart(3,'0')}</span><strong>${project.title}</strong><small>${project.meta}</small><a href="${project.open}" target="_blank" rel="noopener">${project.fallback?'View repository':'Open project'} ↗</a></div></article>`).join('')}</div><button class="coverflow-nav next" type="button" aria-label="Next project">→</button></div><div class="coverflow-status" aria-live="polite"></div>`;
+const coverflowStage=projectList.querySelector('.coverflow-stage');
+const projectCards=[...projectList.querySelectorAll('.coverflow-card')];
+const projectStatus=projectList.querySelector('.coverflow-status');
+let activeProject=0;
+function setActiveProject(next){
+  activeProject=(next+projectItems.length)%projectItems.length;
   projectCards.forEach((card,index)=>{
-    const rect=card.getBoundingClientRect();
-    const relative=(rect.top-focusLine)/Math.max(window.innerHeight*.62,1);
-    const clamped=Math.max(-1,Math.min(1,relative));
-    const inStack=index>=Math.max(0,activeIndex-2)&&index<=activeIndex;
-    card.style.zIndex=String(index===activeIndex?1000:(inStack?900+index:1));
-    card.querySelector('.stacked-project-visual').style.transform=`translate3d(0,${clamped*-18}px,0)`;
-    card.classList.toggle('is-active',index===activeIndex);
-    card.classList.toggle('is-stack-visible',inStack);
+    let relative=index-activeProject;
+    if(relative>projectItems.length/2)relative-=projectItems.length;
+    if(relative<-projectItems.length/2)relative+=projectItems.length;
+    const visible=Math.abs(relative)<=2;
+    const scale=relative===0?1:Math.max(.72,1-Math.abs(relative)*.12);
+    const x=relative*Math.min(145,window.innerWidth*.24);
+    const rotate=relative*8;
+    const y=Math.abs(relative)*14;
+    card.style.zIndex=String(20-Math.abs(relative));
+    card.style.opacity=visible?'1':'0';
+    card.style.pointerEvents=visible?'auto':'none';
+    card.style.transform=`translate3d(${x}px,${y}px,0) rotate(${rotate}deg) scale(${scale})`;
+    card.classList.toggle('is-active',relative===0);
   });
-  projectFrame=undefined;
+  projectStatus.textContent=`${String(activeProject+1).padStart(2,'0')} / ${String(projectItems.length).padStart(2,'0')}`;
 }
-function requestProjectAnimation(){if(!projectFrame)projectFrame=requestAnimationFrame(animateProjectStack)}
-window.addEventListener('scroll',requestProjectAnimation,{passive:true});
-window.addEventListener('resize',requestProjectAnimation);
-projectCards.forEach(card=>card.addEventListener('click',event=>{
+projectList.querySelector('.coverflow-nav.previous').addEventListener('click',()=>setActiveProject(activeProject-1));
+projectList.querySelector('.coverflow-nav.next').addEventListener('click',()=>setActiveProject(activeProject+1));
+projectCards.forEach((card,index)=>card.addEventListener('click',event=>{
   if(event.target.closest('a'))return;
-  const targetTop=card.getBoundingClientRect().top+window.scrollY-105;
-  window.scrollTo({top:Math.max(0,targetTop),behavior:'smooth'});
+  setActiveProject(index);
 }));
-requestProjectAnimation();
+coverflowStage.addEventListener('keydown',event=>{if(event.key==='ArrowLeft')setActiveProject(activeProject-1);if(event.key==='ArrowRight')setActiveProject(activeProject+1)});
+let pointerStartX=0;
+coverflowStage.addEventListener('pointerdown',event=>{pointerStartX=event.clientX});
+coverflowStage.addEventListener('pointerup',event=>{const delta=event.clientX-pointerStartX;if(Math.abs(delta)>45)setActiveProject(activeProject+(delta<0?1:-1))});
+setActiveProject(0);
 </script>
 </body>
 </html>

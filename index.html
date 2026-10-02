@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20261001-balanced-image" />
+  <link rel="stylesheet" href="styles.css?v=20261002-stacked-projects" />
 </head>
 <body>
 <main class="page">
@@ -40,7 +40,7 @@
 
   <section class="experience" id="experience"><div class="kicker"><i></i><span data-i18n="experienceLabel">EXPERIENCE</span></div><h2 data-i18n="experienceTitle">Where I’ve been putting it into practice.</h2><div class="experience-list"><article><span>2025—now</span><div><h3>Moltomedia GmbH</h3><p data-i18n="moltoRole">Full-Stack Developer · Werkstudent</p></div><p data-i18n="moltoText">Responsive applications, reusable components, REST API integrations, and backend functionality.</p></article><article><span>2025—now</span><div><h3>FGVT Research Group</h3><p data-i18n="fgvtRole">Research Assistant · Saarbrücken</p></div><p data-i18n="fgvtText">Transportation datasets, visualizations, and analytical reports for evidence-based research.</p></article><article><span>2023—2024</span><div><h3>Zephyr Technologies</h3><p data-i18n="zephyrRole">Front-End Developer · India</p></div><p data-i18n="zephyrText">Full-stack client projects with JavaScript, React, backend services, and database integrations.</p></article></div></section>
 
-  <section class="projects" id="projects"><div class="kicker"><i></i><span data-i18n="projectsLabel">SELECTED PROJECTS</span></div><h2 class="carousel-title" data-i18n="projectsTitle">What I’ve <em>built.</em></h2><div class="project-carousel" aria-label="Project carousel"><button class="carousel-arrow previous" type="button" aria-label="Previous project" disabled>←</button><article class="carousel-slide is-active"><div class="project-image-placeholder"><img src="public/resources/autonomous-data-analyst.png?v=20261001-fraertas" alt="Autonomous Data Analyst dashboard preview" /></div><div class="carousel-details"><div class="project-meta"><span>001</span><span>DATA · FULL-STACK</span></div><h3>Autonomous<br />Data Analyst</h3><p data-i18n="projectText">An AI-assisted analytics workspace with a React frontend, deterministic FastAPI profiling engine, and Cloudflare-powered deployment.</p><div class="project-stack"><span>React</span><span>FastAPI</span><span>Cloudflare</span></div><div class="project-actions"><a class="project-link primary" href="https://autonomous-data-analyst.abdulhabeeb.com/" target="_blank" rel="noopener" data-i18n="openProject">Open project <span>↗</span></a><a class="project-link" href="https://github.com/Habeeb9731/autonomous-data-analyst" target="_blank" rel="noopener" data-i18n="viewGithub">View on GitHub <span>↗</span></a></div></div></article><button class="carousel-arrow next" type="button" aria-label="Next project" disabled>→</button></div><div class="carousel-footer"><div class="carousel-dots" role="tablist" aria-label="Choose a project"><button class="carousel-dot is-active" type="button" role="tab" aria-selected="true" aria-label="Project 1"></button></div></div></section>
+  <section class="projects" id="projects"><div class="kicker"><i></i><span data-i18n="projectsLabel">SELECTED PROJECTS</span></div><h2 class="carousel-title" data-i18n="projectsTitle">What I’ve <em>built.</em></h2><div class="project-scroll-list" aria-label="Selected projects"></div></section>
 
   <section class="experience workshops" id="workshops"><div class="kicker"><i></i><span data-i18n="workshopsLabel">WORKSHOPS</span></div><h2 data-i18n="workshopsTitle">Learning across places, people, and perspectives.</h2><div class="experience-list"><article><span>ERASMUS</span><div><h3 data-i18n="workshop1">Web Development Workshop</h3><p>St. Etienne, France</p></div><p data-i18n="workshop1Text">Exploring practical approaches to building better web experiences with an international group of peers.</p></article><article><span>ERASMUS</span><div><h3 data-i18n="workshop2">GreenTech Data Challenge</h3><p>Tallinn, Estonia</p></div><p data-i18n="workshop2Text">Working with data and collaborative problem-solving around technology for a more sustainable future.</p></article><article><span>ERASMUS</span><div><h3 data-i18n="workshop3">AI and Data Visualization Workshop</h3><p>Kaunas, Lithuania</p></div><p data-i18n="workshop3Text">Connecting artificial intelligence concepts with visual ways to communicate patterns and insights.</p></article></div></section>
 
@@ -73,26 +73,12 @@ const projectItems=[
   {title:'Modern Luxury Interiors',meta:'WEB · INTERIORS',description:'A polished website for a Dubai interior firm focused on modern interiors with a luxury finish.',image:'public/resources/projects/modern-luxury.png?v=20261002-resized',alt:'Modern Luxury Interiors website preview',open:'https://modernluxury-design.com/',tags:['Frontend']},
   {title:'Ecliniqs',meta:'WEB · HEALTHCARE',description:'An online speech therapy service provider website based in Dubai.',image:'public/resources/projects/ecliniqs.png?v=20261002-resized-v2',alt:'Ecliniqs speech therapy website preview',open:'https://github.com/Habeeb9731/ecliniqs_deploy',github:'https://github.com/Habeeb9731/ecliniqs_deploy',tags:['Frontend'],fallback:true}
 ];
-const projectCarousel=document.querySelector('.project-carousel');
-const projectSlide=projectCarousel.querySelector('.carousel-slide');
-const previousProject=projectCarousel.querySelector('.carousel-arrow.previous');
-const nextProject=projectCarousel.querySelector('.carousel-arrow.next');
-const projectDots=document.querySelector('.carousel-dots');
-let activeProject=0;
-function renderProject(index){
-  activeProject=(index+projectItems.length)%projectItems.length;
-  const project=projectItems[activeProject];
+const projectList=document.querySelector('.project-scroll-list');
+projectList.innerHTML=projectItems.map((project,index)=>{
   const openLabel=project.fallback?'View repository':'Open project';
-  projectSlide.innerHTML=`<div class="project-image-placeholder"><img src="${project.image}" alt="${project.alt}" /></div><div class="carousel-details"><div class="project-meta"><span>${String(activeProject+1).padStart(3,'0')}</span><span>${project.meta}</span></div><h3>${project.title.replace(' ','<br />')}</h3><p>${project.description}</p><div class="project-stack">${project.tags.map(tag=>`<span>${tag}</span>`).join('')}</div><div class="project-actions"><a class="project-link primary" href="${project.open}" target="_blank" rel="noopener">${openLabel} <span>↗</span></a>${project.github&&!project.fallback?`<a class="project-link" href="${project.github}" target="_blank" rel="noopener">View on GitHub <span>↗</span></a>`:''}</div></div>`;
-  previousProject.disabled=false;
-  nextProject.disabled=false;
-  projectDots.querySelectorAll('.carousel-dot').forEach((dot,dotIndex)=>{dot.classList.toggle('is-active',dotIndex===activeProject);dot.setAttribute('aria-selected',String(dotIndex===activeProject));});
-}
-projectDots.innerHTML=projectItems.map((project,index)=>`<button class="carousel-dot${index===0?' is-active':''}" type="button" role="tab" aria-selected="${index===0}" aria-label="${project.title}"></button>`).join('');
-projectDots.querySelectorAll('.carousel-dot').forEach((dot,index)=>dot.addEventListener('click',()=>renderProject(index)));
-previousProject.addEventListener('click',()=>renderProject(activeProject-1));
-nextProject.addEventListener('click',()=>renderProject(activeProject+1));
-renderProject(0);
+  const title=project.title.split(' ').map((word,wordIndex)=>wordIndex===1?`<br />${word}`:word).join(' ');
+  return `<article class="stacked-project-card" style="--card-index:${index}"><div class="stacked-project-visual"><img src="${project.image}" alt="${project.alt}" loading="lazy" decoding="async" /></div><div class="stacked-project-details"><div class="project-meta"><span>${String(index+1).padStart(3,'0')}</span><span>${project.meta}</span></div><h3>${title}</h3><p>${project.description}</p><div class="project-stack">${project.tags.map(tag=>`<span>${tag}</span>`).join('')}</div><div class="project-actions"><a class="project-link primary" href="${project.open}" target="_blank" rel="noopener">${openLabel} <span>↗</span></a>${project.github&&!project.fallback?`<a class="project-link" href="${project.github}" target="_blank" rel="noopener">View on GitHub <span>↗</span></a>`:''}</div></div></article>`;
+}).join('');
 </script>
 </body>
 </html>

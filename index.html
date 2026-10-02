@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20261002-stacked-projects-v3" />
+  <link rel="stylesheet" href="styles.css?v=20261002-stacked-projects-v4" />
 </head>
 <body>
 <main class="page">
@@ -94,10 +94,7 @@ function animateProjectStack(){
     const rect=card.getBoundingClientRect();
     const relative=(rect.top-focusLine)/Math.max(window.innerHeight*.62,1);
     const clamped=Math.max(-1,Math.min(1,relative));
-    const lift=clamped>0?clamped*34:clamped*22;
-    const scale=1-Math.min(Math.abs(clamped)*.025,.035);
     card.style.zIndex=String(index===activeIndex?1000:100-index);
-    card.style.transform=`translate3d(0,${lift}px,0) scale(${scale})`;
     card.querySelector('.stacked-project-visual').style.transform=`translate3d(0,${clamped*-18}px,0)`;
     card.classList.toggle('is-active',index===activeIndex);
   });

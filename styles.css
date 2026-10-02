@@ -62,5 +62,5 @@ html,body{overflow-x:hidden}.project-image-placeholder{isolation:isolate}.projec
 .coverflow-card{background:#e5e8e7;box-shadow:0 22px 45px #1d4f9e55}.coverflow-card.is-active{box-shadow:0 30px 62px #1d4f9e88,0 0 0 2px #ffffff88}.coverflow-art,.coverflow-art img{background:#e5e8e7}.dark .coverflow-card,.dark .coverflow-art,.dark .coverflow-art img{background:#202326}
 .coverflow-art{overflow:hidden}.coverflow-art img{transform:scale(1.35);object-position:center center}
 .carousel-title{font-family:'Inter Tight',sans-serif;font-weight:500;letter-spacing:-.055em}.coverflow-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}.coverflow-caption .coverflow-links a{margin-top:0}
-.award-first{grid-template-columns:24% 27% 17% 32%!important;align-items:center}.winner-badge{width:100%;max-width:150px;height:74px;display:block;object-fit:contain;border-radius:12px;background:var(--card)}
+.award-first{grid-template-columns:24% 27% 17% 32%!important;align-items:center}.winner-badge{width:100%;max-width:150px;height:74px;display:block;object-fit:contain;border-radius:0;background:transparent}
 @media(max-width:760px){.award-first{grid-template-columns:1fr!important}.winner-badge{display:none}}

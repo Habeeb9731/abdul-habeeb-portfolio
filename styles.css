@@ -70,13 +70,19 @@ html,body{overflow-x:hidden}.project-image-placeholder{isolation:isolate}.projec
 .coverflow-card.is-flipped .coverflow-card-inner{transform:rotateY(180deg)}
 .coverflow-face{position:absolute;inset:0;overflow:hidden;border:1px solid #ffffff66;border-radius:18px;backface-visibility:hidden;-webkit-backface-visibility:hidden}
 .coverflow-front{background:#e5e8e7;box-shadow:0 22px 45px #1d4f9e55}
-.coverflow-back{display:flex;flex-direction:column;justify-content:center;gap:10px;padding:24px 20px;background:#18202b;color:#fff;transform:rotateY(180deg);box-shadow:0 22px 45px #1d4f9e55}
-.coverflow-back-label{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:#9eb8e8}
+.coverflow-back{display:flex;flex-direction:column;justify-content:center;gap:10px;padding:24px 20px;background:#f4f5f6;color:#242628;transform:rotateY(180deg);box-shadow:0 22px 45px #1d4f9e55}
+.coverflow-back-label{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:#426bd5}
 .coverflow-back strong{font-size:1.3rem;font-weight:500;letter-spacing:-.04em}
-.coverflow-back p{margin:2px 0 8px;color:#c4cfdd;font-size:.78rem;line-height:1.45}
+.coverflow-back p{margin:2px 0 8px;color:#697178;font-size:.78rem;line-height:1.45}
 .coverflow-back .coverflow-links{margin-top:2px}
-.coverflow-back .coverflow-links a,.coverflow-back .coverflow-links a:visited{font-size:.7rem;color:#f4f7fb;border-bottom-color:#9eb8e8}
-.coverflow-back .coverflow-links a:hover,.coverflow-back .coverflow-links a:focus-visible{color:#9eb8e8;border-bottom-color:#f4f7fb}
-.coverflow-flip-hint{margin-top:auto;color:#8d9cac;font-size:.62rem}
+.coverflow-back .coverflow-links a,.coverflow-back .coverflow-links a:visited{font-size:.7rem;color:#242628;border-bottom-color:#426bd5}
+.coverflow-back .coverflow-links a:hover,.coverflow-back .coverflow-links a:focus-visible{color:#426bd5;border-bottom-color:#242628}
+.coverflow-flip-hint{margin-top:auto;color:#6f767d;font-size:.62rem}
+.dark .coverflow-back{background:#18202b;color:#fff}
+.dark .coverflow-back-label{color:#9eb8e8}
+.dark .coverflow-back p{color:#c4cfdd}
+.dark .coverflow-back .coverflow-links a,.dark .coverflow-back .coverflow-links a:visited{color:#f4f7fb;border-bottom-color:#9eb8e8}
+.dark .coverflow-back .coverflow-links a:hover,.dark .coverflow-back .coverflow-links a:focus-visible{color:#9eb8e8;border-bottom-color:#f4f7fb}
+.dark .coverflow-flip-hint{color:#8d9cac}
 .coverflow-card.is-active:focus-visible .coverflow-front,.coverflow-card.is-active:focus-visible .coverflow-back{outline:2px solid #fff;outline-offset:3px}
 @media(prefers-reduced-motion:reduce){.coverflow-card-inner{transition:none}}

@@ -47,7 +47,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20261003-project-instruction-align" />
+  <link rel="stylesheet" href="styles.css?v=20261003-project-pagination" />
 </head>
 <body>
 <main class="page">
@@ -105,10 +105,12 @@ const projectItems=[
   {title:'Ecliniqs',meta:'WEB · HEALTHCARE',description:'An online speech therapy service provider website based in Dubai.',image:'public/resources/projects/ecliniqs.png?v=20261002-resized-v2',alt:'Ecliniqs speech therapy website preview',open:'https://github.com/Habeeb9731/ecliniqs_deploy',github:'https://github.com/Habeeb9731/ecliniqs_deploy',tags:['Frontend'],fallback:true}
 ];
 const projectList=document.querySelector('.project-scroll-list');
-projectList.innerHTML=`<div class="coverflow-stage" tabindex="0" aria-label="Project carousel"><button class="coverflow-nav previous" type="button" aria-label="Previous project">←</button><div class="coverflow-cards">${projectItems.map((project,index)=>`<article class="coverflow-card${index===0?' is-active':''}" data-project-index="${index}" tabindex="0" role="button" aria-pressed="false" aria-label="${project.title}. Click the centered card for a project summary."><div class="coverflow-card-inner"><div class="coverflow-face coverflow-front"><div class="coverflow-art"><img src="${project.image}" alt="${project.alt}" loading="lazy" decoding="async" /></div><div class="coverflow-caption"><span>${String(index+1).padStart(3,'0')}</span><strong>${project.title}</strong><small>${project.meta}</small><div class="coverflow-links"><a href="${project.open}" target="_blank" rel="noopener">${project.fallback?'View repository':'Open project'} ↗</a>${project.github&&!project.fallback?`<a href="${project.github}" target="_blank" rel="noopener">View repository ↗</a>`:''}</div></div></div><div class="coverflow-face coverflow-back"><span class="coverflow-back-label">About this project</span><strong>${project.title}</strong><p>${project.description}</p><div class="coverflow-links"><a href="${project.open}" target="_blank" rel="noopener">${project.fallback?'View repository':'Open project'} ↗</a>${project.github&&!project.fallback?`<a href="${project.github}" target="_blank" rel="noopener">View repository ↗</a>`:''}</div><small class="coverflow-flip-hint">Click to view the project image</small></div></div></article>`).join('')}</div><button class="coverflow-nav next" type="button" aria-label="Next project">→</button></div><div class="coverflow-status" aria-live="polite"></div>`;
+projectList.innerHTML=`<div class="coverflow-stage" tabindex="0" aria-label="Project carousel"><button class="coverflow-nav previous" type="button" aria-label="Previous project">←</button><div class="coverflow-cards">${projectItems.map((project,index)=>`<article class="coverflow-card${index===0?' is-active':''}" data-project-index="${index}" tabindex="0" role="button" aria-pressed="false" aria-label="${project.title}. Click the centered card for a project summary."><div class="coverflow-card-inner"><div class="coverflow-face coverflow-front"><div class="coverflow-art"><img src="${project.image}" alt="${project.alt}" loading="lazy" decoding="async" /></div><div class="coverflow-caption"><span>${String(index+1).padStart(3,'0')}</span><strong>${project.title}</strong><small>${project.meta}</small><div class="coverflow-links"><a href="${project.open}" target="_blank" rel="noopener">${project.fallback?'View repository':'Open project'} ↗</a>${project.github&&!project.fallback?`<a href="${project.github}" target="_blank" rel="noopener">View repository ↗</a>`:''}</div></div></div><div class="coverflow-face coverflow-back"><span class="coverflow-back-label">About this project</span><strong>${project.title}</strong><p>${project.description}</p><div class="coverflow-links"><a href="${project.open}" target="_blank" rel="noopener">${project.fallback?'View repository':'Open project'} ↗</a>${project.github&&!project.fallback?`<a href="${project.github}" target="_blank" rel="noopener">View repository ↗</a>`:''}</div><small class="coverflow-flip-hint">Click to view the project image</small></div></div></article>`).join('')}</div><button class="coverflow-nav next" type="button" aria-label="Next project">→</button></div><div class="coverflow-pagination" role="tablist" aria-label="Project pagination"></div>`;
 const coverflowStage=projectList.querySelector('.coverflow-stage');
 const projectCards=[...projectList.querySelectorAll('.coverflow-card')];
-const projectStatus=projectList.querySelector('.coverflow-status');
+const projectPagination=projectList.querySelector('.coverflow-pagination');
+projectPagination.innerHTML=projectItems.map((project,index)=>`<button type="button" role="tab" aria-label="Go to ${project.title}" aria-selected="${index===0}" class="coverflow-dot${index===0?' is-active':''}"></button>`).join('');
+const projectDots=[...projectPagination.querySelectorAll('.coverflow-dot')];
 let activeProject=0;
 function setActiveProject(next){
   activeProject=(next+projectItems.length)%projectItems.length;
@@ -129,10 +131,11 @@ function setActiveProject(next){
     if(relative!==0)card.classList.remove('is-flipped');
     card.setAttribute('aria-pressed',String(relative===0 && card.classList.contains('is-flipped')));
   });
-  projectStatus.textContent=`${String(activeProject+1).padStart(2,'0')} / ${String(projectItems.length).padStart(2,'0')}`;
+  projectDots.forEach((dot,index)=>{dot.classList.toggle('is-active',index===activeProject);dot.setAttribute('aria-selected',String(index===activeProject))});
 }
 projectList.querySelector('.coverflow-nav.previous').addEventListener('click',()=>setActiveProject(activeProject-1));
 projectList.querySelector('.coverflow-nav.next').addEventListener('click',()=>setActiveProject(activeProject+1));
+projectDots.forEach((dot,index)=>dot.addEventListener('click',()=>setActiveProject(index)));
 projectCards.forEach((card,index)=>{
   card.addEventListener('click',event=>{
     if(event.target.closest('a'))return;

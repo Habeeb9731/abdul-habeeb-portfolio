@@ -63,6 +63,7 @@ html,body{overflow-x:hidden}.project-image-placeholder{isolation:isolate}.projec
 .coverflow-art{overflow:hidden}.coverflow-art img{transform:scale(1.35);object-position:center center}
 .carousel-title{font-family:'Inter Tight',sans-serif;font-weight:500;letter-spacing:-.055em}.coverflow-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}.coverflow-caption .coverflow-links a{margin-top:0}
 .intro-actions{display:flex;flex-wrap:wrap;gap:20px}
+.coverflow-instruction{margin:-42px auto 34px;text-align:center;color:var(--muted);font-size:.78rem;letter-spacing:.02em}
 
 /* Centered project cards can reveal a concise project summary on demand. */
 .coverflow-card{perspective:1100px;overflow:visible;background:transparent;border:0;box-shadow:none!important}

@@ -61,7 +61,7 @@ html,body{overflow-x:hidden}.project-image-placeholder{isolation:isolate}.projec
 .projects{background:var(--paper);color:var(--ink)}.projects>.kicker{background:var(--card);border-color:var(--line);color:var(--ink)}.carousel-title,.carousel-title em{color:var(--ink)}.coverflow-nav{border-color:var(--line);background:var(--card);color:var(--ink)}.coverflow-status{color:var(--muted)}.dark .projects{background:#0d0f10;color:#f2f4f6}.dark .projects>.kicker{background:#202326;border-color:#34393e;color:#f2f4f6}.dark .carousel-title,.dark .carousel-title em{color:#f2f4f6}.dark .coverflow-nav{background:#202326;border-color:#4a5158;color:#f2f4f6}.dark .coverflow-status{color:#aeb6bf}
 .coverflow-card{background:#e5e8e7;box-shadow:0 22px 45px #1d4f9e55}.coverflow-card.is-active{box-shadow:0 30px 62px #1d4f9e88,0 0 0 2px #ffffff88}.coverflow-art,.coverflow-art img{background:#e5e8e7}.dark .coverflow-card,.dark .coverflow-art,.dark .coverflow-art img{background:#202326}
 .coverflow-art{overflow:hidden}.coverflow-art img{transform:scale(1.35);object-position:center center}
-.coverflow-card[data-project-index="0"] .coverflow-art img{transform:scale(2);object-position:center 65%}
+.coverflow-card[data-project-index="0"] .coverflow-art img{transform:translateY(-7%) scale(2.15);object-position:center 68%}
 .carousel-title{font-family:'Inter Tight',sans-serif;font-weight:500;letter-spacing:-.055em}.coverflow-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}.coverflow-caption .coverflow-links a{margin-top:0}
 .intro-actions{display:flex;flex-wrap:wrap;gap:20px}
 .coverflow-instruction{position:relative;z-index:1;width:100%;margin:-46px auto 30px;text-align:center;color:var(--muted);font-size:.78rem;letter-spacing:.02em}

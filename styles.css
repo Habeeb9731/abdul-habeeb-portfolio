@@ -65,10 +65,11 @@ html,body{overflow-x:hidden}.project-image-placeholder{isolation:isolate}.projec
 .intro-actions{display:flex;flex-wrap:wrap;gap:20px}
 .coverflow-instruction{position:relative;z-index:1;width:100%;margin:-46px auto 30px;text-align:center;color:var(--muted);font-size:.78rem;letter-spacing:.02em}
 @media(max-width:760px){.coverflow-instruction{margin:-26px auto 24px;font-size:.72rem}}
-.coverflow-pagination{display:flex;justify-content:center;align-items:center;gap:8px;margin:18px auto 0}
+.coverflow-pagination{position:relative;z-index:40;display:flex;justify-content:center;align-items:center;gap:8px;margin:-145px auto 110px}
 .coverflow-dot{width:7px;height:7px;padding:0;border:0;border-radius:50%;background:var(--muted);opacity:.42;cursor:pointer;transition:transform .2s ease,opacity .2s ease,background .2s ease}
 .coverflow-dot:hover,.coverflow-dot:focus-visible{opacity:.8;transform:scale(1.25);outline:none}
 .coverflow-dot.is-active{background:var(--blue);opacity:1;transform:scale(1.2);box-shadow:0 0 0 3px #426bd522}
+@media(max-width:760px){.coverflow-pagination{margin:-92px auto 70px}}
 
 /* Centered project cards can reveal a concise project summary on demand. */
 .coverflow-card{perspective:1100px;overflow:visible;background:transparent;border:0;box-shadow:none!important}

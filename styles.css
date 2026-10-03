@@ -75,7 +75,8 @@ html,body{overflow-x:hidden}.project-image-placeholder{isolation:isolate}.projec
 .coverflow-back strong{font-size:1.3rem;font-weight:500;letter-spacing:-.04em}
 .coverflow-back p{margin:2px 0 8px;color:#c4cfdd;font-size:.78rem;line-height:1.45}
 .coverflow-back .coverflow-links{margin-top:2px}
-.coverflow-back .coverflow-links a{font-size:.7rem}
+.coverflow-back .coverflow-links a,.coverflow-back .coverflow-links a:visited{font-size:.7rem;color:#f4f7fb;border-bottom-color:#9eb8e8}
+.coverflow-back .coverflow-links a:hover,.coverflow-back .coverflow-links a:focus-visible{color:#9eb8e8;border-bottom-color:#f4f7fb}
 .coverflow-flip-hint{margin-top:auto;color:#8d9cac;font-size:.62rem}
 .coverflow-card.is-active:focus-visible .coverflow-front,.coverflow-card.is-active:focus-visible .coverflow-back{outline:2px solid #fff;outline-offset:3px}
 @media(prefers-reduced-motion:reduce){.coverflow-card-inner{transition:none}}

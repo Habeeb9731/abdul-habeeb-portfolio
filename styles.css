@@ -78,7 +78,9 @@ html,body{overflow-x:hidden}.project-image-placeholder{isolation:isolate}.projec
 .experience-logo-track{display:flex;width:max-content;animation:experience-logo-drift 28s linear infinite}
 .experience-logo-track>span{display:flex;align-items:center;gap:clamp(90px,12vw,180px);padding-right:clamp(90px,12vw,180px)}
 .experience-logo-track img{display:block;width:auto;height:clamp(42px,5vw,72px);max-width:260px;padding:0;object-fit:contain;opacity:.9;border-radius:0;background:transparent;filter:grayscale(1) invert(1) contrast(1.25)}
+.experience-logo-track img:nth-child(2){filter:none}
 .dark .experience-logo-track img{filter:grayscale(1) contrast(1.15)}
+.dark .experience-logo-track img:nth-child(2){filter:grayscale(1) invert(1) contrast(1.1)}
 @keyframes experience-logo-drift{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.experience-logo-track{animation:none}}
 @media(max-width:760px){.experience-logo-carousel{width:calc(100% + 44px);height:126px;margin:52px -22px -54px;gap:18px}.experience-logo-label{font-size:.8rem}.experience-logo-track>span{gap:72px;padding-right:72px}}

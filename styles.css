@@ -73,14 +73,15 @@ html,body{overflow-x:hidden}.project-image-placeholder{isolation:isolate}.projec
 @media(max-width:760px){.coverflow-pagination{margin:-18px auto 52px}}
 
 .experience{position:relative;overflow:hidden}
-.experience-logo-carousel{width:calc(100% + 7vw);height:92px;margin:72px -3.5vw -54px;display:flex;align-items:center;overflow:hidden;pointer-events:none;background:transparent}
+.experience-logo-carousel{width:calc(100% + 7vw);height:142px;margin:72px -3.5vw -54px;display:flex;flex-direction:column;justify-content:center;gap:24px;overflow:hidden;pointer-events:none;background:transparent}
+.experience-logo-label{margin:0;text-align:center;color:var(--muted);font-size:.9rem}
 .experience-logo-track{display:flex;width:max-content;animation:experience-logo-drift 28s linear infinite}
 .experience-logo-track>span{display:flex;align-items:center;gap:clamp(90px,12vw,180px);padding-right:clamp(90px,12vw,180px)}
 .experience-logo-track img{display:block;width:auto;height:clamp(42px,5vw,72px);max-width:260px;padding:0;object-fit:contain;opacity:.9;border-radius:0;background:transparent;filter:grayscale(1) invert(1) contrast(1.25)}
 .dark .experience-logo-track img{filter:grayscale(1) contrast(1.15)}
 @keyframes experience-logo-drift{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.experience-logo-track{animation:none}}
-@media(max-width:760px){.experience-logo-carousel{width:calc(100% + 44px);height:76px;margin:52px -22px -54px}.experience-logo-track>span{gap:72px;padding-right:72px}}
+@media(max-width:760px){.experience-logo-carousel{width:calc(100% + 44px);height:126px;margin:52px -22px -54px;gap:18px}.experience-logo-label{font-size:.8rem}.experience-logo-track>span{gap:72px;padding-right:72px}}
 
 /* Centered project cards can reveal a concise project summary on demand. */
 .coverflow-card{perspective:1100px;overflow:visible;background:transparent;border:0;box-shadow:none!important}

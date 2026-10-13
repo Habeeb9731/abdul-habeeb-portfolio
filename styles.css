@@ -99,6 +99,12 @@ html,body{overflow-x:hidden}.project-image-placeholder{isolation:isolate}.projec
 /* Align the desktop hero copy with the right-hand profile card below. */
 @media(min-width:761px){.intro{grid-template-columns:calc(50% + 10px) 1fr}}
 
+/* Keep the hero actions side by side on narrow screens. */
+@media(max-width:760px){.intro-actions{flex-wrap:nowrap;gap:clamp(8px,2.5vw,14px)}.intro-actions .resume-button{padding:10px clamp(11px,3.2vw,16px);gap:clamp(9px,2.5vw,16px);font-size:clamp(.74rem,3.1vw,.88rem);white-space:nowrap}}
+
+.intro-actions .resume-button{width:158px;justify-content:space-between;white-space:nowrap}
+@media(max-width:760px){.intro-actions .resume-button{width:clamp(145px,42vw,158px);flex:0 1 clamp(145px,42vw,158px);min-width:0;white-space:nowrap}}
+
 /* Reveal each theme from the control that triggered it. */
 html{view-transition-name:root}
 ::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}

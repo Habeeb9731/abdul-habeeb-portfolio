@@ -95,3 +95,13 @@ html,body{overflow-x:hidden}.project-image-placeholder{isolation:isolate}.projec
 .dark .coverflow-flip-hint{color:#8d9cac}
 .coverflow-card.is-active:focus-visible .coverflow-front,.coverflow-card.is-active:focus-visible .coverflow-back{outline:2px solid #fff;outline-offset:3px}
 @media(prefers-reduced-motion:reduce){.coverflow-card-inner{transition:none}}
+
+/* Align the desktop hero copy with the right-hand profile card below. */
+@media(min-width:761px){.intro{grid-template-columns:calc(50% + 10px) 1fr}}
+
+/* Reveal each theme from the control that triggered it. */
+html{view-transition-name:root}
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+::view-transition-new(root){clip-path:circle(0 at var(--theme-origin-x,50%) var(--theme-origin-y,50%));animation:theme-reveal 1.2s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes theme-reveal{to{clip-path:circle(150vmax at var(--theme-origin-x,50%) var(--theme-origin-y,50%))}}
+@media(prefers-reduced-motion:reduce){::view-transition-new(root){animation:none;clip-path:none}}

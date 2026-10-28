@@ -134,3 +134,5 @@ html{view-transition-name:root}
 .intro-actions .resume-button:hover::before,.intro-actions .resume-button:focus-visible::before{clip-path:ellipse(150% 150% at var(--fill-x,50%) var(--fill-y,50%))}
 .intro-actions .resume-button:hover span,.intro-actions .resume-button:focus-visible span{color:#fff}
 @media(prefers-reduced-motion:reduce){.intro-actions .resume-button::before{transition:none}}
+.experience-list h3 .experience-company-link{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;transition:color .2s ease}
+.experience-list h3 .experience-company-link:hover,.experience-list h3 .experience-company-link:focus-visible{color:var(--blue)}

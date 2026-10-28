@@ -111,3 +111,19 @@ html{view-transition-name:root}
 ::view-transition-new(root){clip-path:circle(0 at var(--theme-origin-x,50%) var(--theme-origin-y,50%));animation:theme-reveal 1.2s cubic-bezier(.16,1,.3,1) forwards}
 @keyframes theme-reveal{to{clip-path:circle(150vmax at var(--theme-origin-x,50%) var(--theme-origin-y,50%))}}
 @media(prefers-reduced-motion:reduce){::view-transition-new(root){animation:none;clip-path:none}}
+
+.analytics-consent[hidden]{display:none}
+.analytics-consent{position:fixed;right:clamp(14px,3vw,34px);bottom:clamp(14px,3vw,34px);z-index:1000;width:min(520px,calc(100vw - 28px));padding:24px;border:1px solid var(--line);border-radius:22px;background:var(--paper);color:var(--ink);box-shadow:0 18px 60px #10182030;display:grid;gap:18px}
+.analytics-consent-eyebrow{margin:0 0 8px;color:var(--blue);font-size:.68rem;font-weight:700;letter-spacing:.09em}
+.analytics-consent h2{font-size:1.35rem;letter-spacing:-.04em}
+.analytics-consent-copy>p:not(.analytics-consent-eyebrow){margin:9px 0 10px;color:var(--muted);font-size:.88rem;line-height:1.5}
+.analytics-consent-copy>a{color:var(--ink);font-size:.8rem;text-underline-offset:3px}
+.analytics-consent-actions{display:flex;gap:10px}
+.consent-choice{min-height:42px;flex:1;padding:9px 14px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--ink);font:600 .82rem 'Inter Tight',sans-serif;cursor:pointer}
+.consent-choice:hover,.consent-choice:focus-visible{border-color:var(--blue);outline:none}
+.consent-accept{border-color:var(--blue);background:var(--blue);color:#fff}
+.consent-accept:hover,.consent-accept:focus-visible{background:#3158bf;color:#fff}
+.privacy-settings-trigger{padding:0;border:0;background:none;color:var(--muted);font:inherit;font-size:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.privacy-settings-trigger:hover,.privacy-settings-trigger:focus-visible{color:var(--ink)}
+.dark .analytics-consent{box-shadow:0 18px 60px #0008}
+@media(max-width:480px){.analytics-consent{padding:20px;border-radius:18px}.analytics-consent-actions{flex-direction:column-reverse}.consent-choice{flex:none;width:100%}.privacy-settings-trigger{font-size:.74rem}}

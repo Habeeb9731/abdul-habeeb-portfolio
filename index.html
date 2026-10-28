@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5B3V96R2');</script>
-  <!-- End Google Tag Manager -->
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
+  </script>
   <meta name="author" content="Abdul Habeeb" />
   <meta name="description" content="Abdul Habeeb is a data science and full-stack developer based in Saarbrücken, Germany." />
   <link rel="canonical" href="https://abdulhabeeb.com/" />
@@ -53,9 +55,6 @@
   <link rel="stylesheet" href="styles.css?v=20261009-remove-logo-carousel" />
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5B3V96R2" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
 <main class="page">
   <header class="topbar">
     <div class="kicker"><i></i><span data-i18n="profileLabel">PERSONAL PROFILE</span></div>
@@ -88,8 +87,20 @@
   <section class="experience volunteering" id="volunteering"><div class="kicker"><i></i><span data-i18n="volunteeringLabel">VOLUNTEERING</span></div><h2 data-i18n="volunteeringTitle">Contributing beyond the projects I build.</h2><div class="experience-list"><article><span>2026</span><div><h3>ESN Estonia</h3><p data-i18n="esnRole">Communication Manager</p></div><p data-i18n="esnText">Supporting communication and community connection within an international student network.</p></article><article><span>2021—2023</span><div><h3>Google Developer Student Club</h3><p data-i18n="gdscRole">Web Lead · India</p></div><p data-i18n="gdscText">Leading web-focused initiatives and helping fellow students learn through practical development.</p></article></div></section>
 
   <section class="contact" id="contact"><div class="project-placeholder"><img src="./public/resources/letsconnect.jpg" alt="Abstract illustration for the Let's Connect section" loading="lazy" decoding="async" /></div><div><div class="kicker"><i></i><span data-i18n="connectLabel">LET’S CONNECT</span></div><h2 data-i18n="connectTitle">Have an idea<br /><em>worth exploring?</em></h2><a href="mailto:abdulhabeeb97@gmail.com">abdulhabeeb97@gmail.com ↗</a><a href="https://linkedin.com/in/abdulhabeeb9731" target="_blank" rel="noreferrer">LinkedIn ↗</a></div></section>
-  <footer><span>© 2026 Abdul Habeeb</span><span>Saarbrücken, Germany</span><a href="#profile" data-i18n="backTop">Back to top ↑</a></footer>
+  <footer><span>© 2026 Abdul Habeeb</span><span>Saarbrücken, Germany</span><button class="privacy-settings-trigger" type="button">Privacy settings</button><a href="#profile" data-i18n="backTop">Back to top ↑</a></footer>
 </main>
+<aside class="analytics-consent" id="analytics-consent" role="region" aria-labelledby="analytics-consent-title" hidden>
+  <div class="analytics-consent-copy">
+    <p class="analytics-consent-eyebrow" data-consent-copy="eyebrow">PRIVACY CHOICE</p>
+    <h2 id="analytics-consent-title" data-consent-copy="title">Help me understand site visits</h2>
+    <p data-consent-copy="body">Google Analytics helps me measure visits to this portfolio. It stays off unless you allow analytics. Your choice is saved on this device and can be changed anytime in Privacy settings.</p>
+    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" data-consent-copy="learn">How Google uses data ↗</a>
+  </div>
+  <div class="analytics-consent-actions">
+    <button type="button" class="consent-choice consent-reject" data-consent-choice="denied" data-consent-copy="reject">Reject analytics</button>
+    <button type="button" class="consent-choice consent-accept" data-consent-choice="granted" data-consent-copy="accept">Allow analytics</button>
+  </div>
+</aside>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Abdul Habeeb","url":"https://abdulhabeeb.com/","jobTitle":"Data Science & Full-Stack Developer","description":"Data science and full-stack developer based in Saarbrücken, Germany.","address":{"@type":"PostalAddress","addressLocality":"Saarbrücken","addressCountry":"DE"},"sameAs":["https://github.com/Habeeb9731","https://linkedin.com/in/abdulhabeeb9731"]}</script>
 <script>
 const translations={de:{profileLabel:'PERSÖNLICHES PROFIL',profile:'Profil',projects:'Projekte',experience:'Erfahrung',workshops:'Workshops',education:'Ausbildung',awards:'Auszeichnungen',volunteering:'Ehrenamt',contact:'Kontakt',heroTitle:'Ich entwickle nützliche digitale Erlebnisse für <em>echte Menschen.</em>',heroText:'Data Science und Full-Stack-Entwicklung mit Fokus auf Klarheit, Zuverlässigkeit und durchdachte Interfaces.',resume:'Lebenslauf ansehen <span>↗</span>',seeProjects:'Projekte ansehen <span>↘</span>',bioRole:'Masterstudent &amp; Entwickler · er/ihm',quote:'Ich verwandle komplexe Systeme und Datensätze gern in Erlebnisse, die Menschen verstehen und sicher nutzen können.',goals:'Ziele',challenges:'Herausforderungen, die ich löse',goal1:'Responsive und barrierefreie digitale Produkte entwickeln.',goal2:'Daten in klare Entscheidungen und hilfreiche Geschichten verwandeln.',goal3:'Die Technologie hinter der Oberfläche wartbar halten.',challenge1:'Komplexe Abläufe, die schwer zu navigieren sind.',challenge2:'Unstrukturierte Daten, die Kontext und Ordnung brauchen.',challenge3:'Getrennte Arbeit in Frontend, Backend und Forschung.',whatBring:'WAS ICH EINBRINGE',bringTitle:'Neugierig auf das Problem, <em>sorgfältig bei den Details.</em>',build:'Entwickeln',understand:'Verstehen',communicate:'Kommunizieren',understandText:'Datenanalyse · Datenbereinigung<br />Datenvisualisierung<br />Grundlagen des maschinellen Lernens',communicateText:'Analytische Berichte<br />Wiederverwendbare Dokumentation<br />Zusammenarbeit im Team',projectsLabel:'AUSGEWÄHLTE PROJEKTE',projectsTitle:'Was ich <em>gebaut</em> habe.',imagePlaceholder:'Platzhalter für das Projektbild',projectText:'Ein KI-gestützter Analysebereich mit React-Frontend, deterministischer FastAPI-Profiling-Engine und Cloudflare-Deployment.',openProject:'Projekt öffnen <span>↗</span>',viewGithub:'Projekt auf GitHub ansehen <span>↗</span>',experienceLabel:'ERFAHRUNG',experienceTitle:'Wo ich diese Fähigkeiten einsetze.',moltoRole:'Full-Stack-Entwickler · Werkstudent',moltoText:'Responsive Anwendungen, wiederverwendbare Komponenten, REST-API-Integrationen und Backend-Funktionalität.',fgvtRole:'Wissenschaftlicher Mitarbeiter · Saarbrücken',fgvtText:'Verkehrsdaten, Visualisierungen und analytische Berichte für evidenzbasierte Forschung.',zephyrRole:'Frontend-Entwickler · Indien',zephyrText:'Full-Stack-Kundenprojekte mit JavaScript, React, Backend-Diensten und Datenbankintegrationen.',workshopsLabel:'WORKSHOPS',workshopsTitle:'Lernen an verschiedenen Orten, mit verschiedenen Menschen und Perspektiven.',workshop1:'Workshop für Webentwicklung',workshop1Text:'Praktische Ansätze für bessere Web-Erlebnisse mit einer internationalen Gruppe von Teilnehmenden erkunden.',workshop2:'GreenTech-Daten-Challenge',workshop2Text:'Daten und gemeinsames Problemlösen für eine nachhaltigere technologische Zukunft.',workshop3:'Workshop für KI und Datenvisualisierung',workshop3Text:'Konzepte der künstlichen Intelligenz mit visuellen Methoden zur Vermittlung von Mustern und Erkenntnissen verbinden.',educationLabel:'AUSBILDUNG',educationTitle:'In der Informatik verwurzelt, durch Daten weiterentwickelt.',masters:'Masterstudium Data Science und KI · Deutschland',mastersText:'Vertiefung in datengetriebenen Systemen, künstlicher Intelligenz und analytischer Problemlösung.',bachelors:'Bachelorstudium Informatik · Indien',bachelorsText:'Abschluss mit einer CGPA von 1,4, umgerechnet in das deutsche Notensystem.',awardsLabel:'AUSZEICHNUNGEN',awardsTitle:'Ausgezeichnet für gemeinsames Entwickeln und Lösen.',firstPlace:'Erster Platz',firstPlaceText:'Erster Platz für die Entwicklung eines nachhaltigen Green-Development-Prozesses mit einem internationalen Team.',secondPlace:'Zweiter Platz',secondPlaceText:'Zweiter Platz für die Entwicklung einer universitären Karteikarten-App, inspiriert von Anki.',volunteeringLabel:'EHRENAMT',volunteeringTitle:'Engagement über meine Projekte hinaus.',esnRole:'Kommunikationsmanager',esnText:'Kommunikation und Gemeinschaft in einem internationalen Studierendennetzwerk stärken.',gdscRole:'Web-Leitung · Indien',gdscText:'Web-Initiativen leiten und Studierenden praxisnahes Entwickeln vermitteln.',connectLabel:'KONTAKT AUFNEHMEN',connectTitle:'Eine Idee,<br /><em>die wir erkunden sollten?</em>',backTop:'Nach oben ↑'},en:{}};
@@ -162,6 +173,50 @@ let pointerStartX=0;
 coverflowStage.addEventListener('pointerdown',event=>{pointerStartX=event.clientX});
 coverflowStage.addEventListener('pointerup',event=>{const delta=event.clientX-pointerStartX;if(Math.abs(delta)>45)setActiveProject(activeProject+(delta<0?1:-1))});
 setActiveProject(0);
+</script>
+<script>
+const analyticsMeasurementId='G-3PEMBYEH79';
+const analyticsConsentKey='site-analytics-consent';
+const consentBanner=document.querySelector('#analytics-consent');
+const consentStrings={
+  en:{eyebrow:'PRIVACY CHOICE',title:'Help me understand site visits',body:'Google Analytics helps me measure visits to this portfolio. It stays off unless you allow analytics. Your choice is saved on this device and can be changed anytime in Privacy settings.',learn:'How Google uses data ↗',reject:'Reject analytics',accept:'Allow analytics',settings:'Privacy settings'},
+  de:{eyebrow:'DATENSCHUTZ',title:'Hilf mir, Website-Besuche zu verstehen',body:'Google Analytics hilft mir, Besuche auf meinem Portfolio zu messen. Die Analyse bleibt ausgeschaltet, bis du zustimmst. Deine Auswahl wird auf diesem Gerät gespeichert und kann jederzeit in den Datenschutzeinstellungen geändert werden.',learn:'So verwendet Google Daten ↗',reject:'Analyse ablehnen',accept:'Analyse erlauben',settings:'Datenschutzeinstellungen'}
+};
+let googleTagsLoaded=false;
+function loadGoogleTags(){
+  if(googleTagsLoaded)return;
+  googleTagsLoaded=true;
+  gtag('consent','update',{analytics_storage:'granted',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
+  gtag('js',new Date());
+  gtag('config',analyticsMeasurementId);
+  const googleTag=document.createElement('script');
+  googleTag.async=true;
+  googleTag.src=`https://www.googletagmanager.com/gtag/js?id=${analyticsMeasurementId}`;
+  document.head.appendChild(googleTag);
+  window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+  const tagManager=document.createElement('script');
+  tagManager.async=true;
+  tagManager.src='https://www.googletagmanager.com/gtm.js?id=GTM-5B3V96R2';
+  document.head.appendChild(tagManager);
+}
+function updateConsentLanguage(){
+  const copy=consentStrings[document.documentElement.lang==='de'?'de':'en'];
+  consentBanner.querySelectorAll('[data-consent-copy]').forEach(el=>{el.textContent=copy[el.dataset.consentCopy]});
+  document.querySelector('.privacy-settings-trigger').textContent=copy.settings;
+}
+function showConsentBanner(){consentBanner.hidden=false;updateConsentLanguage()}
+function saveAnalyticsConsent(choice){
+  localStorage.setItem(analyticsConsentKey,choice);
+  if(choice==='granted')loadGoogleTags();
+  else if(googleTagsLoaded)gtag('consent','update',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
+  consentBanner.hidden=true;
+}
+document.querySelectorAll('[data-consent-choice]').forEach(button=>button.addEventListener('click',()=>saveAnalyticsConsent(button.dataset.consentChoice)));
+document.querySelector('.privacy-settings-trigger').addEventListener('click',showConsentBanner);
+document.querySelector('.language-toggle').addEventListener('click',()=>requestAnimationFrame(updateConsentLanguage));
+const savedAnalyticsConsent=localStorage.getItem(analyticsConsentKey);
+if(savedAnalyticsConsent==='granted')loadGoogleTags();
+else if(savedAnalyticsConsent!=='denied')showConsentBanner();
 </script>
 <script>
 /* Intercept the existing toggle handler so the theme change expands from the button. */

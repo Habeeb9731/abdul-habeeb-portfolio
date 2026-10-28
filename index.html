@@ -52,7 +52,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20261028-analytics-consent" />
+  <link rel="stylesheet" href="styles.css?v=20261028-cursor-origin-fill" />
 </head>
 <body>
 <main class="page">
@@ -217,6 +217,15 @@ document.querySelector('.language-toggle').addEventListener('click',()=>requestA
 const savedAnalyticsConsent=localStorage.getItem(analyticsConsentKey);
 if(savedAnalyticsConsent==='granted')loadGoogleTags();
 else if(savedAnalyticsConsent!=='denied')showConsentBanner();
+</script>
+<script>
+document.querySelectorAll('.intro-actions .resume-button').forEach(button=>button.addEventListener('pointerenter',event=>{
+  const bounds=button.getBoundingClientRect();
+  const x=Math.max(0,Math.min(100,((event.clientX-bounds.left)/bounds.width)*100));
+  const y=Math.max(0,Math.min(100,((event.clientY-bounds.top)/bounds.height)*100));
+  button.style.setProperty('--fill-x',`${x}%`);
+  button.style.setProperty('--fill-y',`${y}%`);
+}));
 </script>
 <script>
 /* Intercept the existing toggle handler so the theme change expands from the button. */

@@ -320,6 +320,8 @@ footer{container-type:inline-size;margin-top:clamp(80px,11vw,140px);padding:18px
   .case-list h3,.case-role{grid-column:2}
   .case-list p:not(.case-role){grid-column:1/-1;margin-top:4px}
   .principles-lists{grid-template-columns:1fr;gap:20px}
+  section.contact{padding-bottom:84px}
+  .footer-wordmark{margin-bottom:0;padding-bottom:.08em;background:linear-gradient(180deg,rgba(255,255,255,.92) 10%,rgba(255,255,255,.45) 60%,rgba(255,255,255,.12) 100%);-webkit-background-clip:text;background-clip:text}
   .testimonial-track{grid-auto-columns:86%}
   .testimonial-card{min-height:400px}
   .testimonial-arrow{width:44px;height:44px}

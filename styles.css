@@ -184,7 +184,7 @@ section.principles{padding:clamp(36px,5vw,72px)}
 .showcase-card[data-position="hidden"]{margin-left:-12px}
 .showcase-card[data-position="previous"],.showcase-card[data-position="next"]{flex-basis:calc((100% - 24px) * .2);opacity:1;cursor:pointer}
 .showcase-card[data-position="active"]{flex-basis:calc((100% - 24px) * .6);opacity:1}
-.showcase-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:filter .7s ease,transform .7s ease}
+.showcase-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--position,center);transition:filter .7s ease,transform .7s ease}
 .showcase-card:not([data-position="active"]) img{filter:blur(9px) saturate(.9);transform:scale(1.12)}
 .showcase-card:not([data-position="active"]):hover img{filter:blur(5px)}
 .showcase-card::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 28%,rgba(2,6,21,.6) 58%,rgba(2,6,21,.9));opacity:0;transition:opacity .6s ease}
@@ -326,6 +326,7 @@ footer{container-type:inline-size;margin-top:clamp(80px,11vw,140px);padding:18px
   .testimonial-card{min-height:400px}
   .testimonial-arrow{width:44px;height:44px}
   .showcase-stage{gap:8px;height:440px}
+  .showcase-card picture:has(source) img{object-position:center top}
   .showcase-card[data-position="previous"],.showcase-card[data-position="next"]{flex-basis:calc((100% - 16px) * .09)}
   .showcase-card[data-position="active"]{flex-basis:calc((100% - 16px) * .82)}
   .showcase-card[data-position="hidden"]{margin-left:-8px}

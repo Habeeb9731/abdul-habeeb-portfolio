@@ -1,19 +1,36 @@
 # Abdul Habeeb
 
-> Data science and full-stack developer based in Saarbrücken, Germany.
+> Data Science & AI master's student at Saarland University and full-stack developer based in Saarbrücken, Germany.
 
-Abdul Habeeb is a data science and full-stack developer focused on building clear, reliable digital experiences and turning complex systems and datasets into useful products.
+Abdul Habeeb builds clear, reliable digital products and turns complex systems and datasets into tools people can understand. He works across React, Vue.js, Node.js, Python, FastAPI, PostgreSQL, and data visualization.
 
 ## Portfolio
 
-- [Portfolio homepage](https://abdulhabeeb.com/): Profile, experience, workshops, education, awards, volunteering, and contact information.
-- [Resume (PDF)](https://abdulhabeeb.com/public/resources/Abdul_Habeeb_Resume.pdf): Download Abdul Habeeb's current resume.
+- [Portfolio homepage](https://abdulhabeeb.com/): Profile, experience, projects, client testimonials, education, workshops, awards, volunteering, and contact information.
+- [Resume (PDF)](https://abdulhabeeb.com/public/resources/Abdul_Habeeb_Resume.pdf): Abdul Habeeb's current resume.
+
+## Projects
+
+- [APEX F1 Analytics](https://apex.abdulhabeeb.com/): Historical Formula 1 dashboard built on OpenF1 data, with race, telemetry, tire strategy, and championship views plus an AI race analyst. [Source](https://github.com/Habeeb9731/apex-f1-analytics)
+- [Autonomous Data Analyst](https://autonomous-data-analyst.abdulhabeeb.com/): AI-assisted analytics workspace with a React frontend, deterministic FastAPI profiling engine, and Cloudflare deployment. [Source](https://github.com/Habeeb9731/autonomous-data-analyst)
+- [GrandLense](https://grandlense.com): Media and photography portfolio for wedding photography, portfolio shoots, and creative services.
+- [Modern Luxury Interiors](https://modernluxury-design.com/): Website for a Dubai interior design firm.
+- [Ecliniqs](https://github.com/Habeeb9731/ecliniqs_deploy): Website for an online speech therapy provider based in Dubai.
+- [Chick Bites Shawarma](https://github.com/Habeeb9731/food-website): Responsive website for a café specializing in shawarmas and burgers.
+- MemorLoop: Desktop learning experience built around interactive flashcards and spaced repetition (UX / HCI project).
+
+## Experience
+
+- FGVT Research Group, htw saar — Research Assistant (2025–present)
+- Moltomedia GmbH — Full-Stack Developer, Werkstudent (2025–2026)
+- Zephyr Technologies — Front-End Developer (2023–2024)
 
 ## Profiles
 
 - [GitHub](https://github.com/Habeeb9731): Public source code and projects.
-- [LinkedIn](https://linkedin.com/in/abdulhabeeb9731): Professional profile.
+- [LinkedIn](https://www.linkedin.com/in/abdulhabeeb9731/): Professional profile.
 
 ## Contact
 
-- [Contact section](https://abdulhabeeb.com/#contact): Ways to get in touch with Abdul Habeeb.
+- Email: abdulhabeeb9731@gmail.com
+- [Contact section](https://abdulhabeeb.com/#contact)

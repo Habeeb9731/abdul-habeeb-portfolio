@@ -154,6 +154,7 @@ section.principles{padding:clamp(36px,5vw,72px)}
 .case-logo{display:grid;place-items:center;aspect-ratio:16/10;padding:24px;border:1px solid var(--line);border-radius:12px;background:#fff}
 .case-logo img{max-height:58px;object-fit:contain}
 .case-logo.is-dark{border-color:#151614;background:#151614}
+.dark .case-logo.is-dark{border-color:var(--line)}
 .case-logo.is-seal img{max-height:84px}
 .grade{padding:1px 7px;border-radius:6px;background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent);font-weight:500;white-space:nowrap}
 .dark .grade{color:var(--accent-soft);background:color-mix(in srgb,var(--accent) 24%,transparent)}
@@ -304,8 +305,20 @@ footer{container-type:inline-size;margin-top:clamp(80px,11vw,140px);padding:18px
   .hero-trust img.is-chick-bites{height:36px}
   .hero-trust .trust-zephyr{font-size:1.1rem}
   .trust-group{gap:40px;padding-right:40px}
-  .case-list article{grid-template-columns:1fr;gap:16px}
-  .case-logo{width:150px}
+  .case-list article{grid-template-columns:60px 1fr;align-items:start;gap:0 14px;padding:22px 0}
+  .case-logo{grid-row:1/4;align-self:center;width:60px;aspect-ratio:1;padding:9px;border-radius:12px}
+  .case-logo img{max-height:40px}
+  .case-logo.is-emblem{overflow:hidden;padding:10px}
+  .case-logo.is-emblem img{width:100%;height:100%;max-height:none;object-fit:cover;object-position:left center}
+  .case-logo.is-dark.is-emblem{justify-items:start;padding:15px}
+  .case-logo.is-dark.is-emblem img{width:auto;max-width:none;height:100%;object-fit:fill;clip-path:inset(0 84.8% 0 0)}
+  .case-logo.is-cropped img{width:100%;transform:translateY(9%) scale(2.7)}
+  .case-logo.is-seal img{max-height:40px}
+  .case-list h3{font-size:1.2rem}
+  .case-list article>div:last-child{display:contents}
+  .case-date{grid-column:2;margin-top:2px}
+  .case-list h3,.case-role{grid-column:2}
+  .case-list p:not(.case-role){grid-column:1/-1;margin-top:4px}
   .principles-lists{grid-template-columns:1fr;gap:20px}
   .testimonial-track{grid-auto-columns:86%}
   .testimonial-card{min-height:400px}

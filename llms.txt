@@ -13,6 +13,7 @@ Abdul Habeeb builds clear, reliable digital products and turns complex systems a
 
 - [APEX F1 Analytics](https://apex.abdulhabeeb.com/): Historical Formula 1 dashboard built on OpenF1 data, with race, telemetry, tire strategy, and championship views plus an AI race analyst. [Source](https://github.com/Habeeb9731/apex-f1-analytics)
 - [Autonomous Data Analyst](https://autonomous-data-analyst.abdulhabeeb.com/): AI-assisted analytics workspace with a React frontend, deterministic FastAPI profiling engine, and Cloudflare deployment. [Source](https://github.com/Habeeb9731/autonomous-data-analyst)
+- [EDEN Smart Terrarium](https://eden.abdulhabeeb.com/): Smart dual-plant terrarium dashboard (PWA) built as a group project for the Interactive Systems course at Saarland University — live sensor readings, soil trends, and pump, fan, and grow-light controls. [Source](https://github.com/Habeeb9731/eden)
 - [GrandLense](https://grandlense.com): Media and photography portfolio for wedding photography, portfolio shoots, and creative services.
 - [Modern Luxury Interiors](https://modernluxury-design.com/): Website for a Dubai interior design firm.
 - [Ecliniqs](https://github.com/Habeeb9731/ecliniqs_deploy): Website for an online speech therapy provider based in Dubai.

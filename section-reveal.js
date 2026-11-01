@@ -31,7 +31,7 @@
     if (!e.isIntersecting) return;
     e.target.classList.replace('sr-wait', 'sr-in');
     io.unobserve(e.target);
-  }), { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
+  }), { threshold: 0, rootMargin: '0px 0px -8% 0px' }); // fire as soon as a group's top edge is in view, regardless of its height
 
   // Challenge & solution: call-and-response. Each challenge is answered by its solution.
   const tag = (el, delay, variant) => { if (!el) return; el.classList.add('sr'); if (variant) el.classList.add('sr-' + variant); el.style.setProperty('--d', Math.round(delay) + 'ms'); };

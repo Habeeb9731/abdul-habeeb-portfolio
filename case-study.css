@@ -325,3 +325,5 @@ svg .a-pop{transform-box:fill-box;transform-origin:50% 50%}
 @keyframes csFromLeft{from{opacity:0;transform:translateX(-28px)}}
 @keyframes csFromRight{from{opacity:0;transform:translateX(14px)}}
 @keyframes csMark{from{opacity:0;transform:scale(0) rotate(-45deg)}}
+/* Two plain sections back to back (e.g. "In the data" → "Screens"): don't double the padding */
+.cs-plain+.cs-plain{padding-top:clamp(8px,1.5vw,24px)}

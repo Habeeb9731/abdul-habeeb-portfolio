@@ -106,7 +106,7 @@ let lang='en';try{lang=localStorage.getItem('site-language')||((navigator.langua
 function applyLang(next){lang=next;try{localStorage.setItem('site-language',lang)}catch(e){};document.documentElement.lang=lang;
  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;el.innerHTML=lang==='de'&&PAGE_DE[k]?PAGE_DE[k]:origText[k]});
  if(langBtn){langBtn.textContent=lang==='de'?'EN':'DE';langBtn.setAttribute('aria-label',lang==='de'?'Switch to English':'Auf Deutsch wechseln')}}
-applyLang(lang);if(langBtn)langBtn.addEventListener('click',()=>applyLang(lang==='de'?'en':'de'));
+applyLang(lang);window.addEventListener('pageshow',()=>{let s=null;try{s=localStorage.getItem('site-language')}catch(e){};if(s&&s!==lang)applyLang(s)});if(langBtn)langBtn.addEventListener('click',()=>applyLang(lang==='de'?'en':'de'));
 </script>
 <script>
 const themeToggle=document.querySelector('.theme-toggle');
@@ -114,6 +114,7 @@ const applyTheme=dark=>{document.body.classList.toggle('dark',dark);document.doc
 let initialDark=false;try{initialDark=localStorage.getItem('theme')==='dark'}catch(e){}
 applyTheme(initialDark);
 themeToggle.addEventListener('click',()=>applyTheme(!document.body.classList.contains('dark')));
+window.addEventListener('pageshow',()=>{let t=null;try{t=localStorage.getItem('theme')}catch(e){};if(t&&(t==='dark')!==document.body.classList.contains('dark'))applyTheme(t==='dark')});
 const sideLinks=[...document.querySelectorAll('.cs-sidenav a')];
 const sideIndicator=document.querySelector('.cs-sidenav-indicator');
 let sideY=null;

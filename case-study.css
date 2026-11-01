@@ -113,14 +113,17 @@ html{scroll-padding-top:24px}
   .cs-sidetab{position:fixed;left:8px;top:58%;z-index:801;display:grid;place-items:center;width:48px;height:48px;padding:0;border:1px solid rgba(255,255,255,.1);border-radius:50%;background:#111210;color:#fff;box-shadow:0 6px 16px -6px rgba(0,0,0,.35);transform:translateY(-50%);cursor:pointer;animation:csTabPop .42s cubic-bezier(.34,1.8,.5,1) both}
   .cs-sidetab:active{transform:translateY(-50%) scale(.88)}
   .cs-sidetab-icon svg{display:block;width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-  .cs-side-open .cs-sidetab{opacity:0;animation:none;pointer-events:none}
-  .cs-sidenav{left:8px;top:58%;gap:2px;padding:8px;border-radius:26px;visibility:hidden;transform:translate(0,-50%);transform-origin:24px 50%}
+  .cs-side-landing .cs-sidetab{animation:csTabLand .45s cubic-bezier(.34,1.8,.5,1) both}
+  body.cs-side-open .cs-sidetab{opacity:0;animation:none;pointer-events:none}
+  .cs-sidenav{left:8px;top:58%;gap:2px;padding:8px;border-radius:26px;visibility:hidden;transform:translate(0,-50%);transform-origin:0 50%}
   .cs-sidenav.is-open{visibility:visible}
   .cs-sidenav-indicator{display:none}
   .cs-sidenav a{display:flex;justify-content:flex-start;gap:12px;width:auto;height:42px;padding:0 16px 0 12px;border-radius:999px;text-decoration:none}
   .cs-sidenav.is-open a{animation:csItem .45s cubic-bezier(.34,1.6,.5,1) both;animation-delay:calc(var(--i,0) * 38ms + 140ms)}
   .cs-sidenav a{transition:opacity .16s}
   .cs-sidenav.is-closing a{animation:none;opacity:0;transition-delay:calc((7 - var(--i,0)) * 14ms)}
+  .cs-sidenav a:hover{background:transparent;color:rgba(255,255,255,.72)}
+  .cs-sidenav a:active{background:rgba(255,255,255,.1)}
   .cs-sidenav a.is-active,.cs-sidenav a.is-active:hover{background:#fff;color:#111210}
   .cs-tip{position:static;padding:0;background:none;color:inherit;font-size:.86rem;opacity:1;transform:none}
   .dark .cs-tip{background:none;color:inherit}
@@ -131,6 +134,7 @@ html{scroll-padding-top:24px}
 @keyframes csHide{0%{opacity:1;transform:translate(0,-50%) scale(1)}25%{transform:translate(0,-50%) scale(1.03,.97)}100%{opacity:0;transform:translate(0,-50%) scale(.16,.07)}}
 @keyframes csItem{0%{opacity:0;transform:translateX(-14px) scale(.85)}100%{opacity:1;transform:none}}
 @keyframes csTabPop{0%{opacity:0;transform:translateY(-50%) scale(.82)}100%{opacity:1;transform:translateY(-50%) scale(1)}}
+@keyframes csTabLand{0%{opacity:1;transform:translateY(-50%) scale(1)}35%{transform:translateY(-50%) scale(1.09)}100%{opacity:1;transform:translateY(-50%) scale(1)}}
 @keyframes csTabHide{to{opacity:0;transform:translateY(-50%) scale(.5) rotate(-20deg)}}
 @media(prefers-reduced-motion:reduce){.cs-sidetab,.cs-sidenav.is-open a{animation-duration:.01ms!important}}
 

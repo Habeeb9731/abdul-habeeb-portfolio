@@ -17,8 +17,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css?v=20261101-cases10" />
-  <link rel="stylesheet" href="/case-study.css?v=20261101-cases10" />
+  <link rel="stylesheet" href="/styles.css?v=20261101-cases13" />
+  <link rel="stylesheet" href="/case-study.css?v=20261101-cases13" />
   <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark-pre')}catch(e){}</script>
 </head>
 <body>
@@ -146,13 +146,13 @@ const setSide=open=>{
     ],{duration:680,easing:'ease-out'});
   }else{
     sideNav.classList.add('is-closing');
-    const done=()=>{sideNav.classList.remove('is-open','is-closing');document.body.classList.remove('cs-side-open');sideAnim=null};
+    const done=()=>{document.body.classList.remove('cs-side-landing');void document.body.offsetWidth;document.body.classList.add('cs-side-landing');sideNav.classList.remove('is-open','is-closing');document.body.classList.remove('cs-side-open');if(sideAnim){sideAnim.cancel();sideAnim=null}};
     if(sideReduce())return done();
     sideAnim=sideNav.animate([
       {transform:'translate(0,-50%) scale(1)',borderRadius:'26px'},
       {transform:'translate(0,-50%) scale(1.04,.97)',borderRadius:'26px',offset:.22},
       {transform:sideCircle(),borderRadius:'50%'}
-    ],{duration:460,easing:'cubic-bezier(.65,0,.35,1)'});
+    ],{duration:460,easing:'cubic-bezier(.65,0,.35,1)',fill:'forwards'});
     sideAnim.onfinish=done;
   }
 };

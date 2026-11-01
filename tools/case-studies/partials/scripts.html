@@ -1,0 +1,84 @@
+<script>
+const PAGE_DE=__PAGE_DE__;
+const langBtn=document.querySelector('.language-toggle');const origText={};
+document.querySelectorAll('[data-i18n]').forEach(el=>{origText[el.dataset.i18n]=el.innerHTML});
+let lang='en';try{lang=localStorage.getItem('site-language')||((navigator.language||'en').toLowerCase().startsWith('de')?'de':'en')}catch(e){}
+function applyLang(next){lang=next;try{localStorage.setItem('site-language',lang)}catch(e){};document.documentElement.lang=lang;
+ document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;el.innerHTML=lang==='de'&&PAGE_DE[k]?PAGE_DE[k]:origText[k]});
+ if(langBtn){langBtn.textContent=lang==='de'?'EN':'DE';langBtn.setAttribute('aria-label',lang==='de'?'Switch to English':'Auf Deutsch wechseln')}}
+applyLang(lang);window.addEventListener('pageshow',()=>{let s=null;try{s=localStorage.getItem('site-language')}catch(e){};if(s&&s!==lang)applyLang(s)});if(langBtn)langBtn.addEventListener('click',()=>applyLang(lang==='de'?'en':'de'));
+</script>
+<script>
+const themeToggle=document.querySelector('.theme-toggle');
+const applyTheme=dark=>{document.body.classList.toggle('dark',dark);document.documentElement.classList.remove('dark-pre');try{localStorage.setItem('theme',dark?'dark':'light')}catch(e){};themeToggle.setAttribute('aria-pressed',String(dark));themeToggle.innerHTML=dark?'<span>☀</span>':'<span>☾</span>'};
+let initialDark=false;try{initialDark=localStorage.getItem('theme')==='dark'}catch(e){}
+applyTheme(initialDark);
+themeToggle.addEventListener('click',()=>applyTheme(!document.body.classList.contains('dark')));
+window.addEventListener('pageshow',()=>{let t=null;try{t=localStorage.getItem('theme')}catch(e){};if(t&&(t==='dark')!==document.body.classList.contains('dark'))applyTheme(t==='dark')});
+const sideLinks=[...document.querySelectorAll('.cs-sidenav a')];
+const sideIndicator=document.querySelector('.cs-sidenav-indicator');
+let sideY=null;
+function moveSide(link){
+  const to=link.offsetTop,size=link.offsetHeight,from=sideY;
+  sideLinks.forEach(l=>l.classList.toggle('is-active',l===link));
+  const tabIcon=document.querySelector('.cs-sidetab-icon svg');if(tabIcon)tabIcon.innerHTML=link.querySelector('svg').innerHTML;
+  sideIndicator.style.height=size+'px';sideIndicator.style.transform=`translateY(${to}px)`;sideIndicator.style.opacity='1';sideY=to;
+  if(from===null||from===to||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const down=to>from,start=Math.min(from,to),span=Math.abs(to-from)+size;
+  sideIndicator.getAnimations().forEach(a=>a.cancel());
+  sideIndicator.animate([
+    {transform:`translateY(${from}px)`,height:size+'px',width:size+'px',marginLeft:'0px'},
+    {transform:`translateY(${start}px)`,height:span+'px',width:(size-6)+'px',marginLeft:'3px',offset:.42},
+    {transform:`translateY(${to+(down?3:-3)}px)`,height:(size-4)+'px',width:(size+2)+'px',marginLeft:'-1px',offset:.72},
+    {transform:`translateY(${to}px)`,height:size+'px',width:size+'px',marginLeft:'0px'}
+  ],{duration:620,easing:'cubic-bezier(.45,0,.2,1)'});
+}
+let sideLock=0;
+sideLinks.forEach(l=>l.addEventListener('click',()=>{sideLock=Date.now()+1400;moveSide(l)}));
+const sideNav=document.querySelector('.cs-sidenav'),sideTab=document.querySelector('.cs-sidetab');
+sideLinks.forEach((l,i)=>l.style.setProperty('--i',i));
+let sideAnim=null;
+const sideReduce=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
+const sideCircle=()=>{const w=sideNav.offsetWidth,h=sideNav.offsetHeight;return `translate(0,-50%) scale(${48/w},${48/h})`};
+const setSide=open=>{
+  const isOpen=sideNav.classList.contains('is-open')&&!sideNav.classList.contains('is-closing');
+  if(open===isOpen)return;
+  sideTab.setAttribute('aria-expanded',String(open));
+  if(sideAnim)sideAnim.cancel();
+  if(open){
+    sideNav.classList.remove('is-closing');sideNav.classList.add('is-open');document.body.classList.add('cs-side-open');
+    if(sideReduce())return;
+    sideAnim=sideNav.animate([
+      {transform:sideCircle(),borderRadius:'50%'},
+      {transform:'translate(0,-50%) scale(1.06,.95)',borderRadius:'26px',offset:.5},
+      {transform:'translate(0,-50%) scale(.97,1.03)',offset:.72},
+      {transform:'translate(0,-50%) scale(1.01,.995)',offset:.88},
+      {transform:'translate(0,-50%) scale(1)',borderRadius:'26px'}
+    ],{duration:680,easing:'ease-out'});
+  }else{
+    sideNav.classList.add('is-closing');
+    const done=()=>{document.body.classList.remove('cs-side-landing');void document.body.offsetWidth;document.body.classList.add('cs-side-landing');sideNav.classList.remove('is-open','is-closing');document.body.classList.remove('cs-side-open');if(sideAnim){sideAnim.cancel();sideAnim=null}};
+    if(sideReduce())return done();
+    sideAnim=sideNav.animate([
+      {transform:'translate(0,-50%) scale(1)',borderRadius:'26px'},
+      {transform:'translate(0,-50%) scale(1.04,.97)',borderRadius:'26px',offset:.22},
+      {transform:sideCircle(),borderRadius:'50%'}
+    ],{duration:460,easing:'cubic-bezier(.65,0,.35,1)',fill:'forwards'});
+    sideAnim.onfinish=done;
+  }
+};
+sideTab.addEventListener('click',e=>{e.stopPropagation();setSide(!sideNav.classList.contains('is-open'))});
+document.addEventListener('click',e=>{if(sideNav.classList.contains('is-open')&&!sideNav.contains(e.target))setSide(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')setSide(false)});
+let sideTouchX=null;
+sideNav.addEventListener('touchstart',e=>{sideTouchX=e.touches[0].clientX},{passive:true});
+sideNav.addEventListener('touchend',e=>{if(sideTouchX!==null&&e.changedTouches[0].clientX-sideTouchX<-40)setSide(false);sideTouchX=null});
+const sideObserver=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){if(Date.now()<sideLock)return;const l=sideLinks.find(x=>x.hash==='#'+e.target.id);if(l)moveSide(l)}}),{rootMargin:'-45% 0px -50% 0px'});
+sideLinks.forEach(l=>{const t=document.querySelector(l.hash);if(t)sideObserver.observe(t)});
+requestAnimationFrame(()=>moveSide(sideLinks[0]));
+</script>
+__CHARTS__
+<script src="/public/vendor/lenis.min.js?v=1.1.20" defer></script>
+<script src="/smooth-scroll.js?v=20261101b" defer></script>
+<script src="/section-reveal.js?v=20261101e" defer></script>
+<script src="/footer-fun.js?v=20261101b" defer></script>

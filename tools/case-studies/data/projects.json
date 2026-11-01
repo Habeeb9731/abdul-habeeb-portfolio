@@ -1,0 +1,1274 @@
+[
+ {
+  "slug": "apex-f1-analytics",
+  "title": "APEX F1 Analytics",
+  "label": "Data · F1 analytics",
+  "summary": "A historical Formula 1 dashboard built on OpenF1 data — races, telemetry, tire strategy and championships, with an AI race analyst on top.",
+  "hero": "/public/resources/case-studies/apex-overview.jpg",
+  "thumb": "/public/resources/projects/apex-f1-analytics.jpg",
+  "live": "https://apex.abdulhabeeb.com/",
+  "repo": "https://github.com/Habeeb9731/apex-f1-analytics",
+  "meta": [
+   [
+    "Role",
+    "Design &amp; full-stack development"
+   ],
+   [
+    "Timeline",
+    "2026"
+   ],
+   [
+    "Type",
+    "Personal project"
+   ],
+   [
+    "Stack",
+    "TypeScript, React, Node.js"
+   ]
+  ],
+  "ov_h": "F1 produces huge amounts of data. <span>APEX turns a season of it into something you can actually read.</span>",
+  "ov_p": "OpenF1 publishes timing, positions, laps, stints and telemetry for every session since 2023 — but as raw API responses. APEX is a dashboard that turns that into season overviews, race replays, head-to-head driver comparisons, tire strategy charts and championship tables, with no account or paid API needed.",
+  "ov_img": [
+   "/public/resources/case-studies/apex-overview.jpg",
+   "Season overview — race winner, championship leaders and the full calendar at a glance."
+  ],
+  "challenge": [
+   "Raw, heavy and inconsistent data",
+   [
+    "Telemetry for a single session can run to hundreds of thousands of points per driver.",
+    "Standings, positions and weather arrive as separate endpoints with gaps and missing snapshots.",
+    "An AI assistant needed to be useful without exposing API keys or running up costs."
+   ]
+  ],
+  "solution": [
+   "Fetch less, cache more, explain clearly",
+   [
+    "Telemetry loads two drivers for a five-minute window at a time, filtered at the API and downsampled before charting.",
+    "Requests are cached and cancelled when abandoned (TanStack Query); selections live in the URL so views are shareable.",
+    "Ask Apex runs server-side behind GitHub sign-in, with a daily per-user question limit stored in SQLite."
+   ]
+  ],
+  "features": [
+   [
+    "chart",
+    "Race explorer",
+    "Session classification, position changes and lap-by-lap progress for every Grand Prix."
+   ],
+   [
+    "layers",
+    "Driver comparison",
+    "Head-to-head lap times and performance metrics for any two drivers."
+   ],
+   [
+    "sparkle",
+    "Ask Apex",
+    "An AI race analyst that answers questions about the data — key kept server-side, usage rate-limited."
+   ]
+  ],
+  "phone": [
+   "/public/resources/case-studies/apex-mobile.jpg",
+   "Built for any screen",
+   "The whole dashboard collapses into a single-column layout with a slide-out sidebar, so race weekends can be followed from a phone."
+  ],
+  "points": [
+   "Slide-out sidebar replaces the desktop navigation",
+   "Cards stack into a single readable column",
+   "Ask Apex stays one tap away"
+  ],
+  "gallery": [
+   [
+    "/public/resources/case-studies/apex-race.jpg",
+    "Race explorer with classification and position changes",
+    false
+   ],
+   [
+    "/public/resources/case-studies/apex-compare.jpg",
+    "Driver comparison — lap times side by side",
+    false
+   ],
+   [
+    "/public/resources/case-studies/apex-strategy.jpg",
+    "Tire strategy — every stint and compound across the race",
+    true
+   ],
+   [
+    "/public/resources/case-studies/apex-standings.jpg",
+    "Championship standings with points gaps",
+    true
+   ]
+  ],
+  "tech": [
+   [
+    "Data",
+    "OpenF1 historical API (2023 onward) — meetings, sessions, laps, stints, positions, telemetry, weather."
+   ],
+   [
+    "Frontend",
+    "React + TypeScript on Vite, TanStack Query for caching and cancellation."
+   ],
+   [
+    "Backend",
+    "Node server for GitHub OAuth and the AI analyst; usage counts in SQLite."
+   ],
+   [
+    "Deployment",
+    "Docker, served through a Cloudflare Tunnel at apex.abdulhabeeb.com."
+   ]
+  ],
+  "stack": [
+   "TypeScript",
+   "React",
+   "Vite",
+   "TanStack Query",
+   "Node.js",
+   "SQLite",
+   "OpenAI API",
+   "GitHub OAuth",
+   "Docker",
+   "Cloudflare"
+  ],
+  "learned": "Working with real sports data is mostly about deciding what <em>not</em> to load. Designing around windowed, downsampled requests made the dashboard fast — and taught me to treat API limits as a design constraint, not an afterthought.",
+  "charts": {
+   "h": "The 2025 season, <span>straight from OpenF1.</span>",
+   "p": "Two views APEX is built around, recreated here with real data pulled from the OpenF1 API. Hover or tap for exact values.",
+   "de_h": "Die Saison 2025, <span>direkt aus OpenF1.</span>",
+   "de_p": "Zwei Ansichten, auf denen APEX aufbaut – hier mit echten Daten aus der OpenF1-API nachgebaut. Für genaue Werte hovern oder tippen.",
+   "items": [
+    {
+     "id": "apex-points",
+     "wide": true,
+     "l": "Championship",
+     "t": "Verstappen was 104 points behind after Zandvoort, and lost the title by 2.",
+     "p": "Cumulative drivers’ points after each Grand Prix, sprint points included. Switch to “Gap to leader” to see the lead change hands: Piastri led from round 5 to round 19, Norris took over in Mexico City. Click a name to hide it.",
+     "s": "Source: OpenF1 API · championship_drivers, all 24 race sessions of 2025.",
+     "de_l": "Meisterschaft",
+     "de_t": "Verstappen lag nach Zandvoort 104 Punkte zurück – und verlor den Titel um 2.",
+     "de_p": "Kumulierte Fahrerpunkte nach jedem Grand Prix, inklusive Sprintpunkte. Mit „Abstand zur Spitze“ sieht man den Führungswechsel: Piastri führte von Runde 5 bis 19, in Mexiko-Stadt übernahm Norris. Ein Klick auf einen Namen blendet ihn aus.",
+     "de_s": "Quelle: OpenF1-API · championship_drivers, alle 24 Rennen der Saison 2025."
+    },
+    {
+     "id": "apex-stints",
+     "wide": true,
+     "l": "Tire strategy",
+     "t": "Abu Dhabi 2025: one race, three different plans at the front.",
+     "p": "Each bar is a stint, split at every pit stop. Verstappen won on a one-stop, Piastri ran the reverse strategy with 41 laps on hards, and Norris pitted twice. Third place was enough for the title.",
+     "s": "Source: OpenF1 API · stints and session_result, Abu Dhabi Grand Prix 2025, top 10 finishers.",
+     "de_l": "Reifenstrategie",
+     "de_t": "Abu Dhabi 2025: ein Rennen, drei verschiedene Pläne an der Spitze.",
+     "de_p": "Jeder Balken ist ein Stint, getrennt bei jedem Boxenstopp. Verstappen gewann mit einem Stopp, Piastri fuhr die umgekehrte Strategie mit 41 Runden auf Hard, Norris stoppte zweimal – Platz drei reichte für den Titel.",
+     "de_s": "Quelle: OpenF1-API · stints und session_result, Großer Preis von Abu Dhabi 2025, Top 10."
+    }
+   ]
+  },
+  "de": {
+   "label": "Data · F1-Analysen",
+   "summary": "Ein historisches Formel-1-Dashboard auf Basis der OpenF1-Daten – Rennen, Telemetrie, Reifenstrategie und Meisterschaften, ergänzt um einen KI-Rennanalysten.",
+   "meta0": "Design &amp; Full-Stack-Entwicklung",
+   "meta1": "2026",
+   "meta2": "Persönliches Projekt",
+   "meta3": "TypeScript, React, Node.js",
+   "ov_h": "Die Formel 1 erzeugt enorme Datenmengen. <span>APEX macht aus einer ganzen Saison etwas, das man wirklich lesen kann.</span>",
+   "ov_p": "OpenF1 veröffentlicht seit 2023 Zeitnahme, Positionen, Runden, Stints und Telemetrie für jede Session – allerdings als rohe API-Antworten. APEX ist ein Dashboard, das daraus Saisonübersichten, Rennwiederholungen, Fahrervergleiche, Reifenstrategie-Diagramme und Meisterschaftstabellen macht, ohne Konto oder kostenpflichtige API.",
+   "ov_cap": "Saisonübersicht – Rennsieger, Meisterschaftsführende und der gesamte Kalender auf einen Blick.",
+   "ch_t": "Rohe, umfangreiche und inkonsistente Daten",
+   "ch0": "Die Telemetrie einer einzigen Session kann pro Fahrer mehrere hunderttausend Datenpunkte umfassen.",
+   "ch1": "Stände, Positionen und Wetterdaten kommen als separate Endpunkte mit Lücken und fehlenden Snapshots.",
+   "ch2": "Ein KI-Assistent musste nützlich sein, ohne API-Schlüssel preiszugeben oder Kosten zu verursachen.",
+   "so_t": "Weniger laden, mehr zwischenspeichern, verständlich erklären",
+   "so0": "Die Telemetrie lädt jeweils zwei Fahrer für ein Fünf-Minuten-Fenster, wird bereits an der API gefiltert und vor dem Diagramm herunterskaliert.",
+   "so1": "Anfragen werden zwischengespeichert und bei Verlassen abgebrochen (TanStack Query); Auswahlen liegen in der URL, damit Ansichten teilbar sind.",
+   "so2": "Ask Apex läuft serverseitig hinter der GitHub-Anmeldung, mit einem täglichen Fragenlimit pro Nutzer, gespeichert in SQLite.",
+   "f0t": "Rennexplorer",
+   "f0d": "Session-Klassement, Positionswechsel und Runde-für-Runde-Verlauf für jeden Grand Prix.",
+   "f1t": "Fahrervergleich",
+   "f1d": "Direkter Rundenzeiten- und Leistungsvergleich für beliebige zwei Fahrer.",
+   "f2t": "Ask Apex",
+   "f2d": "Ein KI-Rennanalyst, der Fragen zu den Daten beantwortet – Schlüssel serverseitig, Nutzung ratenbegrenzt.",
+   "g0": "Rennexplorer mit Klassement und Positionswechseln",
+   "g1": "Fahrervergleich – Rundenzeiten nebeneinander",
+   "g2": "Reifenstrategie – jeder Stint und jede Mischung im Rennen",
+   "g3": "Meisterschaftsstand mit Punkteabständen",
+   "ph_h": "Für jeden Bildschirm gemacht",
+   "ph_p": "Das gesamte Dashboard wird zu einem einspaltigen Layout mit ausklappbarer Seitenleiste, sodass man Rennwochenenden auch vom Handy verfolgen kann.",
+   "pt0": "Ausklappbare Seitenleiste ersetzt die Desktop-Navigation",
+   "pt1": "Karten werden zu einer gut lesbaren Spalte gestapelt",
+   "pt2": "Ask Apex bleibt mit einem Tippen erreichbar",
+   "t0k": "Daten",
+   "t0v": "OpenF1-Historien-API (ab 2023) – Meetings, Sessions, Runden, Stints, Positionen, Telemetrie, Wetter.",
+   "t1k": "Frontend",
+   "t1v": "React + TypeScript auf Vite, TanStack Query für Caching und Abbruch.",
+   "t2k": "Backend",
+   "t2v": "Node-Server für GitHub-OAuth und den KI-Analysten; Nutzungszähler in SQLite.",
+   "t3k": "Deployment",
+   "t3v": "Docker, ausgeliefert über einen Cloudflare Tunnel unter apex.abdulhabeeb.com.",
+   "learned": "Die Arbeit mit echten Sportdaten besteht vor allem darin, zu entscheiden, was <em>nicht</em> geladen wird. Das Design um fensterbasierte, herunterskalierte Anfragen herum machte das Dashboard schnell – und lehrte mich, API-Limits als Designvorgabe und nicht als Nachgedanken zu behandeln."
+  }
+ },
+ {
+  "slug": "autonomous-data-analyst",
+  "title": "Autonomous Data Analyst",
+  "label": "Data · Full-stack",
+  "summary": "An AI-assisted analytics workspace: upload a dataset and get a data-quality report, findings and charts — backed by a deterministic profiling engine.",
+  "hero": "/public/resources/case-studies/ada-overview.jpg",
+  "thumb": "/public/resources/projects/autonomous-data-analyst-dashboard.jpg",
+  "live": "https://autonomous-data-analyst.abdulhabeeb.com/",
+  "repo": "https://github.com/Habeeb9731/autonomous-data-analyst",
+  "meta": [
+   [
+    "Role",
+    "Design &amp; full-stack development"
+   ],
+   [
+    "Timeline",
+    "2026"
+   ],
+   [
+    "Type",
+    "Personal project"
+   ],
+   [
+    "Stack",
+    "React, FastAPI, Cloudflare"
+   ]
+  ],
+  "ov_h": "The first hour with a new dataset is always the same. <span>This workspace does it for you.</span>",
+  "ov_p": "Before any real analysis, every dataset needs the same groundwork: checking types, missing values, duplicates, outliers and distributions. Autonomous Data Analyst automates that first pass and presents it as a readable workspace — overview, data quality, insights and charts.",
+  "ov_img": [
+   "/public/resources/case-studies/ada-overview.jpg",
+   "Dataset overview — quality score, rows analysed, open issues and the analyst’s key findings."
+  ],
+  "challenge": [
+   "AI analysis you can actually trust",
+   [
+    "Language models are good at explaining data but can invent numbers.",
+    "Messy real-world files: mixed types, inconsistent categories, missing values.",
+    "Results had to be clear to people who don’t read raw statistics."
+   ]
+  ],
+  "solution": [
+   "Deterministic numbers, readable findings",
+   [
+    "A FastAPI profiling engine computes every metric deterministically — the same file always gives the same report.",
+    "Issues are grouped by severity with the affected columns, so it is obvious what to fix first.",
+    "Findings and charts are generated from the computed profile, keeping explanations grounded in real values."
+   ]
+  ],
+  "features": [
+   [
+    "shield",
+    "Data quality",
+    "A canonical quality score with detected issues — missing values, inconsistencies, outliers."
+   ],
+   [
+    "sparkle",
+    "Insights",
+    "Evidence-backed findings, each linked to the columns and values behind it."
+   ],
+   [
+    "chart",
+    "Charts",
+    "Distributions and category breakdowns chosen automatically from the dataset’s structure."
+   ]
+  ],
+  "phone": [
+   "/public/resources/case-studies/ada-mobile.jpg",
+   "Responsive workspace",
+   "The workspace adapts to smaller screens with a collapsible sidebar, so reports can be checked on the go."
+  ],
+  "points": [
+   "Collapsible sidebar frees up the screen",
+   "Quality score and findings stay above the fold",
+   "Demo dataset works without uploading"
+  ],
+  "gallery": [
+   [
+    "/public/resources/case-studies/ada-quality.jpg",
+    "Data quality — score, detected issues and severity",
+    false
+   ],
+   [
+    "/public/resources/case-studies/ada-insights.jpg",
+    "Insights — findings with supporting evidence",
+    false
+   ],
+   [
+    "/public/resources/case-studies/ada-charts.jpg",
+    "Charts generated from the dataset profile",
+    true
+   ]
+  ],
+  "tech": [
+   [
+    "Frontend",
+    "Vite + React + TypeScript workspace, deployed on Cloudflare Pages."
+   ],
+   [
+    "Profiling engine",
+    "Python / FastAPI service computing deterministic dataset profiles."
+   ],
+   [
+    "Production API",
+    "Deployed as a Cloudflare Python Worker; local development uses FastAPI behind a Vite proxy."
+   ],
+   [
+    "Demo mode",
+    "A built-in demo dataset so visitors can explore without uploading anything."
+   ]
+  ],
+  "stack": [
+   "React",
+   "TypeScript",
+   "Vite",
+   "Python",
+   "FastAPI",
+   "Cloudflare Pages",
+   "Cloudflare Workers"
+  ],
+  "learned": "Separating “compute” from “explain” was the key decision. Keeping every number deterministic and only using AI-style summaries on top of it made the tool far more trustworthy.",
+  "charts": {
+   "h": "What the profiling engine <span>actually finds.</span>",
+   "p": "Both charts use the real output of the app’s FastAPI profiler, run on the deliberately messy demo dataset that ships with it.",
+   "de_h": "Was die Profiling-Engine <span>tatsächlich findet.</span>",
+   "de_p": "Beide Diagramme zeigen die echte Ausgabe des FastAPI-Profilers, angewendet auf den absichtlich unordentlichen Demo-Datensatz der App.",
+   "items": [
+    {
+     "id": "ada-quality",
+     "wide": false,
+     "l": "Data quality",
+     "t": "A score of 65, and the breakdown that explains it.",
+     "p": "No missing values and no duplicate rows, but 14 issues: invalid quantities and percentages, an email column flagged as PII, and labels that mean the same thing written differently.",
+     "s": "Source: profile_frame() in backend/main.py, run on the /api/demo dataset.",
+     "de_l": "Datenqualität",
+     "de_t": "Ein Score von 65 – und die Aufschlüsselung dahinter.",
+     "de_p": "Keine fehlenden Werte und keine doppelten Zeilen, aber 14 Probleme: ungültige Mengen und Prozentwerte, eine als personenbezogen markierte E-Mail-Spalte und Bezeichnungen, die dasselbe meinen, aber unterschiedlich geschrieben sind.",
+     "de_s": "Quelle: profile_frame() in backend/main.py, angewendet auf den /api/demo-Datensatz."
+    },
+    {
+     "id": "ada-segments",
+     "wide": false,
+     "l": "Consistency",
+     "t": "Why consistency scores 55: one segment, two spellings.",
+     "p": "“Enterprise” and “enterprise” count as different groups until the labels are standardised. Toggle to see the breakdown after cleaning.",
+     "s": "Source: category_breakdown from the profiler output; the cleaned view merges case variants.",
+     "de_l": "Konsistenz",
+     "de_t": "Warum die Konsistenz bei 55 liegt: ein Segment, zwei Schreibweisen.",
+     "de_p": "„Enterprise“ und „enterprise“ zählen als verschiedene Gruppen, bis die Bezeichnungen vereinheitlicht sind. Umschalten zeigt die Verteilung nach der Bereinigung.",
+     "de_s": "Quelle: category_breakdown aus der Profiler-Ausgabe; die bereinigte Ansicht führt Schreibvarianten zusammen."
+    }
+   ]
+  },
+  "de": {
+   "label": "Data · Full-Stack",
+   "summary": "Ein KI-gestützter Analytics-Workspace: Datensatz hochladen und einen Datenqualitätsbericht, Erkenntnisse und Diagramme erhalten – gestützt auf eine deterministische Profiling-Engine.",
+   "meta0": "Design &amp; Full-Stack-Entwicklung",
+   "meta1": "2026",
+   "meta2": "Persönliches Projekt",
+   "meta3": "React, FastAPI, Cloudflare",
+   "ov_h": "Die erste Stunde mit einem neuen Datensatz ist immer dieselbe. <span>Dieser Workspace erledigt sie für dich.</span>",
+   "ov_p": "Bevor eine echte Analyse beginnen kann, braucht jeder Datensatz dieselbe Grundlagenarbeit: Datentypen, fehlende Werte, Duplikate, Ausreißer und Verteilungen prüfen. Autonomous Data Analyst automatisiert diesen ersten Durchgang und präsentiert ihn als lesbaren Workspace – Übersicht, Datenqualität, Erkenntnisse und Diagramme.",
+   "ov_cap": "Datensatz-Übersicht – Qualitätswert, analysierte Zeilen, offene Probleme und die zentralen Erkenntnisse des Analysten.",
+   "ch_t": "KI-Analysen, denen man wirklich vertrauen kann",
+   "ch0": "Sprachmodelle erklären Daten gut, können aber Zahlen erfinden.",
+   "ch1": "Unordentliche reale Dateien: gemischte Typen, uneinheitliche Kategorien, fehlende Werte.",
+   "ch2": "Die Ergebnisse mussten auch für Menschen verständlich sein, die keine Rohstatistik lesen.",
+   "so_t": "Deterministische Zahlen, lesbare Erkenntnisse",
+   "so0": "Eine FastAPI-Profiling-Engine berechnet jede Kennzahl deterministisch – dieselbe Datei ergibt immer denselben Bericht.",
+   "so1": "Probleme sind nach Schweregrad mit den betroffenen Spalten gruppiert, sodass klar ist, was zuerst zu beheben ist.",
+   "so2": "Erkenntnisse und Diagramme werden aus dem berechneten Profil erzeugt, damit die Erklärungen auf echten Werten beruhen.",
+   "f0t": "Datenqualität",
+   "f0d": "Ein einheitlicher Qualitätswert mit erkannten Problemen – fehlende Werte, Inkonsistenzen, Ausreißer.",
+   "f1t": "Erkenntnisse",
+   "f1d": "Belegbasierte Ergebnisse, jeweils verknüpft mit den Spalten und Werten dahinter.",
+   "f2t": "Diagramme",
+   "f2d": "Verteilungen und Kategorieaufschlüsselungen, automatisch aus der Struktur des Datensatzes gewählt.",
+   "g0": "Datenqualität – Wert, erkannte Probleme und Schweregrad",
+   "g1": "Erkenntnisse – Ergebnisse mit Belegen",
+   "g2": "Aus dem Datensatzprofil erzeugte Diagramme",
+   "ph_h": "Responsiver Workspace",
+   "ph_p": "Der Workspace passt sich kleineren Bildschirmen mit einer einklappbaren Seitenleiste an, damit Berichte auch unterwegs geprüft werden können.",
+   "pt0": "Einklappbare Seitenleiste schafft Platz auf dem Bildschirm",
+   "pt1": "Qualitätswert und Erkenntnisse bleiben im sichtbaren Bereich",
+   "pt2": "Demo-Datensatz funktioniert ohne Upload",
+   "t0k": "Frontend",
+   "t0v": "Vite + React + TypeScript-Workspace, auf Cloudflare Pages veröffentlicht.",
+   "t1k": "Profiling-Engine",
+   "t1v": "Python-/FastAPI-Dienst, der deterministische Datensatzprofile berechnet.",
+   "t2k": "Produktions-API",
+   "t2v": "Als Cloudflare Python Worker bereitgestellt; die lokale Entwicklung nutzt FastAPI hinter einem Vite-Proxy.",
+   "t3k": "Demo-Modus",
+   "t3v": "Ein integrierter Demo-Datensatz, damit Besucher ohne Upload alles ausprobieren können.",
+   "learned": "Die Trennung von „Berechnen“ und „Erklären“ war die zentrale Entscheidung. Jede Zahl deterministisch zu halten und KI-artige Zusammenfassungen nur darauf aufzusetzen, machte das Tool deutlich vertrauenswürdiger."
+  }
+ },
+ {
+  "slug": "eden-smart-terrarium",
+  "title": "EDEN Smart Terrarium",
+  "label": "IoT · Group project",
+  "summary": "A smart dual-plant terrarium and its live dashboard — sensors, pumps, a fan and a grow light, built as a group project for the Interactive Systems course.",
+  "hero": "/public/resources/case-studies/eden-home.jpg",
+  "thumb": "/public/resources/projects/eden-site.jpg",
+  "live": "https://eden.abdulhabeeb.com/",
+  "repo": "https://github.com/Habeeb9731/eden",
+  "meta": [
+   [
+    "Role",
+    "Team member · web dashboard"
+   ],
+   [
+    "Timeline",
+    "2026"
+   ],
+   [
+    "Type",
+    "Group project · Interactive Systems, Saarland University"
+   ],
+   [
+    "Stack",
+    "ESP32, C++, HTML/CSS/JS"
+   ]
+  ],
+  "ov_h": "Two plants, two soils, one terrarium. <span>EDEN keeps both alive — and shows you how.</span>",
+  "ov_p": "EDEN is a smart terrarium with two independent watering zones. An ESP32 sensor hub reads soil moisture, temperature, humidity, light and the water reservoir, and drives two pumps, a fan and a grow light. The web dashboard turns those readings into a calm, glanceable view and lets you take over manual control.",
+  "ov_img": [
+   "/public/resources/case-studies/eden-home.jpg",
+   "Home — plant health, humidity, soil and reservoir, with trends and per-zone moisture."
+  ],
+  "challenge": [
+   "Real hardware, real constraints",
+   [
+    "Two plants with different watering needs in the same enclosure.",
+    "A small sensor hub on a local network, with request timeouts under load.",
+    "Automation that people can trust and override."
+   ]
+  ],
+  "solution": [
+   "Simple, transparent, offline-first",
+   [
+    "Independent per-zone soil moisture and pumps, each with its own thresholds.",
+    "A dependency-free PWA that polls the hub directly and handles a disconnected device gracefully.",
+    "Auto / Manual control for every actuator, with plain-language explanations of why automation is acting."
+   ]
+  ],
+  "features": [
+   [
+    "leaf",
+    "Plant health",
+    "A single health score plus humidity, soil and reservoir levels on the home screen."
+   ],
+   [
+    "sliders",
+    "Systems control",
+    "Auto or manual control of Pump A, Pump B, the fan and the grow light."
+   ],
+   [
+    "wifi",
+    "Works offline",
+    "Installable PWA with a demo mode that simulates the terrarium when the device is unreachable."
+   ]
+  ],
+  "phone": [
+   "/public/resources/case-studies/eden-mobile.jpg",
+   "Designed phone-first",
+   "The dashboard was designed for a phone next to the terrarium, then extended to a two-column desktop layout."
+  ],
+  "points": [
+   "Thumb-reachable floating navigation",
+   "Health panel readable at a glance",
+   "Installable as an app on the home screen"
+  ],
+  "gallery": [
+   [
+    "/public/resources/case-studies/eden-systems.jpg",
+    "Systems — Auto/Manual control for pumps, fan and grow light",
+    true
+   ]
+  ],
+  "tech": [
+   [
+    "Hardware",
+    "ESP32 sensor hub with soil moisture, temperature, humidity, light and reservoir sensors; pumps, fan and grow light."
+   ],
+   [
+    "Device firmware",
+    "C++ on the ESP32, plus a touchscreen interface on the device itself."
+   ],
+   [
+    "Dashboard",
+    "Vanilla HTML, CSS and JavaScript — zero dependencies, zero CDN calls, installable as a PWA."
+   ],
+   [
+    "Team",
+    "Built by Team 17 for the Interactive Systems course at Saarland University."
+   ]
+  ],
+  "stack": [
+   "ESP32",
+   "C++",
+   "HTML",
+   "CSS",
+   "JavaScript",
+   "PWA",
+   "Service worker"
+  ],
+  "learned": "Building for real hardware changes priorities: graceful failure, clear status and trustworthy automation matter more than features. Working in a team also meant agreeing early on the data contract between the device and the dashboard.",
+  "charts": {
+   "h": "The control logic, <span>made visible.</span>",
+   "p": "EDEN’s firmware decides when to water, ventilate and light the terrarium. Both views run the same thresholds as esp32s.ino.",
+   "de_h": "Die Steuerlogik, <span>sichtbar gemacht.</span>",
+   "de_p": "Die Firmware von EDEN entscheidet, wann das Terrarium bewässert, belüftet und beleuchtet wird. Beide Ansichten nutzen dieselben Schwellwerte wie esp32s.ino.",
+   "items": [
+    {
+     "id": "eden-hysteresis",
+     "wide": true,
+     "l": "Auto-watering",
+     "t": "Why the pump turns on at 40% but only turns off at 60%.",
+     "p": "A noisy soil sensor hovering around a single threshold would switch the pump on and off constantly. The firmware’s 40–60% hysteresis band turns that into a few long watering cycles. Toggle to compare both rules on identical readings.",
+     "s": "Simulation with the firmware thresholds and a seeded sensor-noise model: illustrative, not logged sensor data.",
+     "de_l": "Automatische Bewässerung",
+     "de_t": "Warum die Pumpe bei 40 % anspringt, aber erst bei 60 % abschaltet.",
+     "de_p": "Ein verrauschter Bodensensor um einen einzelnen Schwellwert würde die Pumpe ständig ein- und ausschalten. Das 40–60 %-Hysterese-Band der Firmware macht daraus wenige lange Bewässerungszyklen. Umschalten vergleicht beide Regeln mit identischen Messwerten.",
+     "de_s": "Simulation mit den Firmware-Schwellwerten und einem festen Rauschmodell – zur Veranschaulichung, keine aufgezeichneten Sensordaten."
+    },
+    {
+     "id": "eden-controls",
+     "wide": true,
+     "l": "Try it",
+     "t": "Move the readings, watch the actuators respond.",
+     "p": "Drag any sensor value. The fan, pump and grow light react the way the dashboard’s auto mode does, including the safety lock that blocks the pumps when the reservoir runs low.",
+     "s": "Rules from esp32s.ino: fan outside 18–28 °C or 40–80% humidity; pump on below 40% soil, off above 60%; pumps blocked when the water is more than 4.5 cm from the sensor.",
+     "de_l": "Ausprobieren",
+     "de_t": "Messwerte verschieben, Aktoren reagieren sehen.",
+     "de_p": "Ziehe einen beliebigen Sensorwert. Lüfter, Pumpe und Pflanzenlampe reagieren wie im Automatikmodus des Dashboards – inklusive der Sperre, die die Pumpen bei niedrigem Wasserstand blockiert.",
+     "de_s": "Regeln aus esp32s.ino: Lüfter außerhalb von 18–28 °C oder 40–80 % Luftfeuchte; Pumpe an unter 40 % Bodenfeuchte, aus über 60 %; Pumpen gesperrt, wenn das Wasser mehr als 4,5 cm vom Sensor entfernt ist."
+    }
+   ]
+  },
+  "de": {
+   "label": "IoT · Gruppenprojekt",
+   "summary": "Ein intelligentes Terrarium mit zwei Pflanzen und dessen Live-Dashboard – Sensoren, Pumpen, ein Lüfter und eine Pflanzenlampe, entstanden als Gruppenprojekt für den Kurs Interaktive Systeme.",
+   "meta0": "Teammitglied · Web-Dashboard",
+   "meta1": "2026",
+   "meta2": "Gruppenprojekt · Interaktive Systeme, Universität des Saarlandes",
+   "meta3": "ESP32, C++, HTML/CSS/JS",
+   "ov_h": "Zwei Pflanzen, zwei Erden, ein Terrarium. <span>EDEN hält beide am Leben – und zeigt dir, wie.</span>",
+   "ov_p": "EDEN ist ein intelligentes Terrarium mit zwei unabhängigen Bewässerungszonen. Ein ESP32-Sensorhub misst Bodenfeuchte, Temperatur, Luftfeuchtigkeit, Licht und den Wasserbehälter und steuert zwei Pumpen, einen Lüfter und eine Pflanzenlampe. Das Web-Dashboard macht aus den Messwerten eine ruhige, auf einen Blick erfassbare Ansicht und erlaubt es, die manuelle Steuerung zu übernehmen.",
+   "ov_cap": "Startseite – Pflanzengesundheit, Luftfeuchtigkeit, Erde und Behälter, mit Trends und Feuchtigkeit pro Zone.",
+   "ch_t": "Echte Hardware, echte Grenzen",
+   "ch0": "Zwei Pflanzen mit unterschiedlichem Wasserbedarf im selben Gehäuse.",
+   "ch1": "Ein kleiner Sensorhub im lokalen Netzwerk, mit Zeitüberschreitungen bei Anfragen unter Last.",
+   "ch2": "Eine Automatik, der Menschen vertrauen und die sie überstimmen können.",
+   "so_t": "Einfach, transparent, offline-tauglich",
+   "so0": "Unabhängige Bodenfeuchte und Pumpen pro Zone, jeweils mit eigenen Schwellenwerten.",
+   "so1": "Eine abhängigkeitsfreie PWA, die den Hub direkt abfragt und ein getrenntes Gerät sauber behandelt.",
+   "so2": "Auto-/Manuell-Steuerung für jeden Aktor, mit verständlichen Erklärungen, warum die Automatik gerade eingreift.",
+   "f0t": "Pflanzengesundheit",
+   "f0d": "Ein einzelner Gesundheitswert sowie Luftfeuchtigkeit, Erde und Behälterstand auf dem Startbildschirm.",
+   "f1t": "Systemsteuerung",
+   "f1d": "Auto- oder manuelle Steuerung von Pumpe A, Pumpe B, Lüfter und Pflanzenlampe.",
+   "f2t": "Funktioniert offline",
+   "f2d": "Installierbare PWA mit einem Demo-Modus, der das Terrarium simuliert, wenn das Gerät nicht erreichbar ist.",
+   "g0": "Systeme – Auto-/Manuell-Steuerung für Pumpen, Lüfter und Pflanzenlampe",
+   "ph_h": "Zuerst für das Smartphone entworfen",
+   "ph_p": "Das Dashboard wurde für ein Handy neben dem Terrarium entworfen und danach auf ein zweispaltiges Desktop-Layout erweitert.",
+   "pt0": "Mit dem Daumen erreichbare schwebende Navigation",
+   "pt1": "Gesundheitsübersicht auf einen Blick lesbar",
+   "pt2": "Als App auf dem Startbildschirm installierbar",
+   "t0k": "Hardware",
+   "t0v": "ESP32-Sensorhub mit Sensoren für Bodenfeuchte, Temperatur, Luftfeuchtigkeit, Licht und Behälter; Pumpen, Lüfter und Pflanzenlampe.",
+   "t1k": "Gerätefirmware",
+   "t1v": "C++ auf dem ESP32, dazu eine Touchscreen-Oberfläche auf dem Gerät selbst.",
+   "t2k": "Dashboard",
+   "t2v": "Reines HTML, CSS und JavaScript – ohne Abhängigkeiten, ohne CDN-Aufrufe, als PWA installierbar.",
+   "t3k": "Team",
+   "t3v": "Entwickelt von Team 17 für den Kurs Interaktive Systeme an der Universität des Saarlandes.",
+   "learned": "Die Arbeit an echter Hardware verschiebt die Prioritäten: sauberes Fehlerverhalten, klarer Status und vertrauenswürdige Automatik sind wichtiger als Funktionen. Im Team bedeutete das auch, früh den Datenvertrag zwischen Gerät und Dashboard abzustimmen."
+  }
+ },
+ {
+  "slug": "grandlense",
+  "title": "GrandLense",
+  "label": "Web · Photography",
+  "summary": "A portfolio website for a wedding and portrait photography studio — built to let the photographs lead.",
+  "hero": "/public/resources/case-studies/grandlense-home.jpg",
+  "thumb": "/public/resources/projects/grandlense-site.jpg",
+  "live": "https://grandlense.com",
+  "repo": "https://github.com/Habeeb9731/grandlense",
+  "meta": [
+   [
+    "Role",
+    "Web design &amp; development"
+   ],
+   [
+    "Timeline",
+    "2024"
+   ],
+   [
+    "Type",
+    "Client project"
+   ],
+   [
+    "Stack",
+    "HTML, CSS, JavaScript, PHP"
+   ]
+  ],
+  "ov_h": "Wedding photography sells on emotion. <span>The website had to get out of the way.</span>",
+  "ov_p": "GrandLense is a photography studio covering weddings, portrait sessions and creative shoots. The brief was a portfolio site that feels as cinematic as the work — full-screen imagery, minimal interface, and an easy way for couples to get in touch.",
+  "ov_img": [
+   "/public/resources/case-studies/grandlense-home.jpg",
+   "Full-screen hero slider — “Capturing love’s essence”."
+  ],
+  "challenge": [
+   "Large images, fast site",
+   [
+    "The site is almost entirely high-resolution photography.",
+    "Visitors mostly arrive on phones, often from social media.",
+    "Enquiries needed to reach the studio reliably."
+   ]
+  ],
+  "solution": [
+   "Image-first, lightweight build",
+   [
+    "A full-screen slider with bold typography and minimal chrome, so each photo gets the whole screen.",
+    "Responsive layouts and compressed imagery for fast loading on mobile.",
+    "A simple PHP contact form that sends enquiries straight to the studio."
+   ]
+  ],
+  "features": [
+   [
+    "camera",
+    "Cinematic slider",
+    "Full-bleed photography with large headline typography and autoplay controls."
+   ],
+   [
+    "phone",
+    "Mobile-first",
+    "Layouts tuned for phones, where most visitors browse."
+   ],
+   [
+    "chat",
+    "Direct enquiries",
+    "A contact form connected to the studio’s inbox."
+   ]
+  ],
+  "phone": [
+   "/public/resources/case-studies/grandlense-mobile.jpg",
+   "Made for the phone",
+   "The hero adapts to portrait screens so the photography stays full-screen on mobile."
+  ],
+  "points": [
+   "Full-screen photography in portrait",
+   "Lightweight images for mobile data",
+   "Contact form sized for touch"
+  ],
+  "gallery": [],
+  "tech": [
+   [
+    "Frontend",
+    "Hand-built HTML, CSS and JavaScript with a full-screen slider."
+   ],
+   [
+    "Contact",
+    "PHP contact form for enquiries."
+   ],
+   [
+    "Hosting",
+    "Live at grandlense.com."
+   ]
+  ],
+  "stack": [
+   "HTML",
+   "CSS",
+   "JavaScript",
+   "PHP"
+  ],
+  "quote": [
+   "Our portfolio finally looks as polished as the weddings we shoot. He understood the mood we wanted from the first call.",
+   "Afran",
+   "CEO, GrandLense"
+  ],
+  "learned": "For visual businesses, restraint is the design. Most of the work was removing interface so the photography could carry the site.",
+  "de": {
+   "label": "Web · Fotografie",
+   "summary": "Eine Portfolio-Website für ein Hochzeits- und Porträtfotostudio – so gestaltet, dass die Fotos im Mittelpunkt stehen.",
+   "meta0": "Webdesign &amp; Entwicklung",
+   "meta1": "2024",
+   "meta2": "Kundenprojekt",
+   "meta3": "HTML, CSS, JavaScript, PHP",
+   "ov_h": "Hochzeitsfotografie lebt von Emotionen. <span>Die Website musste sich zurücknehmen.</span>",
+   "ov_p": "GrandLense ist ein Fotostudio für Hochzeiten, Porträtshootings und kreative Projekte. Gefragt war eine Portfolio-Seite, die so kinematografisch wirkt wie die Arbeiten selbst – Bilder im Vollbild, minimale Oberfläche und ein einfacher Weg für Paare, Kontakt aufzunehmen.",
+   "ov_cap": "Vollbild-Hero-Slider – „Die Essenz der Liebe festhalten“.",
+   "ch_t": "Große Bilder, schnelle Website",
+   "ch0": "Die Seite besteht fast vollständig aus hochauflösenden Fotos.",
+   "ch1": "Besucher kommen meist vom Smartphone, oft über soziale Medien.",
+   "ch2": "Anfragen mussten das Studio zuverlässig erreichen.",
+   "so_t": "Bildzentriert, schlanker Aufbau",
+   "so0": "Ein Vollbild-Slider mit kräftiger Typografie und minimaler Oberfläche, damit jedes Foto den ganzen Bildschirm bekommt.",
+   "so1": "Responsive Layouts und komprimierte Bilder für schnelles Laden auf dem Handy.",
+   "so2": "Ein einfaches PHP-Kontaktformular, das Anfragen direkt an das Studio schickt.",
+   "f0t": "Filmischer Slider",
+   "f0d": "Randlose Fotografie mit großer Headline-Typografie und Steuerung für die automatische Wiedergabe.",
+   "f1t": "Mobile First",
+   "f1d": "Layouts für Smartphones, auf denen die meisten Besucher stöbern.",
+   "f2t": "Direkte Anfragen",
+   "f2d": "Ein Kontaktformular, das mit dem Posteingang des Studios verbunden ist.",
+   "ph_h": "Für das Smartphone gemacht",
+   "ph_p": "Der Hero-Bereich passt sich Hochformat-Bildschirmen an, sodass die Fotografie auf dem Handy im Vollbild bleibt.",
+   "pt0": "Vollbildfotografie im Hochformat",
+   "pt1": "Leichte Bilder für mobile Daten",
+   "pt2": "Kontaktformular für Touch bemessen",
+   "t0k": "Frontend",
+   "t0v": "Von Hand gebautes HTML, CSS und JavaScript mit Vollbild-Slider.",
+   "t1k": "Kontakt",
+   "t1v": "PHP-Kontaktformular für Anfragen.",
+   "t2k": "Hosting",
+   "t2v": "Live unter grandlense.com.",
+   "learned": "Bei visuellen Marken ist Zurückhaltung das Design. Der größte Teil der Arbeit bestand darin, Oberfläche wegzulassen, damit die Fotografie die Seite tragen kann."
+  }
+ },
+ {
+  "slug": "chick-bites",
+  "title": "Chick Bites Shawarma",
+  "label": "Web · Restaurant",
+  "summary": "A responsive website for a café in Surathkal specialising in shawarmas and burgers — menu, story and table reservations.",
+  "hero": "/public/resources/projects/chick-bites-site.jpg",
+  "thumb": "/public/resources/projects/chick-bites-site.jpg",
+  "repo": "https://github.com/Habeeb9731/food-website",
+  "meta": [
+   [
+    "Role",
+    "Web design &amp; development"
+   ],
+   [
+    "Timeline",
+    "2024"
+   ],
+   [
+    "Type",
+    "Client project"
+   ],
+   [
+    "Stack",
+    "HTML, SCSS, JavaScript"
+   ]
+  ],
+  "ov_h": "A local café needed to be found online. <span>And look as good as the food.</span>",
+  "ov_p": "Chick Bites is a café in Surathkal serving shawarmas and burgers. The goal was a warm, appetising website that shows the menu, tells the café’s story and makes it easy to book a table — especially from a phone.",
+  "ov_img": [
+   "/public/resources/projects/chick-bites-site.jpg",
+   "Home — “Real cooking, perfect taste &amp; delicious food”."
+  ],
+  "challenge": [
+   "Small business, big first impression",
+   [
+    "Most customers discover the café on their phones.",
+    "The menu changes, so it had to be easy to update.",
+    "Reservations needed a simple, friendly flow."
+   ]
+  ],
+  "solution": [
+   "Warm design, simple structure",
+   [
+    "A food-led visual style with large photography and a handwritten logo.",
+    "Clear menu pages and a straightforward reservation form.",
+    "Responsive layouts so the site works just as well on mobile."
+   ]
+  ],
+  "features": [
+   [
+    "utensils",
+    "Menu",
+    "Menu pages that put the dishes front and centre."
+   ],
+   [
+    "calendar",
+    "Reservations",
+    "A simple table booking form — party size, date and time."
+   ],
+   [
+    "phone",
+    "Mobile-friendly",
+    "Built to work smoothly on phones, where most visitors browse."
+   ]
+  ],
+  "phone": [
+   "/public/resources/projects/chick-bites-mobile.jpg",
+   "Phone view",
+   "The hero and menu adapt to small screens so customers can browse and book on the go."
+  ],
+  "points": [
+   "Menu readable without zooming",
+   "Reservation form built for touch",
+   "Fast loading on mobile networks"
+  ],
+  "gallery": [
+   [
+    "/public/resources/case-studies/cb-reservation.jpg",
+    "Table reservation page",
+    true
+   ]
+  ],
+  "tech": [
+   [
+    "Frontend",
+    "HTML, SCSS and JavaScript, built from a restaurant theme and customised for the café."
+   ],
+   [
+    "Pages",
+    "Home, menu, story, gallery and reservations."
+   ]
+  ],
+  "stack": [
+   "HTML",
+   "SCSS",
+   "JavaScript"
+  ],
+  "quote": [
+   "Quick, responsive, and easy to work with. Our menu and story now look great on every phone.",
+   "Ansar",
+   "CEO, Chick Bites Shawarma"
+  ],
+  "learned": "Small-business sites succeed on clarity: what you serve, where you are, how to book. Everything else is secondary.",
+  "de": {
+   "label": "Web · Restaurant",
+   "summary": "Eine responsive Website für ein Café in Surathkal, spezialisiert auf Schawarma und Burger – Speisekarte, Geschichte und Tischreservierungen.",
+   "meta0": "Webdesign &amp; Entwicklung",
+   "meta1": "2024",
+   "meta2": "Kundenprojekt",
+   "meta3": "HTML, SCSS, JavaScript",
+   "ov_h": "Ein lokales Café musste online gefunden werden. <span>Und genauso gut aussehen wie das Essen.</span>",
+   "ov_p": "Chick Bites ist ein Café in Surathkal mit Schawarma und Burgern. Ziel war eine warme, appetitliche Website, die die Speisekarte zeigt, die Geschichte des Cafés erzählt und das Reservieren eines Tisches einfach macht – besonders vom Smartphone aus.",
+   "ov_cap": "Startseite – „Echtes Kochen, perfekter Geschmack &amp; köstliches Essen“.",
+   "ch_t": "Kleiner Betrieb, großer erster Eindruck",
+   "ch0": "Die meisten Gäste entdecken das Café auf dem Smartphone.",
+   "ch1": "Die Speisekarte ändert sich, deshalb musste sie leicht aktualisierbar sein.",
+   "ch2": "Reservierungen brauchten einen einfachen, freundlichen Ablauf.",
+   "so_t": "Warmes Design, einfache Struktur",
+   "so0": "Ein speisenorientierter Stil mit großen Fotos und einem handgeschriebenen Logo.",
+   "so1": "Übersichtliche Speisekarten-Seiten und ein unkompliziertes Reservierungsformular.",
+   "so2": "Responsive Layouts, damit die Website auf dem Handy genauso gut funktioniert.",
+   "f0t": "Speisekarte",
+   "f0d": "Speisekarten-Seiten, die die Gerichte in den Mittelpunkt stellen.",
+   "f1t": "Reservierungen",
+   "f1d": "Ein einfaches Formular zur Tischbuchung – Personenanzahl, Datum und Uhrzeit.",
+   "f2t": "Mobilfreundlich",
+   "f2d": "Gebaut für flüssige Nutzung auf dem Smartphone, wo die meisten Besucher stöbern.",
+   "g0": "Seite zur Tischreservierung",
+   "ph_h": "Ansicht auf dem Smartphone",
+   "ph_p": "Hero-Bereich und Speisekarte passen sich kleinen Bildschirmen an, damit Gäste unterwegs stöbern und buchen können.",
+   "pt0": "Speisekarte ohne Zoomen lesbar",
+   "pt1": "Reservierungsformular für Touch gebaut",
+   "pt2": "Schnelles Laden in mobilen Netzen",
+   "t0k": "Frontend",
+   "t0v": "HTML, SCSS und JavaScript, aus einem Restaurant-Theme entwickelt und für das Café angepasst.",
+   "t1k": "Seiten",
+   "t1v": "Startseite, Speisekarte, Geschichte, Galerie und Reservierungen.",
+   "learned": "Kleine Betriebe überzeugen durch Klarheit: was man anbietet, wo man ist, wie man bucht. Alles Übrige ist zweitrangig."
+  }
+ },
+ {
+  "slug": "modern-luxury-interiors",
+  "title": "Modern Luxury Interiors",
+  "label": "Web · Interiors",
+  "summary": "A polished website for a Dubai interior design firm — modern interiors with a luxury finish, presented with the same care.",
+  "hero": "/public/resources/case-studies/ml-home.jpg",
+  "thumb": "/public/resources/projects/modern-luxury-site.jpg",
+  "live": "https://modernluxury-design.com/",
+  "meta": [
+   [
+    "Role",
+    "Web design &amp; development"
+   ],
+   [
+    "Timeline",
+    "2024"
+   ],
+   [
+    "Type",
+    "Client project"
+   ],
+   [
+    "Stack",
+    "HTML, CSS, JavaScript"
+   ]
+  ],
+  "ov_h": "A luxury interior firm needs a website that feels <span>as considered as its spaces.</span>",
+  "ov_p": "Modern Luxury is a Dubai-based interior design and fit-out firm. The site presents their services — from architectural design and turnkey projects to landscaping and technical services — with a refined, architectural visual language.",
+  "ov_img": [
+   "/public/resources/case-studies/ml-home.jpg",
+   "Home — “Making your dream space with modern luxury”."
+  ],
+  "challenge": [
+   "Many services, one premium brand",
+   [
+    "A wide range of services — design, fit-out, landscaping, maintenance.",
+    "A premium audience that judges quality instantly.",
+    "Enquiries needed to be quick, including via WhatsApp."
+   ]
+  ],
+  "solution": [
+   "Architectural design, clear structure",
+   [
+    "Bold typography over architectural photography to set a premium tone.",
+    "Dedicated pages for each service so clients find exactly what they need.",
+    "Prominent quote and WhatsApp contact options on every page."
+   ]
+  ],
+  "features": [
+   [
+    "home",
+    "Service pages",
+    "Separate pages for architecture design, turnkey, landscaping and technical services."
+   ],
+   [
+    "grid",
+    "Portfolio",
+    "Project portfolio and detail pages to showcase completed work."
+   ],
+   [
+    "chat",
+    "Fast contact",
+    "“Get a quote” and WhatsApp buttons always within reach."
+   ]
+  ],
+  "phone": [
+   "/public/resources/case-studies/ml-mobile.jpg",
+   "Premium on mobile",
+   "The layout keeps the architectural feel on phones, with contact options always one tap away."
+  ],
+  "points": [
+   "Architectural hero adapts to portrait",
+   "Quote and WhatsApp always one tap away",
+   "Service pages stack cleanly"
+  ],
+  "gallery": [],
+  "tech": [
+   [
+    "Frontend",
+    "HTML, CSS and JavaScript multi-page site."
+   ],
+   [
+    "Pages",
+    "Home, about, services (and service details), portfolio, team, blog and contact."
+   ],
+   [
+    "Hosting",
+    "Live at modernluxury-design.com."
+   ]
+  ],
+  "stack": [
+   "HTML",
+   "CSS",
+   "JavaScript"
+  ],
+  "quote": [
+   "He captured the luxury finish of our interiors and delivered a site our clients compliment us on.",
+   "Ashif",
+   "CEO, Modern Luxury Interiors"
+  ],
+  "learned": "Premium brands are judged on details — spacing, type and photography choices did more for the brand than any feature.",
+  "de": {
+   "label": "Web · Innenarchitektur",
+   "summary": "Eine hochwertige Website für ein Innenarchitekturbüro in Dubai – moderne Interieurs mit luxuriöser Note, mit derselben Sorgfalt präsentiert.",
+   "meta0": "Webdesign &amp; Entwicklung",
+   "meta1": "2024",
+   "meta2": "Kundenprojekt",
+   "meta3": "HTML, CSS, JavaScript",
+   "ov_h": "Ein Luxus-Innenarchitekturbüro braucht eine Website, die <span>so durchdacht wirkt wie seine Räume.</span>",
+   "ov_p": "Modern Luxury ist ein Innenarchitektur- und Ausbaubüro mit Sitz in Dubai. Die Website stellt die Leistungen vor – von architektonischer Planung und schlüsselfertigen Projekten bis zu Landschaftsbau und technischen Dienstleistungen – mit einer verfeinerten, architektonischen Bildsprache.",
+   "ov_cap": "Startseite – „Dein Traumraum mit modernem Luxus“.",
+   "ch_t": "Viele Leistungen, eine Premiummarke",
+   "ch0": "Ein breites Leistungsspektrum – Planung, Ausbau, Landschaftsbau, Wartung.",
+   "ch1": "Ein anspruchsvolles Publikum, das Qualität sofort beurteilt.",
+   "ch2": "Anfragen sollten schnell möglich sein, auch über WhatsApp.",
+   "so_t": "Architektonische Gestaltung, klare Struktur",
+   "so0": "Kräftige Typografie über architektonischer Fotografie setzt einen Premium-Ton.",
+   "so1": "Eigene Seiten für jede Leistung, damit Kunden genau finden, was sie brauchen.",
+   "so2": "Auffällige Angebots- und WhatsApp-Kontaktmöglichkeiten auf jeder Seite.",
+   "f0t": "Leistungsseiten",
+   "f0d": "Eigene Seiten für Architekturplanung, schlüsselfertige Projekte, Landschaftsbau und technische Dienstleistungen.",
+   "f1t": "Portfolio",
+   "f1d": "Projektübersicht und Detailseiten, um abgeschlossene Arbeiten zu zeigen.",
+   "f2t": "Schneller Kontakt",
+   "f2d": "Die Schaltflächen „Angebot anfordern“ und WhatsApp sind immer in Reichweite.",
+   "ph_h": "Premium auf dem Smartphone",
+   "ph_p": "Das Layout bewahrt den architektonischen Charakter auf dem Handy, Kontaktmöglichkeiten sind immer mit einem Tippen erreichbar.",
+   "pt0": "Architektonischer Hero-Bereich passt sich dem Hochformat an",
+   "pt1": "Angebot und WhatsApp immer mit einem Tippen erreichbar",
+   "pt2": "Leistungsseiten stapeln sich sauber",
+   "t0k": "Frontend",
+   "t0v": "Mehrseitige Website in HTML, CSS und JavaScript.",
+   "t1k": "Seiten",
+   "t1v": "Startseite, Über uns, Leistungen (und Leistungsdetails), Portfolio, Team, Blog und Kontakt.",
+   "t2k": "Hosting",
+   "t2v": "Live unter modernluxury-design.com.",
+   "learned": "Premiummarken werden an Details gemessen – Abstände, Typografie und Fotoauswahl haben mehr für die Marke getan als jede Funktion."
+  }
+ },
+ {
+  "slug": "ecliniqs",
+  "title": "Ecliniqs",
+  "label": "Web · Healthcare",
+  "summary": "A website for an online speech therapy provider based in Dubai — services for children and adults, plus online appointment booking.",
+  "hero": "/public/resources/case-studies/ecliniqs-home.jpg",
+  "thumb": "/public/resources/projects/ecliniqs-site.jpg",
+  "repo": "https://github.com/Habeeb9731/ecliniqs_deploy",
+  "meta": [
+   [
+    "Role",
+    "Web design &amp; development"
+   ],
+   [
+    "Timeline",
+    "2024"
+   ],
+   [
+    "Type",
+    "Client project"
+   ],
+   [
+    "Stack",
+    "HTML, CSS, JavaScript, PHP"
+   ]
+  ],
+  "ov_h": "Therapy starts with trust. <span>The website had to feel calm, clear and welcoming.</span>",
+  "ov_p": "Ecliniqs offers online speech therapy for children and adults, plus family counselling. Families often arrive worried and unsure where to start, so the site focuses on reassurance: clear services, friendly imagery and an easy way to book a session.",
+  "ov_img": [
+   "/public/resources/case-studies/ecliniqs-home.jpg",
+   "Home — “Online speech therapy”."
+  ],
+  "challenge": [
+   "A sensitive, unfamiliar service",
+   [
+    "Many families have never tried online therapy before.",
+    "Different services for children, adults and families.",
+    "Booking needed to be simple for non-technical users."
+   ]
+  ],
+  "solution": [
+   "Reassuring design, guided booking",
+   [
+    "Warm photography and plain-language copy that explains how sessions work.",
+    "Separate service pages for child therapy, adult therapy and family counselling.",
+    "An appointment page with calendar-based booking and a payment page."
+   ]
+  ],
+  "features": [
+   [
+    "chat",
+    "Clear services",
+    "Dedicated pages for paediatric, adult and family services."
+   ],
+   [
+    "calendar",
+    "Online booking",
+    "Calendar-based appointment scheduling."
+   ],
+   [
+    "lock",
+    "Payments",
+    "A payment page to confirm sessions online."
+   ]
+  ],
+  "phone": [
+   "/public/resources/case-studies/ecliniqs-mobile.jpg",
+   "Accessible on any device",
+   "Families can read about services and book a session from their phone."
+  ],
+  "points": [
+   "Services explained in short, scannable blocks",
+   "Booking flow works on small screens",
+   "Calm, readable typography for parents"
+  ],
+  "gallery": [
+   [
+    "/public/resources/case-studies/ecliniqs-services.jpg",
+    "Paediatric speech therapy service page",
+    false
+   ],
+   [
+    "/public/resources/case-studies/ecliniqs-appointment.jpg",
+    "Appointment booking with calendar and time slots",
+    false
+   ]
+  ],
+  "tech": [
+   [
+    "Frontend",
+    "HTML, CSS and JavaScript multi-page site."
+   ],
+   [
+    "Backend",
+    "PHP for forms and contact."
+   ],
+   [
+    "Pages",
+    "Home, about, child services, adult services, family counselling, appointment, payment and contact."
+   ]
+  ],
+  "stack": [
+   "HTML",
+   "CSS",
+   "JavaScript",
+   "PHP"
+  ],
+  "quote": [
+   "Habeeb turned our speech therapy services into a website that feels calm and clear for the families we work with.",
+   "Sana",
+   "CEO, Ecliniqs"
+  ],
+  "learned": "Designing for healthcare is designing for anxious users. Tone, clarity and a short path to booking mattered more than visual flair.",
+  "de": {
+   "label": "Web · Gesundheitswesen",
+   "summary": "Eine Website für einen Online-Logopädiedienst mit Sitz in Dubai – Angebote für Kinder und Erwachsene sowie Online-Terminbuchung.",
+   "meta0": "Webdesign &amp; Entwicklung",
+   "meta1": "2024",
+   "meta2": "Kundenprojekt",
+   "meta3": "HTML, CSS, JavaScript, PHP",
+   "ov_h": "Therapie beginnt mit Vertrauen. <span>Die Website sollte ruhig, klar und einladend wirken.</span>",
+   "ov_p": "Ecliniqs bietet Online-Logopädie für Kinder und Erwachsene sowie Familienberatung an. Familien kommen oft besorgt und wissen nicht, wo sie anfangen sollen. Deshalb setzt die Seite auf Beruhigung: klare Leistungen, freundliche Bilder und ein einfacher Weg, eine Sitzung zu buchen.",
+   "ov_cap": "Startseite – „Online-Logopädie“.",
+   "ch_t": "Ein sensibler, ungewohnter Dienst",
+   "ch0": "Viele Familien haben Online-Therapie noch nie ausprobiert.",
+   "ch1": "Unterschiedliche Angebote für Kinder, Erwachsene und Familien.",
+   "ch2": "Die Buchung musste auch für technisch wenig versierte Nutzer einfach sein.",
+   "so_t": "Beruhigendes Design, geführte Buchung",
+   "so0": "Warme Fotos und verständlich formulierte Texte, die erklären, wie die Sitzungen ablaufen.",
+   "so1": "Eigene Leistungsseiten für Kindertherapie, Erwachsenentherapie und Familienberatung.",
+   "so2": "Eine Terminseite mit kalenderbasierter Buchung und eine Zahlungsseite.",
+   "f0t": "Klare Leistungen",
+   "f0d": "Eigene Seiten für Leistungen für Kinder, Erwachsene und Familien.",
+   "f1t": "Online-Buchung",
+   "f1d": "Terminplanung über einen Kalender.",
+   "f2t": "Zahlungen",
+   "f2d": "Eine Zahlungsseite, um Sitzungen online zu bestätigen.",
+   "g0": "Seite zur Logopädie für Kinder",
+   "g1": "Terminbuchung mit Kalender und Zeitfenstern",
+   "ph_h": "Auf jedem Gerät zugänglich",
+   "ph_p": "Familien können sich auf dem Smartphone über Leistungen informieren und eine Sitzung buchen.",
+   "pt0": "Leistungen in kurzen, übersichtlichen Blöcken erklärt",
+   "pt1": "Buchungsablauf funktioniert auf kleinen Bildschirmen",
+   "pt2": "Ruhige, gut lesbare Typografie für Eltern",
+   "t0k": "Frontend",
+   "t0v": "Mehrseitige Website in HTML, CSS und JavaScript.",
+   "t1k": "Backend",
+   "t1v": "PHP für Formulare und Kontakt.",
+   "t2k": "Seiten",
+   "t2v": "Startseite, Über uns, Angebote für Kinder, Angebote für Erwachsene, Familienberatung, Termin, Zahlung und Kontakt.",
+   "learned": "Gesundheitsdesign bedeutet, für verunsicherte Nutzer zu gestalten. Tonfall, Klarheit und ein kurzer Weg zur Buchung waren wichtiger als visuelle Effekte."
+  }
+ },
+ {
+  "slug": "memorloop",
+  "title": "MemorLoop",
+  "label": "UX · HCI project",
+  "summary": "A desktop learning app concept built around interactive flashcards and spaced repetition to improve memory retention.",
+  "hero": "/public/resources/projects/memorloop-dashboard.jpg",
+  "thumb": "/public/resources/projects/memorloop-dashboard.jpg",
+  "live": "https://www.figma.com/proto/dHLZv3MOHBEXeluwoeAuS6/HCI-Final-Project?page-id=0%3A1&node-id=8-2&viewport=-441%2C259%2C0.08&t=w5cBSRvvlj1Ln3ls-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=8%3A2&show-proto-sidebar=1",
+  "live_label": "Open prototype",
+  "meta": [
+   [
+    "Role",
+    "UX research &amp; UI design"
+   ],
+   [
+    "Timeline",
+    "University project"
+   ],
+   [
+    "Type",
+    "HCI course project"
+   ],
+   [
+    "Stack",
+    "Figma"
+   ]
+  ],
+  "ov_h": "Students forget most of what they read. <span>MemorLoop is designed to bring it back at the right time.</span>",
+  "ov_p": "MemorLoop is a desktop learning experience designed in Figma for an HCI course. It combines notes, uploaded study material and interactive flashcards with spaced repetition, so reviews are scheduled around how memory actually fades.",
+  "ov_img": [
+   "/public/resources/projects/memorloop-dashboard.jpg",
+   "Dashboard — learning progress, recent uploads, notes spotlight and quick flashcards."
+  ],
+  "challenge": [
+   "Studying is fragmented",
+   [
+    "Notes, PDFs and flashcards usually live in separate tools.",
+    "Most learners review too late — or too often.",
+    "Progress is hard to see, which hurts motivation."
+   ]
+  ],
+  "solution": [
+   "One space, smart repetition",
+   [
+    "A single dashboard bringing together uploads, notes and flashcards.",
+    "Spaced repetition that schedules reviews based on how well each card is remembered.",
+    "Visible progress charts to keep learners motivated."
+   ]
+  ],
+  "features": [
+   [
+    "cards",
+    "Flashcards",
+    "Interactive cards created from notes and uploaded material."
+   ],
+   [
+    "repeat",
+    "Spaced repetition",
+    "Reviews scheduled at the moment you’re about to forget."
+   ],
+   [
+    "chart",
+    "Progress tracking",
+    "Learning progress charts that make improvement visible."
+   ]
+  ],
+  "gallery": [],
+  "tech": [
+   [
+    "Process",
+    "User research, task flows and iterative prototyping as part of an HCI course."
+   ],
+   [
+    "Design",
+    "High-fidelity desktop UI and interactive prototype in Figma."
+   ]
+  ],
+  "stack": [
+   "Figma",
+   "UX research",
+   "Prototyping"
+  ],
+  "learned": "Grounding design decisions in how memory actually works — rather than in features — gave the product a clear core: show the right card at the right time.",
+  "de": {
+   "label": "UX · HCI-Projekt",
+   "summary": "Konzept einer Desktop-Lern-App, die um interaktive Karteikarten und verteiltes Wiederholen aufgebaut ist, um das Behalten zu verbessern.",
+   "meta0": "UX-Research &amp; UI-Design",
+   "meta1": "Universitätsprojekt",
+   "meta2": "HCI-Kursprojekt",
+   "meta3": "Figma",
+   "ov_h": "Studierende vergessen das meiste von dem, was sie lesen. <span>MemorLoop bringt es zur richtigen Zeit zurück.</span>",
+   "ov_p": "MemorLoop ist eine in Figma für einen HCI-Kurs entworfene Desktop-Lernerfahrung. Sie verbindet Notizen, hochgeladenes Lernmaterial und interaktive Karteikarten mit verteiltem Wiederholen, sodass Wiederholungen daran ausgerichtet werden, wie Erinnerungen tatsächlich verblassen.",
+   "ov_cap": "Dashboard – Lernfortschritt, neueste Uploads, Notiz-Highlights und Schnell-Karteikarten.",
+   "ch_t": "Lernen ist zersplittert",
+   "ch0": "Notizen, PDFs und Karteikarten liegen meist in getrennten Tools.",
+   "ch1": "Die meisten Lernenden wiederholen zu spät – oder zu oft.",
+   "ch2": "Der Fortschritt ist schwer zu erkennen, was der Motivation schadet.",
+   "so_t": "Ein Ort, kluge Wiederholung",
+   "so0": "Ein einziges Dashboard, das Uploads, Notizen und Karteikarten zusammenführt.",
+   "so1": "Verteiltes Wiederholen, das Überprüfungen anhand des Behaltens jeder Karte plant.",
+   "so2": "Sichtbare Fortschrittsdiagramme halten Lernende motiviert.",
+   "f0t": "Karteikarten",
+   "f0d": "Interaktive Karten, erstellt aus Notizen und hochgeladenem Material.",
+   "f1t": "Verteiltes Wiederholen",
+   "f1d": "Wiederholungen, die genau dann geplant werden, wenn man kurz davor ist zu vergessen.",
+   "f2t": "Fortschrittsverfolgung",
+   "f2d": "Lernfortschrittsdiagramme, die Verbesserungen sichtbar machen.",
+   "t0k": "Prozess",
+   "t0v": "Nutzerforschung, Aufgabenabläufe und iteratives Prototyping im Rahmen eines HCI-Kurses.",
+   "t1k": "Design",
+   "t1v": "Hochauflösende Desktop-Oberfläche und interaktiver Prototyp in Figma.",
+   "learned": "Designentscheidungen auf die Funktionsweise des Gedächtnisses zu gründen – statt auf Funktionen – gab dem Produkt einen klaren Kern: die richtige Karte zur richtigen Zeit zu zeigen."
+  }
+ }
+]

@@ -17,8 +17,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css?v=20261101-noserif" />
-  <link rel="stylesheet" href="/case-study.css?v=20261101-noserif" />
+  <link rel="stylesheet" href="/styles.css?v=20261101-copy" />
+  <link rel="stylesheet" href="/case-study.css?v=20261101-copy" />
   <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark-pre')}catch(e){}</script>
 </head>
 <body>
@@ -91,7 +91,7 @@
     <div class="contact-copy">
       <span class="label" data-i18n="connectLabel">Let’s connect</span>
       <h2 data-i18n="connectTitle">Have an idea<br /><em>worth exploring?</em></h2>
-      <div class="contact-actions"><a class="button" href="mailto:abdulhabeeb9731@gmail.com">abdulhabeeb9731@gmail.com <span>↗</span></a><a class="button is-ghost" href="https://linkedin.com/in/abdulhabeeb9731" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a></div>
+      <div class="contact-actions"><span class="contact-email"><a class="button" href="mailto:abdulhabeeb9731@gmail.com">abdulhabeeb9731@gmail.com <span>↗</span></a><button class="button copy-email" type="button" data-copy="abdulhabeeb9731@gmail.com" aria-label="Copy email address"><span><svg class="ic-copy" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2.2"/><path d="M15.5 8.5V6.7a2.2 2.2 0 0 0-2.2-2.2H6.7a2.2 2.2 0 0 0-2.2 2.2v6.6a2.2 2.2 0 0 0 2.2 2.2h1.8"/></svg><svg class="ic-done" viewBox="0 0 24 24" aria-hidden="true"><path d="m5.5 12.5 4 4 9-9.5"/></svg></span><em class="copy-tip" role="status" aria-live="polite"></em></button></span><a class="button is-ghost" href="https://linkedin.com/in/abdulhabeeb9731" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a></div>
     </div>
     <footer>
       <div class="footer-line"><span>© 2026 Abdul Habeeb</span><i></i><span>Saarbrücken, Germany</span></div>
@@ -180,10 +180,11 @@ sideLinks.forEach(l=>{const t=document.querySelector(l.hash);if(t)sideObserver.o
 requestAnimationFrame(()=>moveSide(sideLinks[0]));
 </script>
 <script type="application/json" id="cs-chart-data">{"eden-hysteresis": {}, "eden-controls": {}}</script>
-<script src="/case-charts.js?v=20261101-noserif" defer></script>
+<script src="/case-charts.js?v=20261101-copy" defer></script>
 <script src="/public/vendor/lenis.min.js?v=1.1.20" defer></script>
 <script src="/smooth-scroll.js?v=20261101b" defer></script>
 <script src="/section-reveal.js?v=20261101e" defer></script>
 <script src="/footer-fun.js?v=20261101b" defer></script>
+<script src="/copy-email.js?v=20261101a" defer></script>
 </body>
 </html>

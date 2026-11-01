@@ -22,7 +22,7 @@ ROOT = os.path.abspath(os.path.join(HERE, '..', '..'))
 DATA = os.path.join(HERE, 'data')
 
 # Bump when styles.css / case-study.css / case-charts.js change, so browsers fetch the new files.
-ASSET_VERSION = '20261101-noserif'
+ASSET_VERSION = '20261101-copy'
 
 
 def load(name):

@@ -489,3 +489,18 @@ footer{container-type:inline-size;margin-top:clamp(80px,11vw,140px);padding:18px
 @keyframes ffHop{0%,100%{transform:none}40%{transform:translateY(-4px)}}
 @media(max-width:640px){.footer-wordmark{--wm-mask:linear-gradient(180deg,rgba(0,0,0,.92) .25em,rgba(0,0,0,.45) .75em,rgba(0,0,0,.12) 1.23em)}}
 @media(prefers-reduced-motion:reduce){.footer-wordmark .wl{transition:none}}
+
+/* Contact: copy-email button, joined to the email button */
+.contact-email{display:inline-flex;gap:4px}
+.contact-email > a.button{border-top-right-radius:4px;border-bottom-right-radius:4px}
+.contact .copy-email{position:relative;padding:5px;border-top-left-radius:4px;border-bottom-left-radius:4px;cursor:pointer}
+.contact .copy-email span{position:relative;color:#fff}
+.contact .copy-email span::before{content:none}
+.copy-email svg{position:absolute;width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;transition:opacity .2s ease,transform .3s cubic-bezier(.34,1.56,.64,1)}
+.copy-email .ic-done{opacity:0;transform:scale(.4)}
+.copy-email.is-copied span{background:#1baf7a}
+.copy-email.is-copied .ic-copy{opacity:0;transform:scale(.4)}
+.copy-email.is-copied .ic-done{opacity:1;transform:none}
+.copy-email .copy-tip{position:absolute;left:50%;bottom:calc(100% + 8px);padding:4px 8px;border-radius:6px;background:#151614;color:#fff;font:500 .7rem var(--sans);font-style:normal;white-space:nowrap;pointer-events:none;opacity:0;transform:translate(-50%,4px);transition:opacity .2s ease,transform .25s ease}
+.copy-email.is-tip .copy-tip{opacity:1;transform:translate(-50%,0)}
+.copy-email:focus-visible{outline:2px solid #fff;outline-offset:2px}

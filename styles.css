@@ -369,3 +369,85 @@ footer{container-type:inline-size;margin-top:clamp(80px,11vw,140px);padding:18px
   .hero-trust{-webkit-mask-image:none;mask-image:none}
   .trust-track,.trust-group{flex-wrap:wrap;justify-content:center;width:auto}
 }
+
+/* ---------- Profile section reveal ---------- */
+.feature-card{position:relative;isolation:isolate;overflow:hidden;transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.feature-card:hover{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(-3px);transition-duration:.12s}
+.feature-card::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.55),transparent 65%);transition:opacity .3s}
+.feature-card.is-accent::after{background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.16),transparent 65%)}
+.dark .feature-card::after{background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.06),transparent 65%)}
+@media(pointer:fine){.feature-card:hover::after{opacity:1}}
+.rv-mask{display:inline-block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em;vertical-align:top}
+.rv-word{display:inline-block}
+.rv-armed .feature-card.is-accent{background:var(--card)}
+.rv-armed .feature-card.is-accent::before{content:"";position:absolute;inset:0;z-index:-2;background:var(--accent);clip-path:circle(150% at 46px 46px)}
+.rv-armed .rv-wait :is(.about-intro .label,.about-intro h2 small,.about-meta,.social-links a,.about-quote,.tool,.feature-card,.feature-icon){opacity:0}
+.rv-armed .rv-wait .rv-word{transform:translateY(110%)}
+.rv-armed .rv-wait .profile-photo{clip-path:inset(100% 0 0 0 round 18px)}
+.rv-armed .rv-wait .feature-card.is-accent::before{clip-path:circle(0 at 46px 46px)}
+.rv-in .about-intro .label{animation:rvUp .7s cubic-bezier(.2,.8,.2,1) backwards}
+.rv-in .rv-word{animation:rvWord .9s cubic-bezier(.2,.9,.25,1) backwards;animation-delay:calc(80ms + var(--i)*90ms)}
+.rv-in .about-intro h2 small{display:inline-block;animation:rvPop .7s cubic-bezier(.34,1.7,.64,1) 380ms backwards}
+.rv-in .about-meta{animation:rvUp .8s cubic-bezier(.2,.8,.2,1) 300ms backwards}
+.rv-in .profile-photo{animation:rvPhoto 1.15s cubic-bezier(.7,0,.2,1) 250ms backwards}
+.rv-in .profile-photo img{animation:rvZoom 1.6s cubic-bezier(.2,.8,.2,1) 250ms backwards}
+.rv-in .social-links a{animation:rvPop .65s cubic-bezier(.34,1.56,.64,1) backwards;animation-delay:calc(760ms + var(--i)*80ms)}
+.rv-in .about-quote{animation:rvUp .8s cubic-bezier(.2,.8,.2,1) 880ms backwards}
+.rv-in .tool{animation:rvPop .6s cubic-bezier(.34,1.7,.64,1) backwards;animation-delay:calc(980ms + var(--i)*38ms)}
+.rv-in .feature-card{animation:rvCard .9s cubic-bezier(.2,.85,.25,1) backwards;animation-delay:calc(320ms + var(--i)*110ms)}
+.rv-in .feature-card.is-accent::before{animation:rvInk 1s cubic-bezier(.6,0,.2,1) 560ms backwards}
+.rv-in .feature-icon{animation:rvPop .7s cubic-bezier(.34,1.8,.64,1) backwards;animation-delay:calc(720ms + var(--i,0)*110ms)}
+.rv-in .feature-card:nth-child(2) .feature-icon{--i:1}.rv-in .feature-card:nth-child(3) .feature-icon{--i:2}.rv-in .feature-card:nth-child(4) .feature-icon{--i:3}
+@keyframes rvUp{from{opacity:0;transform:translateY(18px)}}
+@keyframes rvWord{from{transform:translateY(110%)}}
+@keyframes rvPop{from{opacity:0;transform:scale(.4) rotate(-12deg)}}
+@keyframes rvPhoto{from{clip-path:inset(100% 0 0 0 round 18px)}to{clip-path:inset(0 0 0 0 round 18px)}}
+@keyframes rvZoom{from{transform:scale(1.18);filter:brightness(1.4)}}
+@keyframes rvCard{from{opacity:0;transform:perspective(900px) translateY(46px) rotateX(8deg) scale(.97)}}
+@keyframes rvInk{from{clip-path:circle(0 at 46px 46px)}to{clip-path:circle(150% at 46px 46px)}}
+
+/* ---------- Subtle section reveals ---------- */
+:is(.sr-wait .sr,.sr-wait.sr){opacity:0}
+:is(.sr-in .sr,.sr-in.sr){animation:srUp .9s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:var(--d,0ms)}
+:is(.sr-in .sr-x,.sr-in.sr-x){animation-name:srX}
+:is(.sr-in .sr-scale,.sr-in.sr-scale){animation-name:srScale;animation-duration:1s}
+:is(.sr-in .sr-stage,.sr-in.sr-stage){animation-name:srStage;animation-duration:1.1s}
+@keyframes srUp{from{opacity:0;transform:translateY(20px);filter:blur(4px)}}
+@keyframes srX{from{opacity:0;transform:translateX(-12px)}}
+@keyframes srScale{from{opacity:0;transform:scale(.94)}}
+@keyframes srStage{from{opacity:0;transform:translateY(36px) scale(.985)}}
+
+/* ---------- Projects carousel extras ---------- */
+.showcase-peek{position:absolute;z-index:2;top:50%;left:50%;display:inline-flex;align-items:center;gap:6px;max-width:calc(100% - 24px);padding:8px 14px;border:1px solid rgba(255,255,255,.3);border-radius:999px;background:rgba(10,14,30,.42);color:#fff;font-size:.78rem;white-space:nowrap;backdrop-filter:blur(10px);opacity:0;transform:translate(-50%,-30%) scale(.9);transition:opacity .3s ease,transform .45s cubic-bezier(.34,1.56,.64,1);pointer-events:none}
+.showcase-peek b{overflow:hidden;font-weight:500;text-overflow:ellipsis}
+.showcase-card:is([data-position="previous"],[data-position="next"]):hover .showcase-peek{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.showcase-glare{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0;background:radial-gradient(420px circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.14),transparent 60%);transition:opacity .4s}
+.showcase-card.is-tracking[data-position="active"] .showcase-glare{opacity:1}
+.showcase-card[data-position="active"].is-tracking img{transform:translate3d(var(--px,0),var(--py,0),0) scale(1.05);transition:transform .3s cubic-bezier(.2,.8,.2,1),filter .7s ease}
+.showcase-card[data-position="active"]:not(.is-tracking) img{transition:transform .9s cubic-bezier(.2,.8,.2,1),filter .7s ease}
+.showcase-quote .qw{display:inline-block}
+.showcase-card.is-entering .qw{animation:qwUp .75s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(380ms + var(--i)*26ms)}
+.showcase-card.is-entering .showcase-links a{animation:qbPop .6s cubic-bezier(.34,1.56,.64,1) backwards;animation-delay:calc(720ms + var(--i)*70ms)}
+@keyframes qwUp{from{opacity:0;transform:translateY(.5em);filter:blur(5px)}}
+@keyframes qbPop{from{opacity:0;transform:translateY(8px) scale(.8)}}
+.deal-wait .showcase-card{visibility:hidden}
+.is-dealt .showcase-card[data-position="active"]{animation:dealOpen 1.15s cubic-bezier(.7,0,.2,1) backwards}
+.is-dealt .showcase-card[data-position="active"] img{animation:dealZoom 1.6s cubic-bezier(.2,.8,.2,1) backwards}
+.is-dealt .showcase-card[data-position="previous"]{animation:dealPrev .95s cubic-bezier(.2,.85,.25,1) .4s backwards}
+.is-dealt .showcase-card[data-position="next"]{animation:dealNext .95s cubic-bezier(.2,.85,.25,1) .4s backwards}
+@keyframes dealOpen{from{clip-path:inset(4% 40% round 16px)}to{clip-path:inset(0 0 round 16px)}}
+@keyframes dealZoom{from{transform:scale(1.22)}}
+@keyframes dealPrev{from{opacity:0;transform:translateX(70%) scale(.92)}}
+@keyframes dealNext{from{opacity:0;transform:translateX(-70%) scale(.92)}}
+.showcase-dots{display:flex;justify-content:center;gap:4px;margin-top:18px}
+.showcase-dot{appearance:none;padding:8px 3px;border:0;background:none;cursor:pointer}
+.showcase-dot i{position:relative;display:block;width:6px;height:6px;overflow:hidden;border-radius:999px;background:var(--line);transition:width .55s cubic-bezier(.34,1.56,.64,1),background .3s}
+.showcase-dot:hover i{background:var(--muted)}
+.showcase-dot.is-active i{width:36px;background:var(--line)}
+.showcase-dot i::after{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--accent);transform:scaleX(0);transform-origin:left}
+.showcase-dot.is-active i::after{transform:scaleX(1)}
+.showcase-dot.is-running i::after{animation:dotFill var(--autoplay,6500ms) linear forwards}
+.showcase-dot:focus-visible{outline:none}.showcase-dot:focus-visible i{box-shadow:0 0 0 2px var(--paper),0 0 0 4px var(--accent)}
+@keyframes dotFill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media(max-width:640px){.showcase-peek{display:none}}
+@media(prefers-reduced-motion:reduce){.showcase-card.is-entering .qw,.showcase-card.is-entering .showcase-links a{animation:none}}

@@ -9,7 +9,7 @@ html.lenis,html.lenis body{height:auto}
 body{margin:0;background:var(--canvas);color:var(--ink);font:400 16px/1.5 var(--sans);-webkit-font-smoothing:antialiased;transition:background .25s ease,color .25s ease}
 img{display:block;max-width:100%}
 h1,h2,h3{margin:0;font-weight:300;letter-spacing:-.035em}
-h1 em,h2 em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.01em}
+h1 em,h2 em{font-family:inherit;font-style:normal;font-weight:inherit;letter-spacing:inherit}
 p{margin:0}
 a{color:inherit}
 .page{max-width:none;margin:0;padding:10px;background:var(--paper);transition:background .25s ease}

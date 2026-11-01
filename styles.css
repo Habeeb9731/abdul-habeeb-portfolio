@@ -34,6 +34,10 @@ html[lang="de"] .hero h1{max-width:21ch;font-size:clamp(2.2rem,4.5vw,4.3rem);tex
 .hero h1 em{font-family:inherit;font-style:normal;font-weight:inherit;letter-spacing:inherit}
 .hero-role{display:block;margin:0 auto 18px;color:rgba(255,255,255,.72);font-size:clamp(.78rem,1.1vw,.9rem);font-weight:400;line-height:1.4;letter-spacing:.02em}
 .hero-tagline{display:block}
+.hero-tagline .rw{display:inline-block}
+.hero-tagline.is-revealing .rw{animation:heroWord .9s cubic-bezier(.34,1.45,.64,1) both;animation-delay:calc(var(--i)*60ms + 120ms)}
+@keyframes heroWord{0%{opacity:0;transform:translateY(.42em) rotate(3deg) scale(.96);filter:blur(10px)}55%{filter:blur(0)}100%{opacity:1;transform:none;filter:blur(0)}}
+@media(prefers-reduced-motion:reduce){.hero-tagline.is-revealing .rw{animation:none}}
 .hero-proof{max-width:none;margin-top:24px;color:rgba(255,255,255,.78);font-size:.95rem;line-height:1.6}
 .hero-proof span{white-space:nowrap}
 .hero-proof .sep{font-style:normal;opacity:.7}

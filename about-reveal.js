@@ -34,6 +34,7 @@
   const io = new IntersectionObserver(entries => entries.forEach(e => {
     if (!e.isIntersecting) return;
     e.target.classList.replace('rv-wait', 'rv-in');
+    const g = e.target; setTimeout(() => g.classList.add('rv-done'), 2800); // release GPU layers
     io.unobserve(e.target);
   }), { threshold: 0.18 });
   groups.forEach(g => { g.classList.add('rv-wait'); io.observe(g); });

@@ -50,6 +50,8 @@ const div = (cls, parent, text) => {
   if (parent) parent.appendChild(n);
   return n;
 };
+// Tag a mark for the one-time entrance animation (classes only do anything while the figure is animating).
+const A = (node, cls, delay = 0, extra) => { node.classList.add(cls); node.style.setProperty('--d', Math.round(delay) + 'ms'); if (extra) for (const k in extra) node.style.setProperty(k, extra[k]); return node; };
 const niceStep = (range, count) => {
   const raw = range / count, mag = 10 ** Math.floor(Math.log10(raw)), r = raw / mag;
   return (r > 5 ? 10 : r > 2 ? 5 : r > 1 ? 2 : 1) * mag;
@@ -156,7 +158,7 @@ function apexPoints(fig, D) {
   });
   vis.forEach(o => {
     const d = D.rounds.map((_, r) => `${r ? 'L' : 'M'}${x(r).toFixed(1)},${y(val(o.s, r)).toFixed(1)}`).join('');
-    el('path', { d, class: 'cs-line', stroke: o.c }, svg);
+    A(el('path', { d, class: 'cs-line', stroke: o.c, pathLength: 1 }, svg), 'a-draw', o.i * 140);
   });
   // End labels with leader lines when they would collide.
   const ends = vis.map(o => ({ o, y0: y(val(o.s, n - 1)), v: val(o.s, n - 1) })).sort((a, b) => a.y0 - b.y0);
@@ -164,11 +166,12 @@ function apexPoints(fig, D) {
   const over = ends.length ? ends[ends.length - 1].y - (m.t + ih) : 0; if (over > 0) ends.forEach(e => (e.y -= over));
   ends.forEach(e => {
     const xe = x(n - 1), lx = xe + 16;
-    if (Math.abs(e.y - e.y0) > 1) el('path', { d: `M${xe + 6},${e.y0}L${xe + 11},${e.y0}L${lx - 3},${e.y}`, class: 'cs-leader' }, svg);
-    const tx = el('text', { x: lx, y: e.y + 4, class: 'cs-endlabel' }, svg);
+    const ld = 1500 + ends.indexOf(e) * 90;
+    if (Math.abs(e.y - e.y0) > 1) A(el('path', { d: `M${xe + 6},${e.y0}L${xe + 11},${e.y0}L${lx - 3},${e.y}`, class: 'cs-leader' }, svg), 'a-fade', ld);
+    const tx = A(el('text', { x: lx, y: e.y + 4, class: 'cs-endlabel' }, svg), 'a-fade', ld);
     const a = document.createElementNS(NS, 'tspan'); a.textContent = narrow ? e.o.s.code : e.o.s.name.split(' ').pop(); tx.appendChild(a);
     const b = document.createElementNS(NS, 'tspan'); b.setAttribute('class', 'cs-endval'); b.setAttribute('dx', '6'); b.textContent = fmt(e.v); tx.appendChild(b);
-    el('circle', { cx: xe, cy: e.y0, r: 4, fill: e.o.c, class: 'cs-dot' }, svg);
+    A(el('circle', { cx: xe, cy: e.y0, r: 4, fill: e.o.c, class: 'cs-dot' }, svg), 'a-pop', ld - 120);
   });
   // Crosshair
   const cross = el('line', { y1: m.t, y2: m.t + ih, class: 'cs-cross' }, svg);
@@ -224,9 +227,10 @@ function apexStints(fig, D) {
       const x0 = x(a - 1) + (k ? 1 : 0), x1 = x(b) - (k < d.stints.length - 1 ? 1 : 0); // 2px surface gap at each pit stop
       const g = el('g', { class: 'cs-mark', tabindex: 0 }, svg);
       el('rect', { x: x0, y: cy - row / 2, width: x1 - x0, height: row, fill: 'transparent' }, g);
-      el('rect', { x: x0, y: cy - bh / 2, width: Math.max(1, x1 - x0), height: bh, rx: 4, fill: cc[c], class: c === 'HARD' ? 'cs-tire-hard' : '' }, g);
+      const sd = i * 70 + (a / D.laps) * 700;
+      A(el('rect', { x: x0, y: cy - bh / 2, width: Math.max(1, x1 - x0), height: bh, rx: 4, fill: cc[c], class: c === 'HARD' ? 'cs-tire-hard' : '' }, g), 'a-growx', sd);
       const label = c[0];
-      if (x1 - x0 >= 22) { const tx = el('text', { x: x0 + 8, y: cy + 4, class: 'cs-inlabel', fill: ink[c] }, g); tx.textContent = label; }
+      if (x1 - x0 >= 22) { const tx = A(el('text', { x: x0 + 8, y: cy + 4, class: 'cs-inlabel', fill: ink[c] }, g), 'a-fade', sd + 350); tx.textContent = label; }
       const show = () => { const b2 = g.getBBox(); tip.show([{ color: cc[c], box: true, value: `${b - a + 1} ${t('laps')}`, label: `${nm(c)} · ${t('lap')} ${a}–${b}` }], `P${d.pos} · ${d.name}`, b2.x + b2.width / 2, b2.y + 6); };
       g.addEventListener('pointerenter', show); g.addEventListener('focus', show);
       g.addEventListener('pointerleave', () => tip.hide()); g.addEventListener('blur', () => tip.hide());
@@ -241,7 +245,8 @@ function adaQuality(fig, D) {
   const plot = fig.querySelector('.cs-chart-plot'); plot.replaceChildren(); fig.querySelector('.cs-chart-ctl').replaceChildren();
   const top = div('cs-quality', plot);
   const hero = div('cs-hero-fig', top);
-  div('cs-hero-num', hero, fmt(D.score)); div('cs-hero-cap', hero, `${t('quality')} / 100`);
+  const num = div('cs-hero-num', hero, fmt(D.score)); div('cs-hero-cap', hero, `${t('quality')} / 100`);
+  if (fig.classList.contains('cs-anim-wait') || fig.classList.contains('cs-anim-in')) countUp(fig, num, D.score);
   const meters = div('cs-meters', top);
   const tip = tooltip(plot);
   D.dims.forEach(([k, v]) => {
@@ -249,6 +254,7 @@ function adaQuality(fig, D) {
     const head = div('cs-meter-h', r); div('', head, t(k)); div('cs-meter-v', head, fmt(v));
     const track = div('cs-meter-track', r); const fill = div('cs-meter-fill', track);
     fill.style.setProperty('--w', v + '%'); fill.dataset.level = v < 60 ? 'serious' : v < 90 ? 'warning' : 'ok';
+    A(fill, 'a-scalex', 250 + meters.children.length * 110);
   });
   const sev = div('cs-sevbar-wrap', plot);
   const total = D.issues.reduce((a, s) => a + s.count, 0);
@@ -258,6 +264,7 @@ function adaQuality(fig, D) {
   D.issues.forEach(s => {
     const b = div('cs-sevblock', bar); b.tabIndex = 0; b.style.flexGrow = s.count; b.style.background = sc[s.level];
     b.dataset.level = s.level; b.textContent = fmt(s.count);
+    A(b, 'a-pop', 750 + bar.children.length * 120);
     const show = () => { const pr = plot.getBoundingClientRect(), br = b.getBoundingClientRect();
       tip.show([{ color: sc[s.level], box: true, value: `${fmt(s.count)} ${t('issues')}`, label: t(s.level) }, ...s.types.map(ty => ({ value: '', label: ty }))], `${t('severity')}: ${t(s.level)}`, br.left - pr.left + br.width / 2, br.top - pr.top); };
     b.addEventListener('pointerenter', show); b.addEventListener('focus', show);
@@ -282,7 +289,7 @@ function adaSegments(fig, D) {
       cols = div('cs-cols', plot);
       D.raw.forEach(([label, v, canon]) => {
         const c = div('cs-col', cols); c.dataset.label = label; c.tabIndex = 0;
-        const bar = div('cs-col-bar', c); div('cs-col-val', bar);
+        const bar = A(div('cs-col-bar', c), 'a-growy', cols.children.length * 90); div('cs-col-val', bar);
         div('cs-col-lab', c, label);
       });
     }
@@ -332,23 +339,24 @@ function edenHysteresis(fig) {
   toggle(ctl, [['fw', t('fw')], ['single', t('single')]], edenState.mode, v => { edenState.mode = v; edenHysteresis(fig); });
   const sim = edenSim(edenState.mode), c1 = css('--c1'), c2 = css('--c2');
   legend(ctl, [{ label: t('moisture'), color: c1, line: true }, ...(edenState.mode === 'fw' ? [{ label: t('band'), color: css('--band-swatch') }] : []), { label: `${t('pump')} ${t('on')}`, color: c2 }]);
-  const stat = div('cs-stat', plot); const sn = document.createElement('strong'); sn.textContent = fmt(sim.starts); stat.appendChild(sn); stat.appendChild(document.createTextNode(' ' + t('switches')));
+  const stat = div('cs-stat', plot); const sn = document.createElement('strong'); sn.textContent = fmt(sim.starts); stat.appendChild(sn);
+  if (fig.classList.contains('cs-anim-wait') || fig.classList.contains('cs-anim-in')) countUp(fig, sn, sim.starts, 2550, sim.runs.map(([a]) => 150 + (a / sim.N) * 2400)); stat.appendChild(document.createTextNode(' ' + t('switches')));
   const W = plot.clientWidth, H = Math.round(Math.max(240, Math.min(340, W * 0.4)));
   const m = { l: 40, r: 14, t: 10, b: 58 }, iw = W - m.l - m.r, ih = H - m.t - m.b;
   const lo = 30, hi = 70, x = i => m.l + (i / sim.N) * iw, y = v => m.t + (1 - (Math.max(lo, Math.min(hi, v)) - lo) / (hi - lo)) * ih;
   const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: 'img', 'aria-label': fig.querySelector('h3')?.textContent || '' }, plot);
-  if (edenState.mode === 'fw') el('rect', { x: m.l, y: y(60), width: iw, height: y(40) - y(60), class: 'cs-band' }, svg);
+  if (edenState.mode === 'fw') A(el('rect', { x: m.l, y: y(60), width: iw, height: y(40) - y(60), class: 'cs-band' }, svg), 'a-fade', 0);
   for (let v = lo; v <= hi; v += 10) {
     el('line', { x1: m.l, x2: m.l + iw, y1: y(v), y2: y(v), class: 'cs-grid' }, svg);
     el('text', { x: m.l - 8, y: y(v) + 4, class: 'cs-tick', 'text-anchor': 'end' }, svg).textContent = v + '%';
   }
   el('line', { x1: m.l, x2: m.l + iw, y1: y(40), y2: y(40), class: 'cs-thresh' }, svg);
   if (edenState.mode === 'fw') el('line', { x1: m.l, x2: m.l + iw, y1: y(60), y2: y(60), class: 'cs-thresh' }, svg);
-  el('path', { d: sim.pts.map(([i, v], k) => `${k ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(''), class: 'cs-line cs-line-thin', stroke: c1 }, svg);
+  A(el('path', { d: sim.pts.map(([i, v], k) => `${k ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(''), class: 'cs-line cs-line-thin', stroke: c1, pathLength: 1 }, svg), 'a-draw', 150, { '--dur': '2.4s', '--ease': 'linear' });
   // Pump strip
   const sy = H - m.b + 14, sh = 10;
   el('rect', { x: m.l, y: sy, width: iw, height: sh, rx: 3, class: 'cs-strip-track' }, svg);
-  sim.runs.forEach(([a, b]) => el('rect', { x: x(a), y: sy, width: Math.max(1.5, x(b) - x(a)), height: sh, rx: Math.min(3, (x(b) - x(a)) / 2), fill: c2 }, svg));
+  sim.runs.forEach(([a, b]) => A(el('rect', { x: x(a), y: sy, width: Math.max(1.5, x(b) - x(a)), height: sh, rx: Math.min(3, (x(b) - x(a)) / 2), fill: c2 }, svg), 'a-pop', 150 + (a / sim.N) * 2400));
   el('text', { x: m.l - 8, y: sy + 9, class: 'cs-tick', 'text-anchor': 'end' }, svg).textContent = 'A';
   for (let h = 0; h <= 48; h += 12) el('text', { x: x(h * 60), y: H - 8, class: 'cs-tick', 'text-anchor': h === 0 ? 'start' : h === 48 ? 'end' : 'middle' }, svg).textContent = `${h} h`;
   // Crosshair
@@ -397,7 +405,7 @@ function edenControls(fig) {
     const led = Math.max(0, Math.min(100, Math.round(100 * (1 - st.light / 1000))));
     out.replaceChildren();
     const card = (name, state, on, reason, level) => {
-      const c = div('cs-act', out); c.dataset.on = String(on); if (level) c.dataset.level = level;
+      const c = A(div('cs-act', out), 'a-pop', 420 + out.children.length * 110); c.dataset.on = String(on); if (level) c.dataset.level = level;
       const h = div('cs-act-h', c); div('cs-act-dot', h); div('cs-act-name', h, name); div('cs-act-state', h, state);
       div('cs-act-r', c, reason);
     };
@@ -406,7 +414,7 @@ function edenControls(fig) {
     card(t('growlight'), `${led} %`, led > 0, t('rLight'));
   };
   S.forEach(s => {
-    const r = div('cs-play-row', rows);
+    const r = A(div('cs-play-row', rows), 'a-fade', rows.children.length * 80);
     const head = div('cs-play-h', r); div('cs-play-name', head, t(s.k) + (s.note ? ` · ${t(s.note)}` : ''));
     const valEl = div('cs-play-v', head);
     const track = div('cs-play-track', r);
@@ -419,8 +427,33 @@ function edenControls(fig) {
   });
 }
 
+/* Count a number up from 0 when the figure's entrance plays (or show it final if it already played). */
+function countUp(fig, node, target, dur = 1300, ticks) {
+  const run = () => {
+    const t0 = performance.now();
+    // With ticks, the count steps up exactly as each mark appears; otherwise it eases up.
+    const val = el => ticks ? ticks.filter(d => d <= el).length : Math.round(target * (1 - Math.pow(1 - Math.min(1, el / dur), 3)));
+    const step = now => { const el = now - t0; node.textContent = fmt(Math.min(target, val(el))); if (el < dur) requestAnimationFrame(step); else node.textContent = fmt(target); };
+    node.textContent = fmt(0); requestAnimationFrame(step);
+  };
+  if (fig.classList.contains('cs-anim-in')) return; // already counting/counted in this entrance
+  node.textContent = fmt(0);
+  fig.addEventListener('cs-animate', run, { once: true });
+}
+
 const RENDER = { 'apex-points': apexPoints, 'apex-stints': apexStints, 'ada-quality': adaQuality, 'ada-segments': adaSegments, 'eden-hysteresis': edenHysteresis, 'eden-controls': edenControls };
 const figs = [...document.querySelectorAll('.cs-chart[data-chart]')];
+// One-time entrance: charts below the fold wait (marks hidden), then animate as they enter view.
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const f = e.target; io.unobserve(f);
+    f.classList.replace('cs-anim-wait', 'cs-anim-in');
+    f.dispatchEvent(new Event('cs-animate'));
+    setTimeout(() => f.classList.remove('cs-anim-in'), 3200);
+  }), { threshold: 0.35 });
+  figs.forEach(f => { if (f.getBoundingClientRect().top > window.innerHeight * 0.85) { f.classList.add('cs-anim-wait'); io.observe(f); } });
+}
 const renderAll = () => figs.forEach(f => { try { RENDER[f.dataset.chart]?.(f, DATA[f.dataset.chart]); } catch (e) { console.error(e); } });
 renderAll();
 let lastW = figs.map(f => f.clientWidth);

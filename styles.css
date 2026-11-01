@@ -380,31 +380,33 @@ footer{container-type:inline-size;margin-top:clamp(80px,11vw,140px);padding:18px
 .rv-mask{display:inline-block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em;vertical-align:top}
 .rv-word{display:inline-block}
 .rv-armed .feature-card.is-accent{background:var(--card)}
-.rv-armed .feature-card.is-accent::before{content:"";position:absolute;inset:0;z-index:-2;background:var(--accent);clip-path:circle(150% at 46px 46px)}
+.rv-armed .feature-card.is-accent::before{content:"";position:absolute;z-index:-2;top:46px;left:46px;width:1100px;height:1100px;border-radius:50%;background:var(--accent);transform:translate(-50%,-50%) scale(1)}
+.rv-armed .profile-photo{background:transparent}
 .rv-armed .rv-wait :is(.about-intro .label,.about-intro h2 small,.about-meta,.social-links a,.about-quote,.tool,.feature-card,.feature-icon){opacity:0}
 .rv-armed .rv-wait .rv-word{transform:translateY(110%)}
-.rv-armed .rv-wait .profile-photo{clip-path:inset(100% 0 0 0 round 18px)}
-.rv-armed .rv-wait .feature-card.is-accent::before{clip-path:circle(0 at 46px 46px)}
-.rv-in .about-intro .label{animation:rvUp .7s cubic-bezier(.2,.8,.2,1) backwards}
-.rv-in .rv-word{animation:rvWord .9s cubic-bezier(.2,.9,.25,1) backwards;animation-delay:calc(80ms + var(--i)*90ms)}
-.rv-in .about-intro h2 small{display:inline-block;animation:rvPop .7s cubic-bezier(.34,1.7,.64,1) 380ms backwards}
-.rv-in .about-meta{animation:rvUp .8s cubic-bezier(.2,.8,.2,1) 300ms backwards}
-.rv-in .profile-photo{animation:rvPhoto 1.15s cubic-bezier(.7,0,.2,1) 250ms backwards}
-.rv-in .profile-photo img{animation:rvZoom 1.6s cubic-bezier(.2,.8,.2,1) 250ms backwards}
-.rv-in .social-links a{animation:rvPop .65s cubic-bezier(.34,1.56,.64,1) backwards;animation-delay:calc(760ms + var(--i)*80ms)}
-.rv-in .about-quote{animation:rvUp .8s cubic-bezier(.2,.8,.2,1) 880ms backwards}
-.rv-in .tool{animation:rvPop .6s cubic-bezier(.34,1.7,.64,1) backwards;animation-delay:calc(980ms + var(--i)*38ms)}
-.rv-in .feature-card{animation:rvCard .9s cubic-bezier(.2,.85,.25,1) backwards;animation-delay:calc(320ms + var(--i)*110ms)}
-.rv-in .feature-card.is-accent::before{animation:rvInk 1s cubic-bezier(.6,0,.2,1) 560ms backwards}
-.rv-in .feature-icon{animation:rvPop .7s cubic-bezier(.34,1.8,.64,1) backwards;animation-delay:calc(720ms + var(--i,0)*110ms)}
+.rv-armed .rv-wait .feature-card.is-accent::before{transform:translate(-50%,-50%) scale(0)}
+/* Promote animated layers only while the reveal runs */
+.rv-armed :is(.rv-wait,.rv-in:not(.rv-done)) :is(.rv-word,.about-intro .label,.about-intro h2 small,.about-meta,.social-links a,.about-quote,.tool,.feature-card,.feature-icon,.profile-photo img){will-change:transform,opacity}
+.rv-armed :is(.rv-wait,.rv-in:not(.rv-done)) .feature-card.is-accent::before{will-change:transform}
+.rv-in .about-intro .label{animation:rvUp .9s cubic-bezier(.16,1,.3,1) backwards}
+.rv-in .rv-word{animation:rvWord 1.1s cubic-bezier(.16,1,.3,1) backwards;animation-delay:calc(80ms + var(--i)*90ms)}
+.rv-in .about-intro h2 small{display:inline-block;animation:rvPop .8s cubic-bezier(.34,1.3,.64,1) 380ms backwards}
+.rv-in .about-meta{animation:rvUp 1s cubic-bezier(.16,1,.3,1) 280ms backwards}
+.rv-armed .rv-wait .profile-photo img{transform:translateY(100%)}
+.rv-in .profile-photo img{animation:rvPhotoUp 1.4s cubic-bezier(.16,1,.3,1) 240ms backwards}
+.rv-in .social-links a{animation:rvPop .8s cubic-bezier(.34,1.3,.64,1) backwards;animation-delay:calc(760ms + var(--i)*70ms)}
+.rv-in .about-quote{animation:rvUp 1s cubic-bezier(.16,1,.3,1) 860ms backwards}
+.rv-in .tool{animation:rvPop .75s cubic-bezier(.34,1.3,.64,1) backwards;animation-delay:calc(960ms + var(--i)*32ms)}
+.rv-in .feature-card{animation:rvCard 1.1s cubic-bezier(.16,1,.3,1) backwards;animation-delay:calc(300ms + var(--i)*100ms)}
+.rv-in .feature-card.is-accent::before{animation:rvInk 1.1s cubic-bezier(.65,0,.35,1) 520ms backwards}
+.rv-in .feature-icon{animation:rvPop .8s cubic-bezier(.34,1.3,.64,1) backwards;animation-delay:calc(700ms + var(--i,0)*100ms)}
 .rv-in .feature-card:nth-child(2) .feature-icon{--i:1}.rv-in .feature-card:nth-child(3) .feature-icon{--i:2}.rv-in .feature-card:nth-child(4) .feature-icon{--i:3}
-@keyframes rvUp{from{opacity:0;transform:translateY(18px)}}
+@keyframes rvUp{from{opacity:0;transform:translateY(16px)}}
 @keyframes rvWord{from{transform:translateY(110%)}}
-@keyframes rvPop{from{opacity:0;transform:scale(.4) rotate(-12deg)}}
-@keyframes rvPhoto{from{clip-path:inset(100% 0 0 0 round 18px)}to{clip-path:inset(0 0 0 0 round 18px)}}
-@keyframes rvZoom{from{transform:scale(1.18);filter:brightness(1.4)}}
-@keyframes rvCard{from{opacity:0;transform:perspective(900px) translateY(46px) rotateX(8deg) scale(.97)}}
-@keyframes rvInk{from{clip-path:circle(0 at 46px 46px)}to{clip-path:circle(150% at 46px 46px)}}
+@keyframes rvPop{from{opacity:0;transform:scale(.7)}}
+@keyframes rvPhotoUp{from{transform:translateY(100%) scale(1.15)}}
+@keyframes rvCard{from{opacity:0;transform:perspective(900px) rotateX(5deg) rotateY(0deg) translateY(34px)}}
+@keyframes rvInk{from{transform:translate(-50%,-50%) scale(0)}to{transform:translate(-50%,-50%) scale(1)}}
 
 /* ---------- Subtle section reveals ---------- */
 :is(.sr-wait .sr,.sr-wait.sr){opacity:0}
@@ -451,3 +453,38 @@ footer{container-type:inline-size;margin-top:clamp(80px,11vw,140px);padding:18px
 @keyframes dotFill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @media(max-width:640px){.showcase-peek{display:none}}
 @media(prefers-reduced-motion:reduce){.showcase-card.is-entering .qw,.showcase-card.is-entering .showcase-links a{animation:none}}
+
+/* ---------- Contact + footer fun ---------- */
+.footer-wordmark{--wm-mask:linear-gradient(180deg,rgba(0,0,0,.9) .29em,rgba(0,0,0,.3) .59em,transparent .81em)}
+.footer-wordmark.is-split{padding-top:.15em;margin-top:calc(6px - .15em);background:none;color:#fff;-webkit-mask-image:var(--wm-mask);mask-image:var(--wm-mask)}
+.footer-wordmark .wl{display:inline-block;translate:0 calc(var(--lift,0) * -.11em);transition:translate .55s cubic-bezier(.34,1.56,.64,1)}
+.ff-wait .wl{transform:translateY(105%)}
+.ff-in .wl{animation:ffLetter 1.1s cubic-bezier(.34,1.35,.64,1) backwards;animation-delay:calc(260ms + var(--i)*75ms)}
+@keyframes ffLetter{from{transform:translateY(105%)}}
+.contact h2 .cw{display:inline-block}
+.ff-wait :is(.label,.cw,.contact-actions .button,.footer-line span,.footer-links > *){opacity:0}
+.ff-wait .footer-line i{transform:scaleX(0)}
+.ff-in .label{animation:srUp .8s cubic-bezier(.2,.8,.2,1) backwards}
+.ff-in .cw{animation:ffWord .9s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(120ms + var(--i)*80ms)}
+.ff-in .contact-actions .button{animation:ffPop .7s cubic-bezier(.34,1.56,.64,1) backwards;animation-delay:calc(560ms + var(--i)*90ms)}
+.ff-in .footer-line i{animation:ffLine 1.2s cubic-bezier(.7,0,.2,1) backwards}
+.ff-in .footer-line span{animation:srUp .7s cubic-bezier(.2,.8,.2,1) .35s backwards}
+.ff-in .footer-links > *{animation:srUp .7s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(200ms + var(--i)*45ms)}
+@keyframes ffWord{from{opacity:0;transform:translateY(.45em) rotate(2deg);filter:blur(8px)}}
+@keyframes ffPop{from{opacity:0;transform:translateY(10px) scale(.85)}}
+@keyframes ffLine{from{transform:scaleX(0)}}
+/* Hover touches */
+.contact .button:hover span{transform:none}
+.contact .button span{position:relative;overflow:hidden;color:transparent}
+.contact .button span::before{content:"↗";position:absolute;inset:0;display:grid;place-items:center;color:#fff}
+.contact .button.is-ghost span::before{color:#151614}
+.contact .button:hover span::before{animation:ffFly .55s cubic-bezier(.6,0,.25,1)}
+@keyframes ffFly{0%{transform:none}45%{transform:translate(120%,-120%)}46%{transform:translate(-120%,120%)}100%{transform:none}}
+.footer-links a,.privacy-settings-trigger{position:relative}
+.footer-links a::after,.privacy-settings-trigger::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.footer-links a:hover::after,.privacy-settings-trigger:hover::after{transform:scaleX(1);transform-origin:left}
+.footer-links a:hover,.privacy-settings-trigger:hover{text-decoration:none}
+.footer-links a[href="#profile"]:hover{animation:ffHop .6s cubic-bezier(.34,1.56,.64,1)}
+@keyframes ffHop{0%,100%{transform:none}40%{transform:translateY(-4px)}}
+@media(max-width:640px){.footer-wordmark{--wm-mask:linear-gradient(180deg,rgba(0,0,0,.92) .25em,rgba(0,0,0,.45) .75em,rgba(0,0,0,.12) 1.23em)}}
+@media(prefers-reduced-motion:reduce){.footer-wordmark .wl{transition:none}}

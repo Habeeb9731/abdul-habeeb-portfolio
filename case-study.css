@@ -274,3 +274,36 @@ svg.is-hover .cs-cross,svg.is-hover .cs-hover-dot{opacity:1}
 @media(max-width:900px){.cs-charts{grid-template-columns:1fr}.cs-play{grid-template-columns:1fr}}
 @media(max-width:520px){.cs-quality{grid-template-columns:1fr;gap:18px}.cs-chart{padding:18px 14px}.cs-cols{height:200px}.cs-col-lab{font-size:.66rem}}
 @media(prefers-reduced-motion:reduce){.cs-meter-fill,.cs-col,.cs-col-bar{transition:none}}
+
+/* ---------- Case hero load-in ---------- */
+@media(prefers-reduced-motion:no-preference){
+  .cs-hero-bg{animation:csHeroBg 1.8s cubic-bezier(.16,1,.3,1) backwards}
+  .cs-hero .cs-back{animation:csHeroUp .9s cubic-bezier(.16,1,.3,1) .1s backwards}
+  .cs-hero>div>*{animation:csHeroUp 1s cubic-bezier(.16,1,.3,1) backwards}
+  .cs-hero>div>.label{animation-delay:.15s}
+  .cs-hero>div>h1{animation-delay:.25s}
+  .cs-hero>div>p{animation-delay:.38s}
+  .cs-hero>div>.cs-hero-actions{animation-delay:.5s}
+}
+@keyframes csHeroBg{from{transform:scale(1.14);opacity:.4}}
+@keyframes csHeroUp{from{opacity:0;transform:translateY(22px);filter:blur(6px)}}
+
+/* ---------- Chart entrance (plays once when a chart scrolls into view) ---------- */
+.cs-anim-wait .a-draw{stroke-dasharray:1;stroke-dashoffset:1}
+.cs-anim-wait :is(.a-fade,.a-growx,.a-growy,.a-scalex,.a-pop){opacity:0}
+.cs-anim-in .a-draw{animation:aDraw var(--dur,1.8s) var(--ease,cubic-bezier(.65,0,.35,1)) var(--d,0ms) backwards}
+.cs-anim-in .a-fade{animation:aFade .7s cubic-bezier(.16,1,.3,1) var(--d,0ms) backwards}
+.cs-anim-in .a-pop{animation:aPop .7s cubic-bezier(.34,1.3,.64,1) var(--d,0ms) backwards}
+.cs-anim-in .a-growx{transform-box:fill-box;transform-origin:0 50%;animation:aGrowX .9s cubic-bezier(.16,1,.3,1) var(--d,0ms) backwards}
+.cs-anim-in .a-scalex{transform-origin:0 50%;animation:aGrowX 1.1s cubic-bezier(.16,1,.3,1) var(--d,0ms) backwards}
+.cs-anim-in .a-growy{transform-origin:50% 100%;animation:aGrowY 1s cubic-bezier(.16,1,.3,1) var(--d,0ms) backwards}
+.cs-anim-in :is(.a-growx,.a-scalex,.a-growy,.a-pop){will-change:transform}
+@keyframes aDraw{from{stroke-dasharray:1;stroke-dashoffset:1}to{stroke-dasharray:1;stroke-dashoffset:0}}
+@keyframes aFade{from{opacity:0}}
+@keyframes aPop{from{opacity:0;transform:scale(.8)}}
+@keyframes aGrowX{from{transform:scaleX(0)}}
+@keyframes aGrowY{from{transform:scaleY(0)}}
+svg .a-pop{transform-box:fill-box;transform-origin:50% 50%}
+/* Jumping to the hero keeps the page frame visible (matches .cs-page top padding) */
+.cs-hero{scroll-margin-top:10px}
+@media(max-width:640px){.cs-hero{scroll-margin-top:8px}}

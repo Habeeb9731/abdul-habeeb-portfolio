@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the case-study pages in /projects/<slug>/index.html.
+"""Generate the case-study pages in /projects/<slug>/index.html, and the site's /404.html.
 
 Content lives in tools/case-studies/data/:
   projects.json    one entry per project, in carousel order (English copy + German in "de")
@@ -20,6 +20,9 @@ from collections import OrderedDict
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..'))
 DATA = os.path.join(HERE, 'data')
+
+# Bump when 404.css changes.
+NOT_FOUND_VERSION = '20261101a'
 
 # Bump when styles.css / case-study.css / case-charts.js change, so browsers fetch the new files.
 ASSET_VERSION = '20261101-copy'
@@ -268,6 +271,72 @@ def page(p, nxt):
 '''
 
 
+NOT_FOUND_EN = OrderedDict([
+    ('nf_label', 'Error 404'),
+    ('nf_h', 'Oops, I think we’re lost.'),
+    ('nf_p', 'This page has moved, or never existed. Let’s get you back somewhere familiar.'),
+    ('nf_home', 'Back to home'),
+    ('nf_projects', 'See projects'),
+])
+NOT_FOUND_DE = {
+    'nf_label': 'Fehler 404',
+    'nf_h': 'Hoppla, ich glaube, wir haben uns verirrt.',
+    'nf_p': 'Diese Seite wurde verschoben oder hat nie existiert. Ich bringe dich zurück an einen vertrauten Ort.',
+    'nf_home': 'Zur Startseite',
+    'nf_projects': 'Projekte ansehen',
+}
+
+
+def not_found_page():
+    """/404.html: served by Cloudflare for any unknown URL, so every link and asset is root-absolute."""
+    the_nav, the_contact = nav(), contact()
+    de = OrderedDict(home_de(the_nav, the_contact))
+    de.update(NOT_FOUND_DE)
+    de_json = json.dumps(de, ensure_ascii=False).replace('</', '<\\/')
+    # Language + theme from the shared scripts (not the case-study side nav), then the shared script tags.
+    scripts = SCRIPTS[:SCRIPTS.index('const sideLinks')].replace('__PAGE_DE__', de_json) + '</script>\n'
+    scripts += SCRIPTS[SCRIPTS.index('<script src="/public/vendor/lenis'):]
+    scripts += f'<script src="/404.js?v={NOT_FOUND_VERSION}" defer></script>\n'
+    t = NOT_FOUND_EN
+    return f'''<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Page not found — Abdul Habeeb</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css?v={ASSET_VERSION}" />
+  <link rel="stylesheet" href="/404.css?v={NOT_FOUND_VERSION}" />
+  <link rel="preload" as="image" href="/public/resources/404/lost-monster.webp" />
+  <script>try{{if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark-pre')}}catch(e){{}}</script>
+</head>
+<body>
+<main class="page nf-page">
+  {the_nav}
+  <section class="nf-hero" id="top">
+    <div class="nf-stage">
+      <p class="nf-digits" aria-hidden="true"><span>4</span><span>0</span><span>4</span></p>
+      <div class="nf-char"><span class="nf-shadow" aria-hidden="true"></span><img class="nf-monster" src="/public/resources/404/lost-monster.webp" width="640" height="754" alt="A fluffy blue monster scratching its head, looking lost" /></div>
+    </div>
+    <div class="nf-copy">
+      <span class="label" data-i18n="nf_label">{t['nf_label']}</span>
+      <h1 data-i18n="nf_h">{t['nf_h']}</h1>
+      <p data-i18n="nf_p">{t['nf_p']}</p>
+      <div class="nf-actions"><a class="button is-solid" href="/"><b class="btn-text" data-i18n="nf_home">{t['nf_home']}</b> <span>←</span></a><a class="button" href="/#projects"><b class="btn-text" data-i18n="nf_projects">{t['nf_projects']}</b> <span>↗</span></a></div>
+    </div>
+  </section>
+
+{the_contact}
+</main>
+{scripts}</body>
+</html>
+'''
+
+
 def main():
     check = '--check' in sys.argv
     changed = []
@@ -281,10 +350,18 @@ def main():
                 os.makedirs(os.path.dirname(path), exist_ok=True)
                 with open(path, 'w', encoding='utf-8') as f:
                     f.write(out)
+    path = os.path.join(ROOT, '404.html')
+    out = not_found_page()
+    old = open(path, encoding='utf-8').read() if os.path.exists(path) else None
+    if old != out:
+        changed.append('404')
+        if not check:
+            with open(path, 'w', encoding='utf-8') as f:
+                f.write(out)
     if check:
         print('up to date' if not changed else 'would change: ' + ', '.join(changed))
         sys.exit(1 if changed else 0)
-    print(f'built {len(P)} pages' + (f' ({len(changed)} changed: {", ".join(changed)})' if changed else ' (no changes)'))
+    print(f'built {len(P) + 1} pages' + (f' ({len(changed)} changed: {", ".join(changed)})' if changed else ' (no changes)'))
 
 
 if __name__ == '__main__':

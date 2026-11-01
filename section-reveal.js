@@ -17,7 +17,6 @@
     // Case-study pages
     ['.cs-meta', [[':scope > div', 0, 70]]],
     ['.cs-page :is(.cs-panel, .cs-plain)', [[':scope > .label', 0, 0], [':scope > h2', 90, 0], [':scope > .cs-lede', 180, 0], [':scope > .cs-quote', 150, 0]]],
-    ['.cs-split', [[':scope > article', 0, 140]]],
     ['.cs-cards', [['.cs-card', 0, 100]]],
     ['.cs-page .cs-shot:not(.cs-phone-stage .cs-shot)', [['', 0, 0, 'scale']]],
     ['.cs-phone-stage', [['', 0, 0, 'scale']]],
@@ -33,6 +32,30 @@
     e.target.classList.replace('sr-wait', 'sr-in');
     io.unobserve(e.target);
   }), { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
+
+  // Challenge & solution: call-and-response. Each challenge is answered by its solution.
+  const tag = (el, delay, variant) => { if (!el) return; el.classList.add('sr'); if (variant) el.classList.add('sr-' + variant); el.style.setProperty('--d', Math.round(delay) + 'ms'); };
+  const arm = g => { g.classList.add('sr-wait'); io.observe(g); };
+  $$('.cs-split').forEach(split => {
+    if (split.getBoundingClientRect().top < window.innerHeight * 0.9) return;
+    const ch = split.querySelector('article:not(.is-solution)'), so = split.querySelector('article.is-solution');
+    if (!ch || !so) return;
+    const chLi = $$('li', ch), soLi = $$('li', so);
+    if (window.matchMedia('(max-width: 900px)').matches) {
+      // Stacked: each card reveals on its own when it scrolls into view.
+      tag(ch, 0, 'left'); tag(ch.querySelector('.label'), 120); tag(ch.querySelector('h3'), 200);
+      chLi.forEach((li, i) => tag(li, 340 + i * 130, 'x'));
+      tag(so, 0, 'flood'); tag(so.querySelector('.label'), 420); tag(so.querySelector('h3'), 490);
+      soLi.forEach((li, i) => tag(li, 620 + i * 140, 'xr'));
+      arm(ch); arm(so);
+    } else {
+      tag(ch, 0, 'left'); tag(ch.querySelector('.label'), 120); tag(ch.querySelector('h3'), 200);
+      tag(so, 260, 'flood'); tag(so.querySelector('.label'), 680); tag(so.querySelector('h3'), 750);
+      chLi.forEach((li, i) => tag(li, 900 + i * 480, 'x'));
+      soLi.forEach((li, i) => tag(li, 1140 + i * 480, 'xr'));
+      arm(split);
+    }
+  });
 
   plan.forEach(([groupSel, items]) => $$(groupSel).forEach(group => {
     if (group.getBoundingClientRect().top < window.innerHeight * 0.9) return; // already visible

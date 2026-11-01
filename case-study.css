@@ -307,3 +307,21 @@ svg .a-pop{transform-box:fill-box;transform-origin:50% 50%}
 /* Jumping to the hero keeps the page frame visible (matches .cs-page top padding) */
 .cs-hero{scroll-margin-top:10px}
 @media(max-width:640px){.cs-hero{scroll-margin-top:8px}}
+
+/* ---------- Challenge & solution: call-and-response reveal ---------- */
+.cs-split li{position:relative;padding-left:30px}
+.cs-split li::before{content:"×";position:absolute;left:0;top:12px;display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--card);color:var(--muted);font-size:.8rem;line-height:1}
+.cs-split .is-solution li::before{content:"✓";background:rgba(255,255,255,.18);color:#fff;font-size:.66rem}
+.cs-split article.sr-flood{position:relative;isolation:isolate;overflow:hidden;background:transparent}
+.cs-split article.sr-flood::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;background:var(--accent);transform-origin:0 50%}
+.sr-wait .sr-flood,.sr-wait.sr-flood{opacity:1}
+.sr-wait .sr-flood::before,.sr-wait.sr-flood::before{transform:scaleX(0)}
+.sr-in .sr-flood,.sr-in.sr-flood{animation:none}
+.sr-in .sr-flood::before,.sr-in.sr-flood::before{animation:csFlood 1s cubic-bezier(.76,0,.24,1) var(--d,0ms) backwards}
+.sr-in .sr-left,.sr-in.sr-left{animation-name:csFromLeft;animation-duration:1s}
+.sr-in .sr-xr{animation-name:csFromRight}
+.cs-split.sr-in li::before,.cs-split .sr-in li::before{animation:csMark .6s cubic-bezier(.34,1.56,.64,1) calc(var(--d,0ms) + 200ms) backwards}
+@keyframes csFlood{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes csFromLeft{from{opacity:0;transform:translateX(-28px)}}
+@keyframes csFromRight{from{opacity:0;transform:translateX(14px)}}
+@keyframes csMark{from{opacity:0;transform:scale(0) rotate(-45deg)}}

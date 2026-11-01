@@ -2,6 +2,10 @@
 .dark{--sky-700:#0d33a8;--sky-500:#2456d6;--sky-200:#14244f;--glow:rgba(50,104,240,.8);--ink:#eceee8;--muted:#9a9f95;--paper:#121411;--card:#1a1d18;--line:#2b2f28;--canvas:#090a08;--glass:rgba(18,20,17,.58)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;view-transition-name:root}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
+.lenis.lenis-stopped{overflow:hidden}
 body{margin:0;background:var(--canvas);color:var(--ink);font:400 16px/1.5 var(--sans);-webkit-font-smoothing:antialiased;transition:background .25s ease,color .25s ease}
 img{display:block;max-width:100%}
 h1,h2,h3{margin:0;font-weight:300;letter-spacing:-.035em}

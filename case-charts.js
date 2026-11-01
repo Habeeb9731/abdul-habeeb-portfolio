@@ -108,7 +108,7 @@ function table(fig, head, rows) {
   if (d) d.remove();
   d = document.createElement('details'); d.className = 'cs-chart-table'; d.open = open;
   const s = document.createElement('summary'); s.textContent = t('table'); d.appendChild(s);
-  const wrap = div('cs-table-wrap', d);
+  const wrap = div('cs-table-wrap', d); wrap.setAttribute('data-lenis-prevent', '');
   const tb = document.createElement('table'); wrap.appendChild(tb);
   const tr = document.createElement('tr'); head.forEach(h => { const th = document.createElement('th'); th.textContent = h; tr.appendChild(th); });
   const thead = document.createElement('thead'); thead.appendChild(tr); tb.appendChild(thead);

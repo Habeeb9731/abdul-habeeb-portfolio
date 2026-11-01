@@ -3,14 +3,17 @@
   background:radial-gradient(60% 34% at 50% 52%,var(--glow),transparent 70%),linear-gradient(180deg,var(--sky-900) 0%,var(--sky-800) 22%,var(--sky-700) 40%,var(--sky-500) 50%,var(--sky-200) 61%,var(--paper) 82%)}
 .nf-hero::before{content:"";position:absolute;inset:0 0 50%;z-index:-1;pointer-events:none;opacity:.6;background-image:radial-gradient(1.2px 1.2px at 12% 18%,#fff,transparent),radial-gradient(1px 1px at 24% 34%,#fff,transparent),radial-gradient(1.4px 1.4px at 38% 12%,#fff,transparent),radial-gradient(1px 1px at 61% 22%,#fff,transparent),radial-gradient(1.3px 1.3px at 74% 9%,#fff,transparent),radial-gradient(1px 1px at 86% 30%,#fff,transparent),radial-gradient(1.2px 1.2px at 92% 14%,#fff,transparent),radial-gradient(1px 1px at 6% 42%,#fff,transparent),radial-gradient(1.1px 1.1px at 48% 28%,#fff,transparent)}
 
-.nf-stage{position:relative;display:grid;place-items:center;width:100%;max-width:1100px}
+.nf-stage{position:relative;display:grid;place-items:center;max-width:100%}
 .nf-digits{grid-area:1/1;display:flex;justify-content:center;gap:clamp(4px,2.2vw,36px);margin:0;color:#fff;font-size:clamp(9rem,30vw,25rem);font-weight:400;line-height:.8;letter-spacing:-.07em;user-select:none;
   -webkit-mask-image:linear-gradient(180deg,#000 35%,rgba(0,0,0,.25) 100%);mask-image:linear-gradient(180deg,#000 35%,rgba(0,0,0,.25) 100%)}
 .nf-digits span{display:block;opacity:.92;will-change:transform}
 .nf-char{grid-area:1/1;position:relative;align-self:end;width:clamp(190px,30vw,380px);margin-bottom:calc(clamp(9rem,30vw,25rem) * -.12);cursor:pointer;-webkit-tap-highlight-color:transparent}
-.nf-monster{position:relative;display:block;width:100%;height:auto;transform-origin:50% 100%;filter:drop-shadow(0 18px 30px rgba(6,18,61,.28));user-select:none;-webkit-user-drag:none}
-.nf-shadow{position:absolute;left:14%;right:14%;bottom:-2%;height:9%;border-radius:50%;background:radial-gradient(closest-side,rgba(6,18,61,.38),transparent);transform-origin:50% 50%}
-.dark .nf-shadow{background:radial-gradient(closest-side,rgba(0,0,0,.6),transparent)}
+.nf-monster{position:relative;display:block;width:100%;height:auto;transform-origin:50% 100%;filter:drop-shadow(0 4px 10px rgba(6,18,61,.18));user-select:none;-webkit-user-drag:none}
+/* Ground shadow, centred under the feet (they end 4.6% above the image bottom and sit right of centre because of the tail). */
+.nf-shadow{position:absolute;left:20%;right:10%;bottom:.8%;height:7.5%;border-radius:50%;background:radial-gradient(closest-side,rgba(6,18,61,.34),rgba(6,18,61,.12) 60%,transparent);transform-origin:50% 50%}
+.nf-shadow::after{content:"";position:absolute;left:12%;right:12%;top:30%;bottom:30%;border-radius:50%;background:radial-gradient(closest-side,rgba(6,18,61,.5),transparent);filter:blur(2px)}
+.dark .nf-shadow{background:radial-gradient(closest-side,rgba(0,0,0,.6),rgba(0,0,0,.2) 60%,transparent)}
+.dark .nf-shadow::after{background:radial-gradient(closest-side,rgba(0,0,0,.75),transparent)}
 
 .nf-copy{position:relative;display:flex;flex-direction:column;align-items:center;max-width:620px;margin-top:clamp(40px,5vw,64px)}
 .nf-copy .label{margin-bottom:14px}

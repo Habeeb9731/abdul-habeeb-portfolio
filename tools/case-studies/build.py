@@ -22,7 +22,7 @@ ROOT = os.path.abspath(os.path.join(HERE, '..', '..'))
 DATA = os.path.join(HERE, 'data')
 
 # Bump when 404.css changes.
-NOT_FOUND_VERSION = '20261101a'
+NOT_FOUND_VERSION = '20261101c'
 
 # Bump when styles.css / case-study.css / case-charts.js change, so browsers fetch the new files.
 ASSET_VERSION = '20261101-copy'

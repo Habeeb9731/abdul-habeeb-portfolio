@@ -63,7 +63,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20261101-copy" />
+  <link rel="stylesheet" href="styles.css?v=20261101-consent" />
 </head>
 <body>
 <main class="page">
@@ -219,16 +219,11 @@
     </footer>
   </section>
 </main>
-<aside class="analytics-consent" id="analytics-consent" role="region" aria-labelledby="analytics-consent-title" hidden>
-  <div class="analytics-consent-copy">
-    <p class="analytics-consent-eyebrow" data-consent-copy="eyebrow">PRIVACY CHOICE</p>
-    <p class="analytics-consent-title" id="analytics-consent-title" data-consent-copy="title">Help me understand site visits</p>
-    <p data-consent-copy="body">Google Analytics helps me measure visits to this portfolio. It stays off unless you allow analytics. Your choice is saved on this device and can be changed anytime in Privacy settings.</p>
-    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" data-consent-copy="learn">How Google uses data ↗</a>
-  </div>
+<aside class="analytics-consent" id="analytics-consent" role="region" aria-labelledby="analytics-consent-text" hidden>
+  <p class="analytics-consent-text" id="analytics-consent-text"><span data-consent-copy="text">May I count visits with Google Analytics? It stays off unless you allow it.</span> <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" data-consent-copy="learn">How Google uses data ↗</a></p>
   <div class="analytics-consent-actions">
-    <button type="button" class="consent-choice consent-reject" data-consent-choice="denied" data-consent-copy="reject">Reject analytics</button>
-    <button type="button" class="consent-choice consent-accept" data-consent-choice="granted" data-consent-copy="accept">Allow analytics</button>
+    <button type="button" class="consent-choice consent-reject" data-consent-choice="denied" data-consent-copy="reject">Decline</button>
+    <button type="button" class="consent-choice consent-accept" data-consent-choice="granted" data-consent-copy="accept">Allow</button>
   </div>
 </aside>
 <script>
@@ -325,8 +320,8 @@ const analyticsMeasurementId='G-3PEMBYEH79';
 const analyticsConsentKey='site-analytics-consent';
 const consentBanner=document.querySelector('#analytics-consent');
 const consentStrings={
-  en:{eyebrow:'PRIVACY CHOICE',title:'Help me understand site visits',body:'Google Analytics helps me measure visits to this portfolio. It stays off unless you allow analytics. Your choice is saved on this device and can be changed anytime in Privacy settings.',learn:'How Google uses data ↗',reject:'Reject analytics',accept:'Allow analytics',settings:'Privacy settings'},
-  de:{eyebrow:'DATENSCHUTZ',title:'Hilf mir, Website-Besuche zu verstehen',body:'Google Analytics hilft mir, Besuche auf meinem Portfolio zu messen. Die Analyse bleibt ausgeschaltet, bis du zustimmst. Deine Auswahl wird auf diesem Gerät gespeichert und kann jederzeit in den Datenschutzeinstellungen geändert werden.',learn:'So verwendet Google Daten ↗',reject:'Analyse ablehnen',accept:'Analyse erlauben',settings:'Datenschutzeinstellungen'}
+  en:{text:'May I count visits with Google Analytics? It stays off unless you allow it.',learn:'How Google uses data ↗',reject:'Decline',accept:'Allow',settings:'Privacy settings'},
+  de:{text:'Darf ich Besuche mit Google Analytics zählen? Die Analyse bleibt aus, bis du zustimmst.',learn:'So verwendet Google Daten ↗',reject:'Ablehnen',accept:'Erlauben',settings:'Datenschutzeinstellungen'}
 };
 let googleTagsLoaded=false;
 function loadGoogleTags(){
@@ -350,7 +345,7 @@ function updateConsentLanguage(){
   consentBanner.querySelectorAll('[data-consent-copy]').forEach(el=>{el.textContent=copy[el.dataset.consentCopy]});
   document.querySelector('.privacy-settings-trigger').textContent=copy.settings;
 }
-function showConsentBanner(){consentBanner.hidden=false;updateConsentLanguage()}
+function showConsentBanner(auto){consentBanner.classList.toggle('is-auto',auto===true);consentBanner.hidden=false;updateConsentLanguage()}
 function saveAnalyticsConsent(choice){
   localStorage.setItem(analyticsConsentKey,choice);
   if(choice==='granted')loadGoogleTags();
@@ -358,11 +353,11 @@ function saveAnalyticsConsent(choice){
   consentBanner.hidden=true;
 }
 document.querySelectorAll('[data-consent-choice]').forEach(button=>button.addEventListener('click',()=>saveAnalyticsConsent(button.dataset.consentChoice)));
-document.querySelector('.privacy-settings-trigger').addEventListener('click',showConsentBanner);
+document.querySelector('.privacy-settings-trigger').addEventListener('click',()=>showConsentBanner(false));
 document.querySelector('.language-toggle').addEventListener('click',()=>requestAnimationFrame(updateConsentLanguage));
 const savedAnalyticsConsent=localStorage.getItem(analyticsConsentKey);
 if(savedAnalyticsConsent==='granted')loadGoogleTags();
-else if(savedAnalyticsConsent!=='denied')showConsentBanner();
+else if(savedAnalyticsConsent!=='denied')showConsentBanner(true);
 </script>
 <script>
 /* Intercept the existing toggle handler so the theme change expands from the button. */

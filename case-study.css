@@ -140,3 +140,4 @@ html{scroll-padding-top:24px}
 
 @media(prefers-reduced-motion:reduce){.cs-sidenav svg{transition:none}}
 @media(min-width:1181px){.cs-page{padding-left:84px}}
+.btn-text{font-weight:inherit}

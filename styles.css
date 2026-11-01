@@ -10,6 +10,7 @@ p{margin:0}
 a{color:inherit}
 .page{max-width:none;margin:0;padding:10px;background:var(--paper);transition:background .25s ease}
 #profile{scroll-margin-top:10px}
+.hero-particles{position:absolute;inset:0;z-index:0;pointer-events:none}
 section:not(.hero){padding:clamp(64px,8vw,112px) clamp(8px,4vw,72px)}
 h2{font-size:clamp(2rem,3.6vw,3.1rem);line-height:1.08}
 

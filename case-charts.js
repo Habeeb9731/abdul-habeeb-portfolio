@@ -18,7 +18,8 @@ const I18N = {
         fan: 'Fan', growlight: 'Grow light', blocked: 'blocked', holding: 'holding', ideal: 'Target range',
         rFanHot: 'temperature above 28 °C', rFanCold: 'temperature below 18 °C', rFanHum: 'humidity above 80 %', rFanDry: 'humidity below 40 %', rFanOk: 'climate within range',
         rPumpOn: 'soil below 40 %', rPumpOff: 'soil above 60 %', rPumpHold: 'between 40 and 60 % — keeps its last state', rPumpBlocked: 'reservoir low (> 4.5 cm)',
-        rLight: 'brightness follows ambient light', distance: 'distance to water' },
+        rLight: 'brightness follows ambient light', distance: 'distance to water',
+        dpModel: 'Model (P50)', dpPrev: 'Same hour, previous day', dpWeek: 'Same hour, last week', dpModelS: 'Model', dpPrevS: 'Previous day', dpWeekS: 'Last week', dpErr: 'Error (MAE)', dpCov: 'Range coverage', dpTarget: 'Target 80%', dpInRange: 'in range', dpHours: 'hours', dpMonth: 'Month', dpInput: 'Input', dpSees: 'Can see', dpWhy: 'Why', dpCut: 'Cutoff 11:30 · auction 12:00', dpD2: 'Two days before', dpD1: 'Day before', dpD0: 'Delivery day', dpIssued: 'Issued', dpPeriod: 'Period', normal: 'Middle 90% of prices', negative: 'Negative prices', spike: 'Highest 5% of prices', dpUnit: 'EUR/MWh' },
   de: { points: 'Punkte', gap: 'Abstand zur Spitze', round: 'Runde', pts: 'Pkt.', leader: 'Führend', lap: 'Runde', laps: 'Runden',
         soft: 'Soft', medium: 'Medium', hard: 'Hard', table: 'Als Tabelle anzeigen', driver: 'Fahrer', stint: 'Stint', compound: 'Mischung',
         quality: 'Datenqualitäts-Score', issues: 'gefundene Probleme', high: 'Hoch', med: 'Mittel', low: 'Niedrig', severity: 'Schwere', count: 'Anzahl', types: 'Problemtypen',
@@ -30,7 +31,8 @@ const I18N = {
         fan: 'Lüfter', growlight: 'Pflanzenlampe', blocked: 'gesperrt', holding: 'hält', ideal: 'Zielbereich',
         rFanHot: 'Temperatur über 28 °C', rFanCold: 'Temperatur unter 18 °C', rFanHum: 'Luftfeuchte über 80 %', rFanDry: 'Luftfeuchte unter 40 %', rFanOk: 'Klima im Zielbereich',
         rPumpOn: 'Boden unter 40 %', rPumpOff: 'Boden über 60 %', rPumpHold: 'zwischen 40 und 60 % — behält den letzten Zustand', rPumpBlocked: 'Tank fast leer (> 4,5 cm)',
-        rLight: 'Helligkeit folgt dem Umgebungslicht', distance: 'Abstand zum Wasser' }
+        rLight: 'Helligkeit folgt dem Umgebungslicht', distance: 'Abstand zum Wasser',
+        dpModel: 'Modell (P50)', dpPrev: 'Gleiche Stunde, Vortag', dpWeek: 'Gleiche Stunde, Vorwoche', dpModelS: 'Modell', dpPrevS: 'Vortag', dpWeekS: 'Vorwoche', dpErr: 'Fehler (MAE)', dpCov: 'Bereichsabdeckung', dpTarget: 'Ziel 80 %', dpInRange: 'im Bereich', dpHours: 'Stunden', dpMonth: 'Monat', dpInput: 'Eingabe', dpSees: 'Darf sehen', dpWhy: 'Warum', dpCut: 'Stichzeit 11:30 · Auktion 12:00', dpD2: 'Zwei Tage davor', dpD1: 'Vortag', dpD0: 'Liefertag', dpIssued: 'Erstellt', dpPeriod: 'Zeitraum', normal: 'Mittlere 90 % der Preise', negative: 'Negative Preise', spike: 'Höchste 5 % der Preise', dpUnit: 'EUR/MWh' }
 };
 const lang = () => (document.documentElement.lang === 'de' ? 'de' : 'en');
 const t = k => I18N[lang()][k] ?? I18N.en[k] ?? k;
@@ -427,6 +429,153 @@ function edenControls(fig) {
   });
 }
 
+/* ================= depower — what the model may see (timeline) ================= */
+function depowerCutoff(fig, D) {
+  const ctl = fig.querySelector('.cs-chart-ctl'), plot = fig.querySelector('.cs-chart-plot');
+  ctl.replaceChildren(); plot.replaceChildren();
+  const tip = tooltip(plot), L = lang();
+  const W = plot.clientWidth, narrow = W < 620, rowH = narrow ? 50 : 40;
+  const m = { l: narrow ? 8 : 190, r: 8, t: 30, b: 28 };
+  const iw = W - m.l - m.r, H = m.t + D.rows.length * rowH + m.b;
+  const x = h => m.l + (h / 72) * iw;
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: 'img', 'aria-label': fig.querySelector('h3')?.textContent || '' }, plot);
+  el('rect', { x: x(48), y: m.t, width: x(72) - x(48), height: H - m.t - m.b, class: 'cs-dp-day' }, svg);
+  [0, 24, 48, 72].forEach(h => el('line', { x1: x(h), x2: x(h), y1: m.t, y2: H - m.b, class: 'cs-grid' }, svg));
+  [[12, 'dpD2'], [36, 'dpD1'], [60, 'dpD0']].forEach(([h, k]) => { el('text', { x: x(h), y: H - 9, class: 'cs-tick', 'text-anchor': 'middle' }, svg).textContent = t(k); });
+  D.rows.forEach((r, i) => {
+    const y0 = m.t + i * rowH, bh = 14, by = narrow ? y0 + rowH - bh - 8 : y0 + (rowH - bh) / 2, c = r[L] || r.en;
+    const g = el('g', { class: 'cs-dp-row' }, svg);
+    el('rect', { x: 0, y: y0, width: W, height: rowH, class: 'cs-dp-hit' }, g);
+    if (i) el('line', { x1: narrow ? 0 : m.l, x2: W - m.r, y1: y0, y2: y0, class: 'cs-grid' }, g);
+    const lab = el('text', { x: narrow ? 8 : m.l - 14, y: narrow ? y0 + 18 : y0 + rowH / 2 + 4, class: 'cs-rowlabel', 'text-anchor': narrow ? 'start' : 'end' }, g); lab.textContent = c.name;
+    A(el('rect', { x: x(r.from), y: by, width: x(r.to) - x(r.from), height: bh, rx: 4, fill: css('--c1') }, g), 'a-growx', 150 + i * 110);
+    if (r.issued != null) {
+      A(el('line', { x1: x(r.issued), x2: x(r.from), y1: by + bh / 2, y2: by + bh / 2, class: 'cs-leader' }, g), 'a-fade', 150 + i * 110);
+      A(el('circle', { cx: x(r.issued), cy: by + bh / 2, r: 4, fill: css('--c1'), class: 'cs-dot' }, g), 'a-pop', 150 + i * 110);
+      A(el('text', { x: x(r.issued) + 8, y: by + bh / 2 - 6, class: 'cs-tick' }, g), 'a-fade', 150 + i * 110).textContent = t('dpIssued');
+    }
+    const show = e => { const b = plot.getBoundingClientRect(); tip.show([{ value: c.sees }, { value: c.why }], c.name, e.clientX - b.left, e.clientY - b.top); };
+    g.addEventListener('pointerenter', show); g.addEventListener('pointermove', show); g.addEventListener('pointerleave', () => tip.hide());
+  });
+  const cx = x(D.cutoff);
+  A(el('line', { x1: cx, x2: cx, y1: m.t - 8, y2: H - m.b, class: 'cs-dp-cut' }, svg), 'a-fade', 900);
+  const tl = A(el('text', { x: cx, y: m.t - 14, class: 'cs-dp-cutlabel', 'text-anchor': 'middle' }, svg), 'a-fade', 900); tl.textContent = t('dpCut');
+  table(fig, [t('dpInput'), t('dpSees'), t('dpWhy')], D.rows.map(r => { const c = r[L] || r.en; return [c.name, c.sees, c.why]; }));
+}
+
+/* ================= depower — error by hour (line) ================= */
+const dpHoursState = { hidden: new Set() };
+function depowerHours(fig, D) {
+  const ctl = fig.querySelector('.cs-chart-ctl'), plot = fig.querySelector('.cs-chart-plot');
+  ctl.replaceChildren(); plot.replaceChildren();
+  const META = { model: ['dpModel', 'dpModelS', '--c1'], baseline_prev_day: ['dpPrev', 'dpPrevS', '--c2'], baseline_prev_week: ['dpWeek', 'dpWeekS', '--c3'] };
+  legend(ctl, D.series.map(s => ({ id: s.id, label: t(META[s.id][0]), color: css(META[s.id][2]), line: true, hidden: dpHoursState.hidden.has(s.id) })),
+    { toggle: id => { if (dpHoursState.hidden.has(id)) dpHoursState.hidden.delete(id); else if (dpHoursState.hidden.size < D.series.length - 1) dpHoursState.hidden.add(id); depowerHours(fig, D); } });
+  const vis = D.series.filter(s => !dpHoursState.hidden.has(s.id));
+  const W = plot.clientWidth, narrow = W < 560, H = Math.round(Math.max(250, Math.min(360, W * 0.4)));
+  const m = { l: 34, r: narrow ? 12 : 104, t: 22, b: 28 }, iw = W - m.l - m.r, ih = H - m.t - m.b;
+  const hi = 60, x = h => m.l + (h / 23) * iw, y = v => m.t + (1 - v / hi) * ih;
+  const hh = h => String(h).padStart(2, '0') + ':00';
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: 'img', 'aria-label': fig.querySelector('h3')?.textContent || '' }, plot);
+  for (let v = 0; v <= hi; v += 15) {
+    el('line', { x1: m.l, x2: m.l + iw, y1: y(v), y2: y(v), class: v === 0 ? 'cs-ax' : 'cs-grid' }, svg);
+    el('text', { x: m.l - 8, y: y(v) + 4, class: 'cs-tick', 'text-anchor': 'end' }, svg).textContent = fmt(v);
+  }
+  for (let h = 0; h < 24; h += narrow ? 6 : 3) el('text', { x: x(h), y: H - 8, class: 'cs-tick', 'text-anchor': 'middle' }, svg).textContent = hh(h);
+  vis.forEach(s => {
+    const c = css(META[s.id][2]), i = D.series.indexOf(s);
+    A(el('path', { d: s.values.map((v, h) => `${h ? 'L' : 'M'}${x(h).toFixed(1)},${y(v).toFixed(1)}`).join(''), class: 'cs-line', stroke: c, pathLength: 1 }, svg), 'a-draw', i * 140);
+    if (!narrow) {
+      const tx = A(el('text', { x: x(23) + 10, y: y(s.values[23]) + 4, class: 'cs-endlabel' }, svg), 'a-fade', 1500 + i * 90); tx.textContent = t(META[s.id][1]);
+      A(el('circle', { cx: x(23), cy: y(s.values[23]), r: 4, fill: c, class: 'cs-dot' }, svg), 'a-pop', 1400 + i * 90);
+    }
+  });
+  const model = D.series.find(s => s.id === 'model');
+  if (!dpHoursState.hidden.has('model')) {
+    const pk = model.values.indexOf(Math.max(...model.values));
+    A(el('circle', { cx: x(pk), cy: y(model.values[pk]), r: 4, fill: css('--c1'), class: 'cs-dot' }, svg), 'a-pop', 1500);
+    const pl = A(el('text', { x: x(pk), y: y(model.values[pk]) - 11, class: 'cs-endlabel', 'text-anchor': 'middle' }, svg), 'a-fade', 1550); pl.textContent = `${fmt(model.values[pk], 1)} · ${hh(pk)}`;
+  }
+  const tip = tooltip(plot);
+  const cross = el('line', { y1: m.t, y2: m.t + ih, class: 'cs-cross', style: 'display:none' }, svg);
+  const dots = vis.map(s => el('circle', { r: 4, fill: css(META[s.id][2]), class: 'cs-dot', style: 'display:none' }, svg));
+  const hit = el('rect', { x: m.l, y: m.t, width: iw + 8, height: ih, fill: 'transparent' }, svg);
+  const move = e => {
+    const b = svg.getBoundingClientRect(), h = Math.max(0, Math.min(23, Math.round((e.clientX - b.left - m.l) / iw * 23)));
+    svg.classList.add('is-hover'); cross.setAttribute('x1', x(h)); cross.setAttribute('x2', x(h)); cross.style.display = '';
+    vis.forEach((s, i) => { dots[i].setAttribute('cx', x(h)); dots[i].setAttribute('cy', y(s.values[h])); dots[i].style.display = ''; });
+    tip.show(vis.map(s => ({ color: css(META[s.id][2]), value: fmt(s.values[h], 1), label: t(META[s.id][1]) })), `${hh(h)} · ${t('dpUnit')}`, x(h), e.clientY - b.top);
+  };
+  hit.addEventListener('pointermove', move); hit.addEventListener('pointerdown', move);
+  hit.addEventListener('pointerleave', () => { tip.hide(); svg.classList.remove('is-hover'); cross.style.display = 'none'; dots.forEach(d => (d.style.display = 'none')); });
+  table(fig, [t('hour'), t('dpModelS'), t('dpPrevS'), t('dpWeekS')], D.hours.map(h => [hh(h), ...D.series.map(s => fmt(s.values[h], 1))]));
+}
+
+/* ================= depower — error or coverage by month (bars) ================= */
+const dpMonthState = { mode: 'err' };
+function depowerMonths(fig, D) {
+  const ctl = fig.querySelector('.cs-chart-ctl'), plot = fig.querySelector('.cs-chart-plot');
+  ctl.replaceChildren(); plot.replaceChildren();
+  toggle(ctl, [['err', t('dpErr')], ['cov', t('dpCov')]], dpMonthState.mode, v => { dpMonthState.mode = v; depowerMonths(fig, D); });
+  const err = dpMonthState.mode === 'err';
+  if (err) legend(ctl, [{ label: t('dpModelS'), color: css('--c1') }, { label: t('dpPrevS'), color: css('--c2') }]);
+  const loc = lang() === 'de' ? 'de-DE' : 'en-US';
+  const mon = (k, opt) => new Date(k + '-15T12:00:00Z').toLocaleDateString(loc, opt);
+  const W = plot.clientWidth, H = Math.round(Math.max(240, Math.min(320, W * 0.56)));
+  const m = { l: 32, r: 6, t: 18, b: 26 }, iw = W - m.l - m.r, ih = H - m.t - m.b, n = D.months.length;
+  const hi = err ? 60 : 100, step = err ? 15 : 25, y = v => m.t + (1 - v / hi) * ih, band = iw / n;
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: 'img', 'aria-label': fig.querySelector('h3')?.textContent || '' }, plot);
+  for (let v = 0; v <= hi; v += step) {
+    el('line', { x1: m.l, x2: m.l + iw, y1: y(v), y2: y(v), class: v === 0 ? 'cs-ax' : 'cs-grid' }, svg);
+    el('text', { x: m.l - 8, y: y(v) + 4, class: 'cs-tick', 'text-anchor': 'end' }, svg).textContent = fmt(v);
+  }
+  const bar = (bx, bw, v, c, d) => {
+    const r = Math.min(4, bw / 2), top = y(v), base = y(0);
+    A(el('path', { d: `M${bx},${base}V${top + r}Q${bx},${top} ${bx + r},${top}H${bx + bw - r}Q${bx + bw},${top} ${bx + bw},${top + r}V${base}Z`, fill: c }, svg), 'a-growy', d);
+  };
+  const tip = tooltip(plot);
+  D.months.forEach((k, i) => {
+    const gw = Math.min(band - 4, 34), x0 = m.l + i * band + (band - gw) / 2;
+    if (err) { const bw = Math.max(2, (gw - 2) / 2); bar(x0, bw, D.model[i], css('--c1'), i * 45); bar(x0 + bw + 2, bw, D.prev[i], css('--c2'), i * 45 + 30); }
+    else bar(x0, gw, D.coverage[i], css('--c1'), i * 45);
+    if (W >= 460 || i % 2 === 0) el('text', { x: m.l + i * band + band / 2, y: H - 8, class: 'cs-tick', 'text-anchor': 'middle' }, svg).textContent = mon(k, { month: W < 460 ? 'narrow' : 'short', timeZone: 'UTC' }).replace('.', '');
+    const h = el('rect', { x: m.l + i * band, y: m.t, width: band, height: ih, fill: 'transparent' }, svg);
+    const show = e => { const b = svg.getBoundingClientRect(); const head = mon(k, { month: 'long', year: 'numeric', timeZone: 'UTC' });
+      tip.show(err ? [{ color: css('--c1'), box: true, value: fmt(D.model[i], 1), label: t('dpModelS') }, { color: css('--c2'), box: true, value: fmt(D.prev[i], 1), label: t('dpPrevS') }] : [{ color: css('--c1'), box: true, value: `${fmt(D.coverage[i], 1)} %`, label: t('dpInRange') }], err ? `${head} · ${t('dpUnit')}` : head, e.clientX - b.left, e.clientY - b.top); };
+    h.addEventListener('pointermove', show); h.addEventListener('pointerdown', show); h.addEventListener('pointerleave', () => tip.hide());
+  });
+  if (!err) {
+    A(el('line', { x1: m.l, x2: m.l + iw, y1: y(80), y2: y(80), class: 'cs-dp-cut' }, svg), 'a-fade', 500);
+    const tl = A(el('text', { x: m.l + iw, y: y(80) - 6, class: 'cs-dp-cutlabel', 'text-anchor': 'end' }, svg), 'a-fade', 500); tl.textContent = t('dpTarget');
+  }
+  table(fig, [t('dpMonth'), t('dpModelS'), t('dpPrevS'), t('dpCov')], D.months.map((k, i) => [mon(k, { month: 'short', year: 'numeric', timeZone: 'UTC' }), fmt(D.model[i], 1), fmt(D.prev[i], 1), `${fmt(D.coverage[i], 1)} %`]));
+}
+
+/* ================= depower — unusual prices (paired bars) ================= */
+function depowerRegimes(fig, D) {
+  const ctl = fig.querySelector('.cs-chart-ctl'), plot = fig.querySelector('.cs-chart-plot');
+  ctl.replaceChildren(); plot.replaceChildren();
+  legend(ctl, [{ label: t('dpModelS'), color: css('--c1') }, { label: t('dpPrevS'), color: css('--c2') }]);
+  const W = plot.clientWidth, gh = 92, bh = 14, H = D.rows.length * gh + 4, m = { l: 0, r: 50 };
+  const x = v => m.l + (v / 80) * (W - m.l - m.r);
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: 'img', 'aria-label': fig.querySelector('h3')?.textContent || '' }, plot);
+  const tip = tooltip(plot);
+  D.rows.forEach((r, i) => {
+    const y0 = i * gh, g = el('g', {}, svg);
+    if (i) el('line', { x1: 0, x2: W, y1: y0, y2: y0, class: 'cs-grid' }, g);
+    el('text', { x: 0, y: y0 + 22, class: 'cs-rowlabel' }, g).textContent = t(r.id);
+    el('text', { x: W, y: y0 + 22, class: 'cs-tick', 'text-anchor': 'end' }, g).textContent = `${fmt(r.coverage, 1)} % ${t('dpInRange')}`;
+    [[r.model, '--c1', 34], [r.prev, '--c2', 34 + bh + 3]].forEach(([v, c, o], k) => {
+      A(el('rect', { x: x(0), y: y0 + o, width: x(v) - x(0), height: bh, rx: 4, fill: css(c) }, g), 'a-growx', 120 + i * 140 + k * 60);
+      A(el('text', { x: x(v) + 7, y: y0 + o + 11, class: 'cs-tick' }, g), 'a-fade', 700 + i * 140).textContent = fmt(v, 2);
+    });
+    const h = el('rect', { x: 0, y: y0, width: W, height: gh, fill: 'transparent' }, g);
+    const show = e => { const b = svg.getBoundingClientRect(); tip.show([{ color: css('--c1'), box: true, value: fmt(r.model, 2), label: t('dpModelS') }, { color: css('--c2'), box: true, value: fmt(r.prev, 2), label: t('dpPrevS') }, { value: `${fmt(r.coverage, 1)} %`, label: t('dpInRange') }], `${t(r.id)} · ${fmt(r.n)} ${t('dpHours')}`, e.clientX - b.left, e.clientY - b.top); };
+    h.addEventListener('pointermove', show); h.addEventListener('pointerdown', show); h.addEventListener('pointerleave', () => tip.hide());
+  });
+  table(fig, [t('dpPeriod'), t('dpHours'), t('dpModelS'), t('dpPrevS'), t('dpInRange')], D.rows.map(r => [t(r.id), fmt(r.n), fmt(r.model, 2), fmt(r.prev, 2), `${fmt(r.coverage, 1)} %`]));
+}
+
 /* Count a number up from 0 when the figure's entrance plays (or show it final if it already played). */
 function countUp(fig, node, target, dur = 1300, ticks) {
   const run = () => {
@@ -441,7 +590,7 @@ function countUp(fig, node, target, dur = 1300, ticks) {
   fig.addEventListener('cs-animate', run, { once: true });
 }
 
-const RENDER = { 'apex-points': apexPoints, 'apex-stints': apexStints, 'ada-quality': adaQuality, 'ada-segments': adaSegments, 'eden-hysteresis': edenHysteresis, 'eden-controls': edenControls };
+const RENDER = { 'apex-points': apexPoints, 'apex-stints': apexStints, 'ada-quality': adaQuality, 'ada-segments': adaSegments, 'eden-hysteresis': edenHysteresis, 'eden-controls': edenControls, 'depower-cutoff': depowerCutoff, 'depower-hours': depowerHours, 'depower-months': depowerMonths, 'depower-regimes': depowerRegimes };
 const figs = [...document.querySelectorAll('.cs-chart[data-chart]')];
 // One-time entrance: charts below the fold wait (marks hidden), then animate as they enter view.
 if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {

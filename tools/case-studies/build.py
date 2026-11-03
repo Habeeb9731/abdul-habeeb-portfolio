@@ -25,7 +25,7 @@ DATA = os.path.join(HERE, 'data')
 NOT_FOUND_VERSION = '20261101c'
 
 # Bump when styles.css / case-study.css / case-charts.js change, so browsers fetch the new files.
-ASSET_VERSION = '20261101-copy'
+ASSET_VERSION = '20261103-depower'
 
 
 def load(name):

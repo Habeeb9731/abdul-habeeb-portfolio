@@ -14,6 +14,7 @@ Abdul Habeeb builds clear, reliable digital products and turns complex systems a
 Each project has a detailed case study at https://abdulhabeeb.com/projects/<name>/ (challenge, solution, features, tech stack, and takeaways).
 
 
+- [depower](https://depower.abdulhabeeb.com/): Daily forecast of German day-ahead electricity prices, logged before the auction closes and scored in public, with a walk-forward backtest and leakage controls. [Source](https://github.com/Habeeb9731/german-day-ahead-forecast)
 - [APEX F1 Analytics](https://apex.abdulhabeeb.com/): Historical Formula 1 dashboard built on OpenF1 data, with race, telemetry, tire strategy, and championship views plus an AI race analyst. [Source](https://github.com/Habeeb9731/apex-f1-analytics)
 - [Autonomous Data Analyst](https://autonomous-data-analyst.abdulhabeeb.com/): AI-assisted analytics workspace with a React frontend, deterministic FastAPI profiling engine, and Cloudflare deployment. [Source](https://github.com/Habeeb9731/autonomous-data-analyst)
 - [EDEN Smart Terrarium](https://eden.abdulhabeeb.com/): Smart dual-plant terrarium dashboard (PWA) built as a group project for the Interactive Systems course at Saarland University — live sensor readings, soil trends, and pump, fan, and grow-light controls. [Source](https://github.com/Habeeb9731/eden)

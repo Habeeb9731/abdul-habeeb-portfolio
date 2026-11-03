@@ -1,5 +1,242 @@
 [
  {
+  "slug": "depower",
+  "title": "depower",
+  "label": "Data · Energy forecasting",
+  "summary": "A daily forecast of German day-ahead electricity prices, locked in before the auction closes and scored in public once the real prices arrive.",
+  "hero": "/public/resources/case-studies/depower-home.jpg",
+  "thumb": "/public/resources/projects/depower.jpg",
+  "live": "https://depower.abdulhabeeb.com/",
+  "repo": "https://github.com/Habeeb9731/german-day-ahead-forecast",
+  "meta": [
+   [
+    "Role",
+    "Data science &amp; full-stack development"
+   ],
+   [
+    "Timeline",
+    "2026"
+   ],
+   [
+    "Type",
+    "Personal project"
+   ],
+   [
+    "Stack",
+    "Python, LightGBM, Next.js"
+   ]
+  ],
+  "ov_h": "Any forecast can look good in hindsight. <span>depower commits to its numbers before the market does.</span>",
+  "ov_p": "Germany’s wholesale electricity prices for each hour of tomorrow are set in an auction at 12:00 today. Every morning before that, depower forecasts all 24 prices with a likely range for each hour, using grid data from SMARD and ECMWF weather forecasts. Each forecast is logged once and can’t be overwritten. When the real prices are published, it gets scored in public.",
+  "ov_img": [
+   "/public/resources/case-studies/depower-home.jpg",
+   "The forecast view, showing a backtest example: average price, hourly bars, the cheapest window and an EV charging estimate."
+  ],
+  "challenge": [
+   "A forecast is only honest if it uses what was known at the time",
+   [
+    "One value published after the auction is enough to make a backtest look better than the model could ever be live.",
+    "SMARD keeps no history of when values were published, and some forecast series only seem to appear after the auction closes.",
+    "A good error score proves little on its own. It needs simple baselines to beat, and a clear line between simulated and real results."
+   ]
+  ],
+  "solution": [
+   "Make leaking hard, then publish the misses",
+   [
+    "Every cleaned row carries an available-at time, and features can only read through a view that hides anything newer than the 11:30 cutoff.",
+    "Tests overwrite post-cutoff values with absurd numbers and confirm no feature changes. An audit of all 23,136 real feature rows found none past its cutoff.",
+    "Each log entry stores the hash of the one before and CI fails if a forecast changes. The dashboard shows backtest and live results separately."
+   ]
+  ],
+  "features": [
+   [
+    "chart",
+    "Tomorrow’s prices",
+    "24 hourly forecasts with P10–P90 ranges and the cheapest and priciest windows, as bars, ranges or a table."
+   ],
+   [
+    "shield",
+    "Public track record",
+    "Forecasts scored against published prices and two simple baselines, with live and backtest results kept apart."
+   ],
+   [
+    "bolt",
+    "EV charging calculator",
+    "Finds the cheapest hours to charge within your plug-in window and estimates the saving, on wholesale prices only."
+   ]
+  ],
+  "phone": [
+   "/public/resources/case-studies/depower-mobile.jpg",
+   "Built for any screen",
+   "The dashboard folds into a single column on a phone, with every view one tap away."
+  ],
+  "points": [
+   "Cards stack into one readable column",
+   "Navigation moves to a bar at the bottom of the screen",
+   "English and German, following the browser’s language"
+  ],
+  "gallery": [
+   [
+    "/public/resources/case-studies/depower-ev.jpg",
+    "EV charging: pick the energy, charger and plug-in window to see the cheapest hours",
+    false
+   ],
+   [
+    "/public/resources/case-studies/depower-about.jpg",
+    "About: the method, data sources and licences, with limitations spelled out",
+    false
+   ],
+   [
+    "/public/resources/case-studies/depower-track.jpg",
+    "Track record: forecast against actual price, with no live results claimed until they exist",
+    true
+   ],
+   [
+    "/public/resources/case-studies/depower-model.jpg",
+    "Model: error against the baselines, range coverage and unusual price periods",
+    true
+   ]
+  ],
+  "tech": [
+   [
+    "Data",
+    "SMARD (Bundesnetzagentur) for prices, demand and generation, Open-Meteo for ECMWF weather at six locations, and an offline holidays package."
+   ],
+   [
+    "Model",
+    "LightGBM quantile regression for P10, P50 and P90 on 72 features, retrained monthly in the backtest, with conformal calibration by hour."
+   ],
+   [
+    "Pipeline",
+    "Python and DuckDB. Raw responses are versioned, quality checks gate every forecast, and a late or incomplete run publishes nothing."
+   ],
+   [
+    "Frontend",
+    "Next.js static export with shadcn/ui and Recharts, in English and German."
+   ],
+   [
+    "Deployment",
+    "Docker containers on a Hetzner server, run by systemd timers at 10:20, 10:45 and 11:10 Berlin time. GitHub Actions runs CI."
+   ]
+  ],
+  "stack": [
+   "Python",
+   "LightGBM",
+   "DuckDB",
+   "pandas",
+   "TypeScript",
+   "Next.js",
+   "Recharts",
+   "shadcn/ui",
+   "Docker",
+   "systemd",
+   "Hetzner",
+   "GitHub Actions"
+  ],
+  "learned": "My first backtest’s P10–P90 ranges covered only 58.5% of real prices when they should have covered 80%. Calibration brought that to 77.9%, but I chose that fix after seeing the result, so the number may be slightly flattering, and the project says so. That taught me a forecast earns trust less through its error score than by showing what it could see, where it fails and what a simple baseline would have done.",
+  "charts": {
+   "h": "The backtest, <span>including where it falls short.</span>",
+   "p": "Every number here comes from the project’s published report: 365 days from 1 November 2025 to 31 October 2026, with the model retrained monthly on earlier data only. These are simulated forecasts, not live results. Hover or tap for exact values.",
+   "de_h": "Der Backtest, <span>auch dort, wo er schwächelt.</span>",
+   "de_p": "Alle Zahlen stammen aus dem veröffentlichten Bericht des Projekts: 365 Tage vom 1. November 2025 bis 31. Oktober 2026, das Modell monatlich nur mit früheren Daten neu trainiert. Das sind simulierte Prognosen, keine Live-Ergebnisse. Für genaue Werte hovern oder tippen.",
+   "items": [
+    {
+     "id": "depower-cutoff",
+     "wide": true,
+     "l": "Leakage rules",
+     "t": "What the model may see at 11:30, half an hour before the auction.",
+     "p": "Each bar is the time span an input can contribute. A bar only crosses the cutoff if those values were already published by then. Hover or tap a row to see why.",
+     "s": "Source: german-day-ahead-forecast, leakage rules in the README. Bars start at the chart’s edge; history reaches further back.",
+     "de_l": "Leakage-Regeln",
+     "de_t": "Was das Modell um 11:30 Uhr sehen darf, eine halbe Stunde vor der Auktion.",
+     "de_p": "Jeder Balken zeigt den Zeitraum, den eine Eingabe beitragen darf. Ein Balken überschreitet den Stichzeitpunkt nur, wenn diese Werte da schon veröffentlicht waren. Für die Begründung über eine Zeile hovern oder tippen.",
+     "de_s": "Quelle: german-day-ahead-forecast, Leakage-Regeln im README. Die Balken beginnen am Diagrammrand; die Historie reicht weiter zurück."
+    },
+    {
+     "id": "depower-hours",
+     "wide": true,
+     "l": "Error by hour",
+     "t": "It beats both baselines at every hour. The evening peak is still its hardest.",
+     "p": "Mean absolute error (MAE) by Berlin hour. Overall, the model misses by 19.10 EUR/MWh, against 31.28 for repeating yesterday’s price and 40.17 for repeating last week’s. Click a name to hide it.",
+     "s": "Source: data/backtest/report.json, by_hour, 8,760 scored hours.",
+     "de_l": "Fehler nach Stunde",
+     "de_t": "Es schlägt beide Vergleichswerte zu jeder Stunde. Die Abendspitze bleibt am schwierigsten.",
+     "de_p": "Mittlerer absoluter Fehler (MAE) nach Berliner Stunde. Insgesamt liegt das Modell um 19,10 EUR/MWh daneben, gegenüber 31,28 beim Wiederholen des Vortagspreises und 40,17 beim Vorwochenpreis. Ein Klick auf einen Namen blendet ihn aus.",
+     "de_s": "Quelle: data/backtest/report.json, by_hour, 8.760 bewertete Stunden."
+    },
+    {
+     "id": "depower-months",
+     "wide": false,
+     "l": "Error by month",
+     "t": "September and October 2026 were its weakest months by far.",
+     "p": "MAE was 31.8 and 32.6 EUR/MWh, against 11.3 to 20.1 in every other month. Switch views to see how often real prices landed inside the P10–P90 range.",
+     "s": "Source: data/backtest/report.json, by_month.",
+     "de_l": "Fehler nach Monat",
+     "de_t": "September und Oktober 2026 waren mit Abstand die schwächsten Monate.",
+     "de_p": "Der MAE lag bei 31,8 und 32,6 EUR/MWh, gegenüber 11,3 bis 20,1 in allen anderen Monaten. In der anderen Ansicht siehst du, wie oft reale Preise im P10–P90-Bereich lagen.",
+     "de_s": "Quelle: data/backtest/report.json, by_month."
+    },
+    {
+     "id": "depower-regimes",
+     "wide": false,
+     "l": "Unusual prices",
+     "t": "Price spikes are the main weakness.",
+     "p": "In the highest 5% of prices, the model only narrowly beats yesterday’s price, and its range misses nearly half of those hours. Periods are grouped by actual price, after the fact.",
+     "s": "Source: data/backtest/report.json, by_regime. Top 5% means at or above 215.72 EUR/MWh.",
+     "de_l": "Ungewöhnliche Preise",
+     "de_t": "Preisspitzen sind die größte Schwäche.",
+     "de_p": "Bei den höchsten 5 % der Preise schlägt das Modell den Vortagspreis nur knapp, und sein Bereich verfehlt fast die Hälfte dieser Stunden. Die Zeiträume sind nachträglich nach dem tatsächlichen Preis gruppiert.",
+     "de_s": "Quelle: data/backtest/report.json, by_regime. Top 5 % bedeutet ab 215,72 EUR/MWh."
+    }
+   ]
+  },
+  "de": {
+   "label": "Data · Energieprognose",
+   "summary": "Eine tägliche Prognose der deutschen Day-Ahead-Strompreise, festgeschrieben vor Auktionsschluss und öffentlich bewertet, sobald die echten Preise vorliegen.",
+   "meta0": "Data Science &amp; Full-Stack-Entwicklung",
+   "meta1": "2026",
+   "meta2": "Persönliches Projekt",
+   "meta3": "Python, LightGBM, Next.js",
+   "ov_h": "Im Nachhinein sieht jede Prognose gut aus. <span>depower legt sich fest, bevor der Markt es tut.</span>",
+   "ov_p": "Die deutschen Großhandelspreise für jede Stunde von morgen werden heute um 12:00 Uhr in einer Auktion festgelegt. Jeden Morgen davor prognostiziert depower alle 24 Preise samt wahrscheinlichem Bereich pro Stunde, auf Basis von Netzdaten von SMARD und ECMWF-Wetterprognosen. Jede Prognose wird einmal protokolliert und kann nicht überschrieben werden. Sobald die echten Preise veröffentlicht sind, wird sie öffentlich bewertet.",
+   "ov_cap": "Die Prognoseansicht mit einem Backtest-Beispiel: Durchschnittspreis, Stundenbalken, günstigstes Zeitfenster und eine Schätzung fürs E-Auto-Laden.",
+   "ch_t": "Eine Prognose ist nur ehrlich, wenn sie nutzt, was damals bekannt war",
+   "ch0": "Schon ein einziger Wert, der nach der Auktion veröffentlicht wurde, lässt einen Backtest besser aussehen, als das Modell live je sein könnte.",
+   "ch1": "SMARD speichert nicht, wann Werte veröffentlicht wurden, und manche Prognosereihen erscheinen offenbar erst nach Auktionsschluss.",
+   "ch2": "Ein guter Fehlerwert allein beweist wenig. Es braucht einfache Vergleichswerte und eine klare Trennung zwischen simulierten und echten Ergebnissen.",
+   "so_t": "Leakage erschweren, dann auch die Fehler zeigen",
+   "so0": "Jede bereinigte Zeile trägt einen Verfügbarkeitszeitpunkt, und Features lesen nur über eine Sicht, die alles nach dem Stichzeitpunkt 11:30 Uhr verbirgt.",
+   "so1": "Tests überschreiben Werte nach dem Stichzeitpunkt mit absurden Zahlen und prüfen, dass sich kein Feature ändert. Eine Prüfung aller 23.136 echten Feature-Zeilen fand keine jenseits ihres Stichzeitpunkts.",
+   "so2": "Jeder Logeintrag speichert den Hash des vorherigen, und die CI schlägt fehl, wenn sich eine Prognose ändert. Das Dashboard zeigt Backtest und Live-Ergebnisse getrennt.",
+   "f0t": "Die Preise von morgen",
+   "f0d": "24 Stundenprognosen mit P10–P90-Bereichen sowie die günstigsten und teuersten Zeitfenster, als Balken, Bereiche oder Tabelle.",
+   "f1t": "Öffentliche Erfolgsbilanz",
+   "f1d": "Prognosen, bewertet an veröffentlichten Preisen und zwei einfachen Vergleichswerten, Live- und Backtest-Ergebnisse getrennt.",
+   "f2t": "E-Auto-Laderechner",
+   "f2d": "Findet die günstigsten Ladestunden in deinem Zeitfenster und schätzt die Ersparnis, nur auf Basis von Großhandelspreisen.",
+   "g0": "E-Auto-Laden: Energie, Ladeleistung und Zeitfenster wählen und die günstigsten Stunden sehen",
+   "g1": "Über das Projekt: Methode, Datenquellen und Lizenzen, mit klar benannten Grenzen",
+   "g2": "Erfolgsbilanz: Prognose gegen tatsächlichen Preis, ohne Live-Ergebnisse zu behaupten, bevor es sie gibt",
+   "g3": "Modell: Fehler gegenüber den Vergleichswerten, Bereichsabdeckung und ungewöhnliche Preisphasen",
+   "ph_h": "Für jeden Bildschirm gebaut",
+   "ph_p": "Auf dem Handy wird das Dashboard einspaltig, jede Ansicht bleibt nur einen Tipp entfernt.",
+   "pt0": "Karten stapeln sich zu einer gut lesbaren Spalte",
+   "pt1": "Die Navigation wandert in eine Leiste am unteren Rand",
+   "pt2": "Englisch und Deutsch, passend zur Browsersprache",
+   "t0k": "Daten",
+   "t0v": "SMARD (Bundesnetzagentur) für Preise, Last und Erzeugung, Open-Meteo für ECMWF-Wetter an sechs Standorten und ein Offline-Feiertagspaket.",
+   "t1k": "Modell",
+   "t1v": "LightGBM-Quantilregression für P10, P50 und P90 mit 72 Features, im Backtest monatlich neu trainiert, mit konformer Kalibrierung pro Stunde.",
+   "t2k": "Pipeline",
+   "t2v": "Python und DuckDB. Rohdaten werden versioniert, Qualitätsprüfungen sichern jede Prognose ab, und ein später oder unvollständiger Lauf veröffentlicht nichts.",
+   "t3k": "Frontend",
+   "t3v": "Statischer Next.js-Export mit shadcn/ui und Recharts, auf Englisch und Deutsch.",
+   "t4k": "Deployment",
+   "t4v": "Docker-Container auf einem Hetzner-Server, gestartet von systemd-Timern um 10:20, 10:45 und 11:10 Uhr Berliner Zeit. GitHub Actions übernimmt die CI.",
+   "learned": "Im ersten Backtest deckten meine P10–P90-Bereiche nur 58,5 % der echten Preise ab, obwohl es 80 % sein sollten. Die Kalibrierung brachte das auf 77,9 %, aber ich habe diese Korrektur erst nach dem Ergebnis gewählt, daher ist die Zahl womöglich etwas geschönt, und das Projekt sagt das auch. Daraus habe ich gelernt: Vertrauen gewinnt eine Prognose weniger durch ihren Fehlerwert als dadurch, dass sie zeigt, was sie sehen konnte, wo sie scheitert und was ein einfacher Vergleichswert geschafft hätte."
+  }
+ },
+ {
   "slug": "apex-f1-analytics",
   "title": "APEX F1 Analytics",
   "label": "Data · F1 analytics",

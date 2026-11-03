@@ -27,10 +27,10 @@
    ]
   ],
   "ov_h": "Any forecast can look good in hindsight. <span>depower commits to its numbers before the market does.</span>",
-  "ov_p": "Germany’s wholesale electricity prices for each hour of tomorrow are set in an auction at 12:00 today. Every morning before that, depower forecasts all 24 prices with a likely range for each hour, using grid data from SMARD and ECMWF weather forecasts. Each forecast is logged once and can’t be overwritten. When the real prices are published, it gets scored in public.",
+  "ov_p": "Germany’s wholesale electricity prices for each hour of tomorrow are set in an auction at 12:00 today. Every morning before that, depower forecasts all 24 prices with a likely range for each hour, using grid data from SMARD and ECMWF weather forecasts. Each forecast is logged once and can’t be overwritten. When the real prices are published, it gets scored in public. Live forecasts began on 3 November 2026, for delivery the next day.",
   "ov_img": [
    "/public/resources/case-studies/depower-home.jpg",
-   "The forecast view, showing a backtest example: average price, hourly bars, the cheapest window and an EV charging estimate."
+   "The first live forecast, made on 3 November 2026 for the next day, with the simulated backtest scorecard beside it."
   ],
   "challenge": [
    "A forecast is only honest if it uses what was known at the time",
@@ -198,8 +198,8 @@
    "meta2": "Persönliches Projekt",
    "meta3": "Python, LightGBM, Next.js",
    "ov_h": "Im Nachhinein sieht jede Prognose gut aus. <span>depower legt sich fest, bevor der Markt es tut.</span>",
-   "ov_p": "Die deutschen Großhandelspreise für jede Stunde von morgen werden heute um 12:00 Uhr in einer Auktion festgelegt. Jeden Morgen davor prognostiziert depower alle 24 Preise samt wahrscheinlichem Bereich pro Stunde, auf Basis von Netzdaten von SMARD und ECMWF-Wetterprognosen. Jede Prognose wird einmal protokolliert und kann nicht überschrieben werden. Sobald die echten Preise veröffentlicht sind, wird sie öffentlich bewertet.",
-   "ov_cap": "Die Prognoseansicht mit einem Backtest-Beispiel: Durchschnittspreis, Stundenbalken, günstigstes Zeitfenster und eine Schätzung fürs E-Auto-Laden.",
+   "ov_p": "Die deutschen Großhandelspreise für jede Stunde von morgen werden heute um 12:00 Uhr in einer Auktion festgelegt. Jeden Morgen davor prognostiziert depower alle 24 Preise samt wahrscheinlichem Bereich pro Stunde, auf Basis von Netzdaten von SMARD und ECMWF-Wetterprognosen. Jede Prognose wird einmal protokolliert und kann nicht überschrieben werden. Sobald die echten Preise veröffentlicht sind, wird sie öffentlich bewertet. Die Live-Prognosen starteten am 3. November 2026, für die Lieferung am Folgetag.",
+   "ov_cap": "Die erste Live-Prognose vom 3. November 2026 für den Folgetag, daneben die simulierte Backtest-Bilanz.",
    "ch_t": "Eine Prognose ist nur ehrlich, wenn sie nutzt, was damals bekannt war",
    "ch0": "Schon ein einziger Wert, der nach der Auktion veröffentlicht wurde, lässt einen Backtest besser aussehen, als das Modell live je sein könnte.",
    "ch1": "SMARD speichert nicht, wann Werte veröffentlicht wurden, und manche Prognosereihen erscheinen offenbar erst nach Auktionsschluss.",

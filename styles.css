@@ -515,7 +515,7 @@ footer{container-type:inline-size;margin-top:clamp(80px,11vw,140px);padding:18px
 /* Profile: the Email pill reveals the address and a copy button on hover (laptop and desktop only) */
 .social-email{display:inline-flex;align-items:center}
 .se-addr,.social-copy{display:none}
-@media(min-width:1025px) and (hover:hover) and (pointer:fine){
+@media(min-width:1141px) and (hover:hover) and (pointer:fine){
   .social-links{flex-wrap:nowrap}
   .social-links > a,.social-email{flex:none}
   .social-email a{gap:0}
@@ -528,9 +528,9 @@ footer{container-type:inline-size;margin-top:clamp(80px,11vw,140px);padding:18px
   .social-copy > span{position:absolute;inset:0;display:grid;place-items:center;border-radius:50%;transition:background .2s,color .2s}
   .social-copy.is-copied > span{color:#fff}
   .social-copy:focus-visible{outline:2px solid #fff;outline-offset:2px}
-  .social-email:is(:hover,.is-measure,:has(:focus-visible)) .se-label{grid-template-columns:0fr;opacity:0}
-  .social-email:is(:hover,.is-measure,:has(:focus-visible)) .se-addr{grid-template-columns:1fr;opacity:1}
-  .social-email:is(:hover,.is-measure,:has(:focus-visible)) .social-copy{width:30px;margin:0 5px 0 -6px;opacity:1;visibility:visible}
+  .social-email:is(:hover,.is-open,.is-measure,:has(:focus-visible)) .se-label{grid-template-columns:0fr;opacity:0}
+  .social-email:is(:hover,.is-open,.is-measure,:has(:focus-visible)) .se-addr{grid-template-columns:1fr;opacity:1}
+  .social-email:is(:hover,.is-open,.is-measure,:has(:focus-visible)) .social-copy{width:30px;margin:0 5px 0 -6px;opacity:1;visibility:visible}
   .social-email.is-measure{position:absolute;visibility:hidden;pointer-events:none}
   .social-email.is-measure,.social-email.is-measure *{transition:none!important}
 }
@@ -566,3 +566,16 @@ footer{container-type:inline-size;margin-top:clamp(80px,11vw,140px);padding:18px
   .topbar .nav-icon svg{width:16px;height:16px}
   .nav-indicator{top:3px;height:31px}
 }
+
+/* Profile: GitHub and LinkedIn show an arrow on hover. Room is reserved so nothing shifts. */
+.sl-inner{display:inline-flex;align-items:center;gap:8px}
+.sl-arrow{display:none}
+@media(hover:hover) and (pointer:fine){
+  .social-links > a{padding-right:30px}
+  .sl-inner{transform:translateX(8px);transition:transform .3s cubic-bezier(.22,1,.36,1)}
+  .sl-arrow{position:absolute;top:50%;right:13px;display:block;font-size:.84rem;line-height:1;opacity:0;transform:translate(-5px,calc(-50% + 5px));transition:opacity .2s ease,transform .3s cubic-bezier(.22,1,.36,1)}
+  .social-links > a:is(:hover,:focus-visible) .sl-inner{transform:none}
+  .social-links > a:is(:hover,:focus-visible) .sl-arrow{opacity:1;transform:translate(0,-50%)}
+}
+@media(prefers-reduced-motion:reduce){.sl-inner,.sl-arrow{transition:none}}
+.se-arrow{display:inline-block;margin-left:7px;font-size:.84rem;font-style:normal;line-height:1}

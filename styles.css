@@ -552,3 +552,17 @@ footer{container-type:inline-size;margin-top:clamp(80px,11vw,140px);padding:18px
 }
 .dark .trust-apex svg{filter:brightness(0) invert(1)}
 .dark .trust-apex:hover svg{filter:none}
+
+/* Navbar: keep all icons on screen on narrow phones */
+@media(max-width:400px){
+  .topbar nav{gap:2px;padding:4px}
+  .topbar :is(.nav-icon,.language-toggle,.theme-toggle){width:34px;height:34px}
+  .topbar .nav-icon svg{width:17px;height:17px}
+  .nav-indicator{top:4px;height:34px}
+}
+@media(max-width:350px){
+  .topbar nav{gap:1px;padding:3px}
+  .topbar :is(.nav-icon,.language-toggle,.theme-toggle){width:31px;height:31px}
+  .topbar .nav-icon svg{width:16px;height:16px}
+  .nav-indicator{top:3px;height:31px}
+}

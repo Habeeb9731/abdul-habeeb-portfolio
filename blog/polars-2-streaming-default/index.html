@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Polars 2.0 makes streaming the default, and your row order may change — Abdul Habeeb</title>
+  <meta name="description" content="The new default engine is built for larger-than-memory work, but it no longer guarantees row order for many operations. Code that relied on it could break without an error." />
+  <link rel="canonical" href="https://abdulhabeeb.com/blog/polars-2-streaming-default/" />
+  <link rel="alternate" type="application/rss+xml" title="Abdul Habeeb's blog" href="/blog/feed.xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Polars 2.0 makes streaming the default, and your row order may change — Abdul Habeeb" />
+  <meta property="og:description" content="The new default engine is built for larger-than-memory work, but it no longer guarantees row order for many operations. Code that relied on it could break without an error." />
+  <meta property="og:url" content="https://abdulhabeeb.com/blog/polars-2-streaming-default/" />
+  <meta property="og:image" content="https://abdulhabeeb.com/public/resources/blog/polars-2-streaming-default.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BlogPosting", "headline": "Polars 2.0 makes streaming the default, and your row order may change", "description": "The new default engine is built for larger-than-memory work, but it no longer guarantees row order for many operations. Code that relied on it could break without an error.", "url": "https://abdulhabeeb.com/blog/polars-2-streaming-default/", "mainEntityOfPage": "https://abdulhabeeb.com/blog/polars-2-streaming-default/", "image": "https://abdulhabeeb.com/public/resources/blog/polars-2-streaming-default.jpg", "datePublished": "2026-11-04", "dateModified": "2026-11-04", "inLanguage": "en", "author": {"@type": "Person", "@id": "https://abdulhabeeb.com/#person", "name": "Abdul Habeeb", "url": "https://abdulhabeeb.com/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://abdulhabeeb.com/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://abdulhabeeb.com/blog/"}, {"@type": "ListItem", "position": 3, "name": "Polars 2.0 makes streaming the default, and your row order may change", "item": "https://abdulhabeeb.com/blog/polars-2-streaming-default/"}]}]}</script>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css?v=20261104-blognav" />
+  <link rel="stylesheet" href="/blog.css?v=20261104k" />
+  <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark-pre')}catch(e){}</script>
+</head>
+<body>
+<div class="bl-progress" aria-hidden="true"><i></i></div>
+<main class="page bl-page bl-post">
+  <header class="topbar">
+      <nav aria-label="Main"><a class="nav-icon" href="/#profile"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></svg><span class="nav-tip" data-i18n="profile">Profile</span></a><a class="nav-icon" href="/#experience"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="M9 7.5V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.5M3.5 13h17"/></svg><span class="nav-tip" data-i18n="experience">Experience</span></a><a class="nav-icon" href="/#projects"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="12" rx="2"/><path d="M8 20h8M12 17v3"/></svg><span class="nav-tip" data-i18n="projects">Projects</span></a><a class="nav-icon" href="/#contact"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4.5 7 7.5 6 7.5-6"/></svg><span class="nav-tip" data-i18n="contact">Contact</span></a><a class="nav-icon" href="/public/resources/Abdul_Habeeb_Resume.pdf#view=FitH" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3.5H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-10z"/><path d="M14 3.5v5h5M9 13h6M9 16.5h4"/></svg><span class="nav-tip" data-i18n="resumeShort">Resume</span></a><a class="nav-icon is-active" href="/blog/" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1-4.2L15.8 5a2.1 2.1 0 0 1 3 3L8.2 18.8 4 20Z"/><path d="M13.8 7l3 3M12.5 20H20"/></svg><span class="nav-tip" data-i18n="blog">Blog</span></a><i class="nav-divider"></i><button class="language-toggle" type="button" aria-label="Switch language">DE</button><button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false"><span>☾</span></button></nav>
+  </header>
+  <section class="bl-post-hero" id="top">
+    <img class="bl-post-bg" src="/public/resources/blog/polars-2-streaming-default.jpg" alt="Hands typing on a laptop showing code, on a wooden desk" style="object-position:center" />
+    <a class="bl-back" href="/blog/" data-i18n="bl_all">← All posts</a>
+    <span class="label">Data tools</span>
+    <h1>Polars 2.0 makes streaming the default, and your row order may change</h1>
+    <p>The new default engine is built for larger-than-memory work, but it no longer guarantees row order for many operations. Code that relied on it could break without an error.</p>
+    <span class="bl-meta"><img src="/public/resources/heroimage.jpg" alt="" /><span>Abdul Habeeb</span><i aria-hidden="true">·</i><span>6 October 2026</span><i aria-hidden="true">·</i><span>2 <span data-i18n="bl_min">min read</span></span></span>
+    <a class="bl-credit" href="https://www.pexels.com/photo/574071/" target="_blank" rel="noopener"><span data-i18n="bl_photo">Photo</span>: Pexels</a>
+  </section>
+
+  <div class="bl-body">
+    <nav class="bl-toc" aria-label="Contents"><span data-i18n="bl_contents">Contents</span><a href="#the-upgrade-risk">The upgrade risk</a><a href="#the-benchmark-claim">The benchmark claim</a><a href="#my-read">My read</a></nav>
+    <article class="bl-article">
+      <p class="bl-lang" data-i18n="bl_lang">This post is written in English.</p>
+<p><a href="https://pola.rs/posts/release-polars-2" target="_blank" rel="noopener">Polars 2.0</a>, released on 6 October, makes the streaming engine the default for lazy queries. It also spills to disk by default, starting at about 80% of RAM with a 64GB disk budget, so bigger-than-memory work should get easier.</p>
+<h2 id="the-upgrade-risk">The upgrade risk</h2>
+<p>The <a href="https://docs.pola.rs/releases/upgrade/2/" target="_blank" rel="noopener">upgrade guide</a> has one line I'd read twice: "The streaming engine does not guarantee row order for operations that don't require it", including <code>group_by</code>, joins and <code>unpivot</code>.</p>
+<p>So if your code assumed rows came back in a particular order, it won't necessarily crash. It may just give different results. Sort explicitly or pass <code>maintain_order=True</code>. You can also restore the old default with <code>pl.Config.set_engine_affinity("in-memory")</code>.</p>
+<p>Other changes worth checking:</p>
+<ul><li>An empty list now explodes into zero rows, not one <code>null</code> row.</li><li>Horizontal concat now requires equal heights, and <code>how="horizontal_extend"</code> gives the old padding.</li><li>Casting a <code>String</code> column directly to a date or time type is no longer supported.</li><li><code>LazyFrame.profile()</code> has been removed.</li></ul>
+<h2 id="the-benchmark-claim">The benchmark claim</h2>
+<p>Polars says it leads DuckDB and DataFusion on TPC-H and TPC-DS-derived workloads, fastest on all but one benchmark. That's Polars running its own tests, and margins vary: at the smaller scale on TPC-DS, DuckDB 1.5.6 was faster. To Polars' credit, it published its method, including commit hashes, hardware and procedure, so others can check it. It also says results aren't comparable to official TPC ones.</p>
+<h2 id="my-read">My read</h2>
+<p>Failing loudly is much better than failing quietly. Polars' stricter type handling follows that idea ("Errors should ideally raise up-front, not 20 minutes into a pipeline"), which makes the row-order change the one to watch. Before upgrading, compare outputs on real data, not just whether your tests still pass. <a href="/blog/duckdb-2-after-aws/">DuckDB 2.0</a> landed the same month with its own upgrade notes, so plenty of data teams have homework this quarter.</p>
+      <aside class="bl-author"><img src="/public/resources/heroimage.jpg" alt="" /><div><strong>Abdul Habeeb</strong><p data-i18n="bl_bio">Data science and full-stack developer in Saarbrücken. I write about what's happening in AI and data, with links to the sources.</p><a href="/#profile" data-i18n="bl_about">More about me</a></div></aside>
+    </article>
+  </div>
+
+  <section class="bl-list bl-more">
+    <div class="bl-list-head"><h2 data-i18n="bl_more">Keep reading</h2><a href="/blog/" data-i18n="bl_all">← All posts</a></div>
+    <div class="bl-grid is-two"><a class="bl-card bl-reveal" data-tag="Data tools" data-date="2026-10-27" href="/blog/database-benchmarking-crisis/"><span class="bl-card-img"><img src="/public/resources/blog/database-benchmarking-crisis.jpg" alt="A hand holding a smartphone with a stopwatch on the screen" style="object-position:center" loading="lazy" decoding="async" /><span class="label">Data tools</span></span><h3>AI coding tools can now game database benchmarks, and it&#x27;s changing what scores mean</h3><p>Thomas Neumann argues ClickBench already shows the problem. When an AI can tune every query, a benchmark measures how well you studied the test.</p><span class="bl-meta"><span>27 October 2026</span><i aria-hidden="true">·</i><span>2 <span data-i18n="bl_min">min read</span></span></span></a><a class="bl-card bl-reveal" data-tag="Data tools" data-date="2026-10-21" href="/blog/duckdb-2-after-aws/"><span class="bl-card-img"><img src="/public/resources/blog/servers.jpg" alt="A row of glowing blue server drives in a data centre rack" style="object-position:center" loading="lazy" decoding="async" /><span class="label">Data tools</span></span><h3>DuckDB 2.0 is out, two months after AWS bought the team behind it</h3><p>The biggest DuckDB release so far includes a client-server protocol, a new parser and a mode built for coding agents. It&#x27;s also the first big test of whether the AWS deal changes anything.</p><span class="bl-meta"><span>21 October 2026</span><i aria-hidden="true">·</i><span>3 <span data-i18n="bl_min">min read</span></span></span></a></div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="contact-copy">
+      <span class="label" data-i18n="connectLabel">Let’s connect</span>
+      <h2 data-i18n="connectTitle">Have an idea<br /><em>worth exploring?</em></h2>
+      <div class="contact-actions"><span class="contact-email"><a class="button" href="mailto:abdulhabeeb9731@gmail.com">abdulhabeeb9731@gmail.com <span>↗</span></a><button class="button copy-email" type="button" data-copy="abdulhabeeb9731@gmail.com" aria-label="Copy email address"><span><svg class="ic-copy" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2.2"/><path d="M15.5 8.5V6.7a2.2 2.2 0 0 0-2.2-2.2H6.7a2.2 2.2 0 0 0-2.2 2.2v6.6a2.2 2.2 0 0 0 2.2 2.2h1.8"/></svg><svg class="ic-done" viewBox="0 0 24 24" aria-hidden="true"><path d="m5.5 12.5 4 4 9-9.5"/></svg></span><em class="copy-tip" role="status" aria-live="polite"></em></button></span><a class="button is-ghost" href="https://linkedin.com/in/abdulhabeeb9731" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a></div>
+    </div>
+    <footer>
+      <div class="footer-line"><span>© 2026 Abdul Habeeb</span><i></i><span>Saarbrücken, Germany</span></div>
+      <div class="footer-links"><a href="/#about" data-i18n="profile">Profile</a><a href="/#projects" data-i18n="projects">Projects</a><a href="/#experience" data-i18n="experience">Experience</a><a href="/#workshops" data-i18n="workshops">Workshops</a><a href="/#education" data-i18n="education">Education</a><a href="/#awards" data-i18n="awards">Awards</a><a href="/#volunteering" data-i18n="volunteering">Volunteering</a><a href="/blog/" data-i18n="blog">Blog</a><a href="#top" data-i18n="backTop">Back to top ↑</a></div>
+      <p class="footer-wordmark" aria-hidden="true">Habeeb</p>
+    </footer>
+  </section>
+</main>
+<script>
+const PAGE_DE={"profile": "Profil", "projects": "Projekte", "experience": "Erfahrung", "blog": "Blog", "contact": "Kontakt", "resumeShort": "Lebenslauf", "connectLabel": "Kontakt aufnehmen", "connectTitle": "Eine Idee,<br /><em>die wir erkunden sollten?<\/em>", "workshops": "Workshops", "education": "Ausbildung", "awards": "Auszeichnungen", "volunteering": "Ehrenamt", "backTop": "Nach oben ↑", "bl_label": "Blog", "bl_title": "Was gerade in KI und Daten passiert.", "bl_sub": "Die Nachrichten, die deine Zeit wert sind, an der Quelle geprüft und mit allen Einschränkungen.", "bl_featured": "Empfohlen", "bl_recent": "Neueste Beiträge", "bl_rss": "RSS-Feed", "bl_all": "← Alle Beiträge", "bl_contents": "Inhalt", "bl_more": "Weiterlesen", "bl_lang": "Dieser Beitrag ist auf Englisch verfasst.", "bl_bio": "Data-Science- und Full-Stack-Entwickler in Saarbrücken. Ich schreibe darüber, was in KI und Daten passiert, mit Links zu den Quellen.", "bl_about": "Mehr über mich", "bl_alltopics": "Alle", "bl_sortby": "Sortieren", "bl_newest": "Neueste", "bl_oldest": "Älteste", "bl_none": "Keine Beiträge gefunden.", "bl_showmore": "Mehr anzeigen", "bl_photo": "Foto", "bl_min": "Min. Lesezeit", "bl_tag_security": "Sicherheit", "bl_tag_models": "Modelle", "bl_tag_research": "Forschung", "bl_tag_industry": "Branche", "bl_tag_agents": "Agenten", "bl_tag_data-tools": "Datentools", "bl_tag_regulation": "Regulierung"};
+const langBtn=document.querySelector('.language-toggle');const origText={};
+document.querySelectorAll('[data-i18n]').forEach(el=>{origText[el.dataset.i18n]=el.innerHTML});
+let lang='en';try{lang=localStorage.getItem('site-language')||((navigator.language||'en').toLowerCase().startsWith('de')?'de':'en')}catch(e){}
+function applyLang(next){lang=next;try{localStorage.setItem('site-language',lang)}catch(e){};document.documentElement.lang=lang;
+ document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;el.innerHTML=lang==='de'&&PAGE_DE[k]?PAGE_DE[k]:origText[k]});
+ if(langBtn){langBtn.textContent=lang==='de'?'EN':'DE';langBtn.setAttribute('aria-label',lang==='de'?'Switch to English':'Auf Deutsch wechseln')}}
+applyLang(lang);window.addEventListener('pageshow',()=>{let s=null;try{s=localStorage.getItem('site-language')}catch(e){};if(s&&s!==lang)applyLang(s)});if(langBtn)langBtn.addEventListener('click',()=>applyLang(lang==='de'?'en':'de'));
+</script>
+<script>
+const themeToggle=document.querySelector('.theme-toggle');
+const applyTheme=dark=>{document.body.classList.toggle('dark',dark);document.documentElement.classList.remove('dark-pre');try{localStorage.setItem('theme',dark?'dark':'light')}catch(e){};themeToggle.setAttribute('aria-pressed',String(dark));themeToggle.innerHTML=dark?'<span>☀</span>':'<span>☾</span>'};
+let initialDark=false;try{initialDark=localStorage.getItem('theme')==='dark'}catch(e){}
+applyTheme(initialDark);
+themeToggle.addEventListener('click',()=>applyTheme(!document.body.classList.contains('dark')));
+window.addEventListener('pageshow',()=>{let t=null;try{t=localStorage.getItem('theme')}catch(e){};if(t&&(t==='dark')!==document.body.classList.contains('dark'))applyTheme(t==='dark')});
+</script>
+<script src="/public/vendor/lenis.min.js?v=1.1.20" defer></script>
+<script src="/smooth-scroll.js?v=20261101b" defer></script>
+<script src="/section-reveal.js?v=20261101e" defer></script>
+<script src="/footer-fun.js?v=20261101b" defer></script>
+<script src="/copy-email.js?v=20261101a" defer></script>
+<script src="/blog.js?v=20261104k" defer></script>
+</body>
+</html>

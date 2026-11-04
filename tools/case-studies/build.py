@@ -25,7 +25,7 @@ DATA = os.path.join(HERE, 'data')
 NOT_FOUND_VERSION = '20261101c'
 
 # Bump when styles.css / case-study.css / case-charts.js change, so browsers fetch the new files.
-ASSET_VERSION = '20261103-depower'
+ASSET_VERSION = '20261104-blognav'
 
 
 def load(name):
@@ -85,7 +85,7 @@ def home_de(*fragments):
     return OrderedDict((k, tr[k]) for k in found)
 
 
-HOME_KEY_ORDER = ['profile', 'projects', 'experience', 'contact', 'resumeShort', 'connectLabel', 'connectTitle',
+HOME_KEY_ORDER = ['profile', 'projects', 'experience', 'blog', 'contact', 'resumeShort', 'connectLabel', 'connectTitle',
                   'workshops', 'education', 'awards', 'volunteering', 'backTop']
 
 

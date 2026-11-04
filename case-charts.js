@@ -514,6 +514,7 @@ function depowerHours(fig, D) {
 /* ================= depower — error or coverage by month (bars) ================= */
 const dpMonthState = { mode: 'err' };
 function depowerMonths(fig, D) {
+  if (fig.dataset.mode && !fig.dataset.modeApplied) { fig.dataset.modeApplied = '1'; dpMonthState.mode = fig.dataset.mode; }
   const ctl = fig.querySelector('.cs-chart-ctl'), plot = fig.querySelector('.cs-chart-plot');
   ctl.replaceChildren(); plot.replaceChildren();
   toggle(ctl, [['err', t('dpErr')], ['cov', t('dpCov')]], dpMonthState.mode, v => { dpMonthState.mode = v; depowerMonths(fig, D); });

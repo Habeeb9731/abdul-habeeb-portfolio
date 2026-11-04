@@ -173,8 +173,16 @@ def page(p, nxt):
                + '<nav class="cs-sidenav" id="csSidenav" aria-label="Case study sections"><span class="cs-sidenav-indicator" aria-hidden="true"></span>'
                + ''.join(f'<a href="#{i}" aria-label="{t}"><svg viewBox="0 0 24 24" aria-hidden="true">{SIDE_ICONS[i]}</svg><span class="cs-tip" data-i18n="sn_{i}">{t}</span></a>' for i, t in sn)
                + '</nav>')
-    ld = {"@context": "https://schema.org", "@type": "CreativeWork", "name": p['title'], "description": desc, "url": url,
-          "image": "https://abdulhabeeb.com" + p['thumb'], "author": {"@type": "Person", "name": "Abdul Habeeb", "url": "https://abdulhabeeb.com/"}}
+    work = {"@type": "SoftwareSourceCode" if p.get('repo') else "CreativeWork", "name": strip_tags(p['title']), "description": desc, "url": url,
+            "image": "https://abdulhabeeb.com" + p['thumb'],
+            "author": {"@type": "Person", "@id": "https://abdulhabeeb.com/#person", "name": "Abdul Habeeb", "url": "https://abdulhabeeb.com/"}}
+    if p.get('repo'):
+        work["codeRepository"] = p['repo']
+    crumbs = {"@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://abdulhabeeb.com/"},
+        {"@type": "ListItem", "position": 2, "name": "Projects", "item": "https://abdulhabeeb.com/#projects"},
+        {"@type": "ListItem", "position": 3, "name": strip_tags(p['title']), "item": url}]}
+    ld = {"@context": "https://schema.org", "@graph": [work, crumbs]}
     scripts = SCRIPTS.replace('__PAGE_DE__', de_json).replace('__CHARTS__', charts_js)
 
     return f'''<!doctype html>

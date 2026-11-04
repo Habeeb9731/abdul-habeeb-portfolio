@@ -65,7 +65,7 @@ html[lang="de"] .hero h1{max-width:21ch;font-size:clamp(2.2rem,4.5vw,4.3rem);tex
 .profile-photo{position:relative;width:100%;max-width:520px;margin:28px 0 0;aspect-ratio:4/3;border-radius:18px;overflow:hidden;background:#111}
 .hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center 22%;filter:grayscale(1)}
 .hero-trust{position:relative;z-index:1;justify-self:stretch;overflow:hidden;margin-top:clamp(90px,10vw,140px);padding:0 0 clamp(26px,3vw,40px);-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
-.trust-track{display:flex;width:max-content;animation:trust-scroll 36s linear infinite}
+.trust-track{display:flex;width:max-content;animation:trust-scroll 46s linear infinite}
 .hero-trust:hover .trust-track{animation-play-state:paused}
 .trust-group{display:flex;align-items:center;gap:clamp(48px,6vw,96px);padding-right:clamp(48px,6vw,96px)}
 @keyframes trust-scroll{to{transform:translateX(-50%)}}
@@ -535,3 +535,20 @@ footer{container-type:inline-size;margin-top:clamp(80px,11vw,140px);padding:18px
   .social-email.is-measure,.social-email.is-measure *{transition:none!important}
 }
 @media(prefers-reduced-motion:reduce){.se-label,.se-addr,.social-copy{transition:none!important}}
+
+/* Logo strip: own products */
+.hero-trust img.is-depower{height:62px;filter:brightness(0)}
+.hero-trust img.is-depower:hover{filter:none}
+.dark .hero-trust img.is-depower{filter:brightness(0) invert(1)}
+.dark .hero-trust img.is-depower:hover{filter:none}
+.hero-trust .trust-apex{display:inline-flex;align-items:center;gap:10px;color:var(--ink);font-size:1.5rem;font-weight:600;letter-spacing:.01em;white-space:nowrap;opacity:.55;transition:opacity .2s}
+.hero-trust .trust-apex:hover{opacity:1}
+.trust-apex svg{flex:none;width:auto;height:30px;filter:grayscale(1);transition:filter .2s}
+.trust-apex:hover svg{filter:none}
+@media(max-width:640px){
+  .hero-trust img.is-depower{height:46px}
+  .hero-trust .trust-apex{font-size:1.1rem}
+  .trust-apex svg{height:22px}
+}
+.dark .trust-apex svg{filter:brightness(0) invert(1)}
+.dark .trust-apex:hover svg{filter:none}

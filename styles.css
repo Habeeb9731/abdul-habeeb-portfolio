@@ -191,7 +191,6 @@ section.principles{padding:clamp(36px,5vw,72px)}
 .case-logo.is-seal img{max-height:84px}
 .grade{padding:1px 7px;border-radius:6px;background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent);font-weight:500;white-space:nowrap}
 .dark .grade{color:var(--accent-soft);background:color-mix(in srgb,var(--accent) 24%,transparent)}
-.education{border-top:1px solid var(--line)}
 .case-logo.is-cropped{overflow:hidden}
 .case-logo.is-cropped img{max-height:none;width:46%;transform:scale(1.9)}
 .case-date{color:var(--muted);font-size:.76rem}
@@ -509,8 +508,6 @@ footer{container-type:inline-size;margin-top:clamp(80px,11vw,140px);padding:18px
 .footer-links a::after,.privacy-settings-trigger::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
 .footer-links a:hover::after,.privacy-settings-trigger:hover::after{transform:scaleX(1);transform-origin:left}
 .footer-links a:hover,.privacy-settings-trigger:hover{text-decoration:none}
-.footer-links a[href="#profile"]:hover{animation:ffHop .6s cubic-bezier(.34,1.56,.64,1)}
-@keyframes ffHop{0%,100%{transform:none}40%{transform:translateY(-4px)}}
 @media(max-width:640px){.footer-wordmark{--wm-mask:linear-gradient(180deg,rgba(0,0,0,.92) .25em,rgba(0,0,0,.45) .75em,rgba(0,0,0,.12) 1.23em)}}
 @media(prefers-reduced-motion:reduce){.footer-wordmark .wl{transition:none}}
 

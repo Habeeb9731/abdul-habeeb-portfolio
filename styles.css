@@ -100,14 +100,8 @@ html[lang="de"] .hero h1{max-width:21ch;font-size:clamp(2.2rem,4.5vw,4.3rem);tex
 .nav-indicator{position:absolute;top:6px;left:0;width:38px;height:38px;border-radius:999px;background:#fff;opacity:0;pointer-events:none;transition:opacity .2s;z-index:2;mix-blend-mode:difference}
 .nav-icon>*,.language-toggle,.theme-toggle>*{position:relative;z-index:1}
 .nav-icon svg,.theme-toggle span{display:block;transition:transform .35s cubic-bezier(.34,1.8,.5,1)}
-.nav-icon:hover svg{transform:translateY(-2px) scale(1.1)}
+.nav-icon:hover svg,.theme-toggle:hover span{transform:translateY(-2px)}
 .nav-icon:active svg,.theme-toggle:active span{transform:scale(.88);transition-duration:.1s}
-.nav-icon[href="#experience"]:hover svg{transform:translateY(-2px) rotate(-8deg) scale(1.08)}
-.nav-icon[href="#contact"]:hover svg{animation:nav-envelope .5s ease}
-.nav-icon[href$="FitH"]:hover svg{transform:translateY(-2px) rotate(6deg) scale(1.08)}
-.theme-toggle:hover span{transform:rotate(-24deg) scale(1.1)}
-.language-toggle{transition:background .2s,color .2s,transform .35s cubic-bezier(.34,1.8,.5,1)}
-.language-toggle:hover{transform:rotate(-6deg)}
 @keyframes nav-envelope{0%,100%{transform:translateY(-2px) scale(1.08)}30%{transform:translateY(-2px) rotate(-10deg) scale(1.08)}60%{transform:translateY(-2px) rotate(8deg) scale(1.08)}}
 .nav-divider{width:1px;height:20px;margin:0 4px;background:rgba(255,255,255,.16)}
 .nav-tip{position:absolute;top:calc(100% + 10px);left:50%;padding:4px 8px;border-radius:6px;background:#111210;color:#fff;font-size:.7rem;font-weight:400;white-space:nowrap;opacity:0;pointer-events:none;transform:translate(-50%,-4px);transition:opacity .18s,transform .18s}
@@ -188,6 +182,9 @@ section.principles{padding:clamp(36px,5vw,72px)}
 .case-logo img{max-height:58px;object-fit:contain}
 .case-logo.is-dark{border-color:#151614;background:#151614}
 .dark .case-logo.is-dark{border-color:var(--line)}
+a.case-logo{transition:background .2s,border-color .2s}
+a.case-logo:hover{border-color:#e4e4df;background:#ecece7}
+a.case-logo.is-dark:hover{border-color:#2b2c29;background:#2b2c29}
 .case-logo.is-seal img{max-height:84px}
 .grade{padding:1px 7px;border-radius:6px;background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent);font-weight:500;white-space:nowrap}
 .dark .grade{color:var(--accent-soft);background:color-mix(in srgb,var(--accent) 24%,transparent)}

@@ -53,7 +53,8 @@ def icon(name):
 
 def nav():
     """The home page's top bar, with links pointed back at the home page."""
-    h = re.search(r'<header class="topbar">.*?</header>', HOME, re.S).group(0)
+    h = re.search(r'<header class="topbar[^"]*">.*?</header>', HOME, re.S).group(0)
+    h = h.replace(' is-expanded', '')  # the spread-out nav is home-page only
     h = h.replace('<span class="nav-indicator" aria-hidden="true"></span>', '')
     h = h.replace(' is-active', '')
     h = re.sub(r'href="#', 'href="/#', h)
@@ -85,7 +86,7 @@ def home_de(*fragments):
     return OrderedDict((k, tr[k]) for k in found)
 
 
-HOME_KEY_ORDER = ['profile', 'projects', 'experience', 'blog', 'contact', 'resumeShort', 'connectLabel', 'connectTitle',
+HOME_KEY_ORDER = ['home', 'profile', 'projects', 'experience', 'blog', 'contact', 'resumeShort', 'connectLabel', 'connectTitle',
                   'workshops', 'education', 'awards', 'volunteering', 'backTop']
 
 

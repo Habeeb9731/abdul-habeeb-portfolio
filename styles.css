@@ -114,6 +114,22 @@ html[lang="de"] .hero h1{max-width:21ch;font-size:clamp(2.2rem,4.5vw,4.3rem);tex
 .dark .nav-tip{background:#fff;color:#111210}
 .nav-icon:hover .nav-tip,.nav-icon:focus-visible .nav-tip{opacity:1;transform:translate(-50%,0)}
 @media(max-width:640px){.topbar{top:auto;bottom:14px}.nav-tip{top:auto;bottom:calc(100% + 10px)}}
+/* Home page, wider than phones: the nav starts as spread-out words and folds into the pill on scroll */
+@media(min-width:641px){
+  .topbar.can-morph,.topbar.can-morph nav,.topbar.can-morph .nav-divider{transition:top .5s cubic-bezier(.4,0,.2,1),gap .5s cubic-bezier(.4,0,.2,1),background .4s,border-color .4s,box-shadow .4s}
+  .topbar.can-morph .nav-icon{transition:width .5s cubic-bezier(.4,0,.2,1),background .2s,color .2s}
+  .topbar.can-morph .nav-icon>svg{transition:opacity .3s,transform .35s cubic-bezier(.34,1.8,.5,1)}
+  .topbar.is-expanded{top:26px}
+  .topbar.is-expanded nav{gap:var(--nav-gap,28px);border-color:transparent;background:transparent;box-shadow:none}
+  .topbar.is-expanded .nav-icon{width:var(--w,auto);border-radius:999px}
+  .topbar.is-expanded .nav-icon:hover{background:rgba(255,255,255,.1)}
+  .topbar.is-expanded .nav-icon>svg{opacity:0;transform:scale(.6)}
+  .topbar.is-expanded .nav-tip{top:50%;padding:0;background:transparent;color:rgba(255,255,255,.86);font-size:.875rem;opacity:1;pointer-events:none;transform:translate(-50%,-50%);transition:opacity .25s .15s}
+  .topbar.is-expanded .nav-icon:hover .nav-tip,.topbar.is-expanded .nav-icon.is-active .nav-tip{color:#fff}
+  .topbar.is-morphing .nav-tip{transition:opacity .16s,top 0s .2s,transform 0s .2s,background 0s .2s,color 0s .2s,font-size 0s .2s,padding 0s .2s}
+  .topbar:is(.is-expanded,.is-morphing) .nav-indicator{opacity:0!important}
+}
+@media(min-width:641px) and (prefers-reduced-motion:reduce){.topbar.can-morph,.topbar.can-morph *{transition:none!important}}
 
 /* About */
 .about{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:clamp(32px,5vw,80px)}

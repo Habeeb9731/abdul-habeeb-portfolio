@@ -66,6 +66,7 @@ def contact():
     """The home page's contact section + footer; 'Back to top' targets this page's hero."""
     c = re.search(r'  <section class="contact" id="contact">.*?</section>', HOME, re.S).group(0)
     c = c.replace('<button class="privacy-settings-trigger" type="button">Privacy settings</button>', '')
+    c = c.replace('<a href="#profile" data-i18n="home">', '<a href="/" data-i18n="home">')  # footer Home leaves this page
     c = c.replace('href="#profile"', 'href="#top"')
     c = re.sub(r'href="#(?!top")', 'href="/#', c)
     return c

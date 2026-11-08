@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AnimeRec — Case study · Abdul Habeeb</title>
+  <meta name="description" content="A hybrid anime recommender built on 23.2M real list interactions. It handles brand-new visitors and titles nobody has rated yet, and was tested on a held-out time window." />
+  <link rel="canonical" href="https://abdulhabeeb.com/projects/anime-recommender/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="AnimeRec — Case study" />
+  <meta property="og:description" content="A hybrid anime recommender built on 23.2M real list interactions. It handles brand-new visitors and titles nobody has rated yet, and was tested on a held-out time window." />
+  <meta property="og:url" content="https://abdulhabeeb.com/projects/anime-recommender/" />
+  <meta property="og:image" content="https://abdulhabeeb.com/public/resources/projects/anime-recommender.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "SoftwareSourceCode", "name": "AnimeRec", "description": "A hybrid anime recommender built on 23.2M real list interactions. It handles brand-new visitors and titles nobody has rated yet, and was tested on a held-out time window.", "url": "https://abdulhabeeb.com/projects/anime-recommender/", "image": "https://abdulhabeeb.com/public/resources/projects/anime-recommender.jpg", "author": {"@type": "Person", "@id": "https://abdulhabeeb.com/#person", "name": "Abdul Habeeb", "url": "https://abdulhabeeb.com/"}, "codeRepository": "https://github.com/Habeeb9731/anime-recommender"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://abdulhabeeb.com/"}, {"@type": "ListItem", "position": 2, "name": "Projects", "item": "https://abdulhabeeb.com/#projects"}, {"@type": "ListItem", "position": 3, "name": "AnimeRec", "item": "https://abdulhabeeb.com/projects/anime-recommender/"}]}]}</script>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css?v=20261108-anime" />
+  <link rel="stylesheet" href="/case-study.css?v=20261108-anime" />
+  <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark-pre')}catch(e){}</script>
+</head>
+<body>
+<main class="cs-page">
+  <header class="topbar">
+      <nav aria-label="Main"><a class="nav-icon" href="/#profile"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></svg><span class="nav-tip" data-i18n="home">Home</span></a><a class="nav-icon" href="/#experience"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="M9 7.5V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.5M3.5 13h17"/></svg><span class="nav-tip" data-i18n="experience">Experience</span></a><a class="nav-icon" href="/#projects"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="12" rx="2"/><path d="M8 20h8M12 17v3"/></svg><span class="nav-tip" data-i18n="projects">Projects</span></a><a class="nav-icon" href="/#contact"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4.5 7 7.5 6 7.5-6"/></svg><span class="nav-tip" data-i18n="contact">Contact</span></a><a class="nav-icon" href="/public/resources/Abdul_Habeeb_Resume.pdf#view=FitH" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3.5H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-10z"/><path d="M14 3.5v5h5M9 13h6M9 16.5h4"/></svg><span class="nav-tip" data-i18n="resumeShort">Resume</span></a><a class="nav-icon" href="/blog/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1-4.2L15.8 5a2.1 2.1 0 0 1 3 3L8.2 18.8 4 20Z"/><path d="M13.8 7l3 3M12.5 20H20"/></svg><span class="nav-tip" data-i18n="blog">Blog</span></a><i class="nav-divider"></i><button class="language-toggle" type="button" aria-label="Switch language">DE</button><button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false"><span>☾</span></button></nav>
+  </header>
+  <button class="cs-sidetab" type="button" aria-expanded="false" aria-controls="csSidenav" aria-label="Jump to section"><span class="cs-sidetab-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg></span></button><nav class="cs-sidenav" id="csSidenav" aria-label="Case study sections"><span class="cs-sidenav-indicator" aria-hidden="true"></span><a href="#top" aria-label="Intro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg><span class="cs-tip" data-i18n="sn_top">Intro</span></a><a href="#overview" aria-label="Overview"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8h.01"/></svg><span class="cs-tip" data-i18n="sn_overview">Overview</span></a><a href="#challenge" aria-label="Challenge &amp; solution"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.8.7 1 1.5 1 2.5h6c0-1 .2-1.8 1-2.5A6 6 0 0 0 12 3Z"/></svg><span class="cs-tip" data-i18n="sn_challenge">Challenge &amp; solution</span></a><a href="#features" aria-label="Key features"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg><span class="cs-tip" data-i18n="sn_features">Key features</span></a><a href="#data" aria-label="In the data"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16"/><path d="M7 16v-5M12 16V6M17 16v-8"/></svg><span class="cs-tip" data-i18n="sn_data">In the data</span></a><a href="#screens" aria-label="Screens"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="12" rx="2"/><path d="M8 20h8M12 17v3"/></svg><span class="cs-tip" data-i18n="sn_screens">Screens</span></a><a href="#tech" aria-label="How it works"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M13.5 4.5l-3 15"/></svg><span class="cs-tip" data-i18n="sn_tech">How it works</span></a><a href="#takeaway" aria-label="What I learned"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2Zm0 0A2 2 0 0 0 6 22h13"/></svg><span class="cs-tip" data-i18n="sn_takeaway">What I learned</span></a></nav>
+  <section class="cs-hero" id="top">
+    <img class="cs-hero-bg" src="/public/resources/case-studies/anime-hero.jpg" alt="" />
+    <a class="cs-back" href="/#projects" data-i18n="ui_back">← All projects</a>
+    <div>
+      <span class="label" data-i18n="label">Machine learning · Data</span>
+      <h1>AnimeRec</h1>
+      <p data-i18n="summary">A hybrid anime recommender built on 23.2M real list interactions. It handles brand-new visitors and titles nobody has rated yet, and was tested on a held-out time window.</p>
+      <div class="cs-hero-actions"><a class="button is-solid" href="https://anime.abdulhabeeb.com/" target="_blank" rel="noopener"><b class="btn-text" data-i18n="ui_open">Open project</b> <span>↗</span></a><a class="button is-ghost" href="https://github.com/Habeeb9731/anime-recommender" target="_blank" rel="noopener">Repository <span>↗</span></a></div>
+    </div>
+  </section>
+
+  <dl class="cs-meta"><div><dt data-i18n="ui_meta0">Role</dt><dd data-i18n="meta0">Data science &amp; ML engineering</dd></div><div><dt data-i18n="ui_meta1">Timeline</dt><dd data-i18n="meta1">2026</dd></div><div><dt data-i18n="ui_meta2">Type</dt><dd data-i18n="meta2">Personal project</dd></div><div><dt data-i18n="ui_meta3">Stack</dt><dd data-i18n="meta3">Python, EASE, Streamlit</dd></div></dl>
+
+  <section class="cs-panel" id="overview">
+    <span class="label" data-i18n="ui_overview">Overview</span>
+    <h2 data-i18n="ov_h">Popularity lists ignore your taste. <span>Collaborative filtering ignores new shows.</span></h2>
+    <p class="cs-lede" data-i18n="ov_p">AnimeRec ranks every eligible title for each visitor. It leans on what similar viewers enjoyed, then shifts smoothly toward synopsis and metadata signals as a title’s history falls to zero. Answer three quick questions and your top 10 appears instantly, with no retraining and a reason attached to each pick.</p>
+    <figure class="cs-shot"><img src="/public/resources/case-studies/anime-overview.jpg?v=2" alt="A personal top 10, with the reason behind the lead recommendation." loading="lazy" decoding="async" /><figcaption data-i18n="ov_cap">A personal top 10, with the reason behind the lead recommendation.</figcaption></figure>
+  </section>
+
+  <section class="cs-plain" id="challenge">
+    <span class="label" data-i18n="ui_challenge">Challenge &amp; solution</span>
+    <h2 data-i18n="ui_challenge_h">What made it hard, <span>and how I approached it.</span></h2>
+    <div class="cs-split">
+      <article><span class="label" data-i18n="ui_the_challenge">The challenge</span><h3 data-i18n="ch_t">An evaluation that could be trusted</h3><ul><li data-i18n="ch0">Collaborative filtering cannot rank a title nobody has watched yet.</li><li data-i18n="ch1">The newer dataset looked ideal, but 97.0% of 9.8M sampled “interaction dates” were really air dates or placeholders.</li><li data-i18n="ch2">Anime viewing follows the airing season, so a plain popularity baseline makes any model look better than it is.</li></ul></article>
+      <article class="is-solution"><span class="label" data-i18n="ui_the_solution">The solution</span><h3 data-i18n="so_t">Real timestamps, a harder baseline</h3><ul><li data-i18n="so0">Switched to a crawl with per-user update times, then joined synopses from the newer dataset by anime ID.</li><li data-i18n="so1">Split globally by time and ranked the full 10,720-title catalog, with no negative sampling and the test window scored only once.</li><li data-i18n="so2">Each title blends collaborative and content scores by how much history it has, and results are reported against recent popularity too.</li></ul></article>
+    </div>
+  </section>
+
+  <section class="cs-panel" id="features">
+    <span class="label" data-i18n="ui_features">Key features</span>
+    <h2 data-i18n="ui_features_h">Built around <span>what people actually need.</span></h2>
+    <div class="cs-cards"><article class="cs-card"><span class="cs-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h10M18 8h2M4 16h2M10 16h10"/><circle cx="16" cy="8" r="2.2"/><circle cx="8" cy="16" r="2.2"/></svg></span><h3 data-i18n="f0t">Instant taste profile</h3><p data-i18n="f0d">Pick genres and a few favourites, and new users are folded into the model on the spot, without retraining.</p></article><article class="cs-card"><span class="cs-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z"/></svg></span><h3 data-i18n="f1t">A reason for every pick</h3><p data-i18n="f1d">Recommendations say why they are there, like “Because you liked One Punch Man”, and every title opens a detail card.</p></article><article class="cs-card"><span class="cs-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></svg></span><h3 data-i18n="f2t">Room for new titles</h3><p data-i18n="f2d">A title with no viewing history can still be scored from its synopsis, genres, studio, type and year.</p></article></div>
+    <div class="cs-phone"><div class="cs-phone-stage"><figure class="cs-shot"><img src="/public/resources/case-studies/anime-mobile.jpg?v=3" alt="AnimeRec on a phone" loading="lazy" decoding="async" /></figure></div><div class="cs-phone-copy"><span class="label" data-i18n="ui_responsive">Responsive</span><h3 data-i18n="ph_h">Made for browsing on a phone</h3><p data-i18n="ph_p">On small screens the side rail becomes a floating bottom pill, and the picks stay within thumb reach.</p><ul class="cs-checks"><li data-i18n="pt0">Floating bottom navigation on phones</li><li data-i18n="pt1">Answers are remembered in the browser, with no account</li><li data-i18n="pt2">Sequels of titles you already picked stay hidden by default</li></ul></div></div>
+  </section>
+
+  <section class="cs-plain" id="data"><span class="label" data-i18n="ui_data">In the data</span><h2 data-i18n="data_h">What the test window <span>actually showed.</span></h2><p class="cs-lede" data-i18n="data_p">All three charts use the frozen final run: 25,193 users, the full catalog of 10,720 titles, and activity from February to April 2018 that no model saw during training or tuning.</p><div class="cs-charts"><figure class="cs-chart is-wide" data-chart="anime-models"><div class="cs-chart-head"><span class="label" data-i18n="c0l">Model comparison</span><h3 data-i18n="c0t">63% above recent popularity, and level with EASE.</h3><p data-i18n="c0p">The hybrid scores 0.1517 NDCG@10, against 0.0929 for recent popularity, the stronger baseline, and 0.0368 for all-time popularity. Plain EASE is effectively tied at 0.1521, so the hybrid’s value is reaching titles EASE cannot score.</p></div><div class="cs-chart-ctl"></div><div class="cs-chart-plot"></div><p class="cs-chart-src" data-i18n="c0s">Source: reports/results.md, test window 2018-02-01 to 2018-05-01. Lift over recent popularity: 95% bootstrap CI +60.6% to +66.2%.</p></figure><figure class="cs-chart" data-chart="anime-history"><div class="cs-chart-head"><span class="label" data-i18n="c1l">User history</span><h3 data-i18n="c1t">Ahead for every length of watch history.</h3><p data-i18n="c1p">The hybrid leads both baselines in all five groups. The gap is narrowest for the 101 users with five titles or fewer, where popularity is still a strong guess.</p></div><div class="cs-chart-ctl"></div><div class="cs-chart-plot"></div><p class="cs-chart-src" data-i18n="c1s">Source: failure analysis in reports/results.md. NDCG@10 by number of titles in a user’s earlier history.</p></figure><figure class="cs-chart" data-chart="anime-cold"><div class="cs-chart-head"><span class="label" data-i18n="c2l">New titles</span><h3 data-i18n="c2t">It can rank new titles, but they rarely reach a top 10.</h3><p data-i18n="c2p">Among titles with no history, the content signal is the only one that works. Toggle to the full catalog: they take just 0.27% of recommendation slots, so this problem is only partly solved.</p></div><div class="cs-chart-ctl"></div><div class="cs-chart-plot"></div><p class="cs-chart-src" data-i18n="c2s">Source: reports/results.md, 341 cold titles and 938 users with a relevant cold title. Both views share one scale.</p></figure></div></section>
+
+  <section class="cs-plain" id="screens"><span class="label" data-i18n="ui_screens">Screens</span><h2 data-i18n="ui_screens_h">A closer look <span>at the product.</span></h2><div class="cs-gallery"><figure class="cs-shot"><img src="/public/resources/case-studies/anime-onboarding.jpg" alt="Onboarding: pick a few titles you loved" loading="lazy" decoding="async" /><figcaption data-i18n="g0">Onboarding: pick a few titles you loved</figcaption></figure><figure class="cs-shot"><img src="/public/resources/case-studies/anime-detail.jpg" alt="Every title opens a detail card with its reason" loading="lazy" decoding="async" /><figcaption data-i18n="g1">Every title opens a detail card with its reason</figcaption></figure><figure class="cs-shot is-wide"><img src="/public/resources/case-studies/anime-browse.jpg" alt="Shelves filter your top picks by format" loading="lazy" decoding="async" /><figcaption data-i18n="g2">Shelves filter your top picks by format</figcaption></figure></div></section>
+
+  <section class="cs-panel" id="tech">
+    <span class="label" data-i18n="ui_tech">How it works</span>
+    <h2 data-i18n="ui_tech_h">Under the hood.</h2>
+    <ul class="cs-list"><li><strong data-i18n="t0k">Data</strong><span data-i18n="t0v">23.2M interactions from 100,000 sampled users, after logged filters removed bulk imports and bot-like accounts.</span></li><li><strong data-i18n="t1k">Models</strong><span data-i18n="t1v">EASE and ALS for collaborative filtering, and all-MiniLM-L6-v2 sentence embeddings with metadata for content.</span></li><li><strong data-i18n="t2k">Hybrid</strong><span data-i18n="t2v">Per title, alpha = n / (n + κ) moves the score from collaborative to content signals as its history n falls to zero.</span></li><li><strong data-i18n="t3k">Demo</strong><span data-i18n="t3v">A Streamlit app in Docker behind a Cloudflare Tunnel, serving the same model that was evaluated.</span></li></ul>
+    <div class="cs-stack"><span>Python</span><span>NumPy</span><span>SciPy</span><span>Polars</span><span>implicit</span><span>Sentence Transformers</span><span>Streamlit</span><span>Docker</span><span>Cloudflare Tunnel</span></div>
+  </section>
+
+  
+
+  <section class="cs-plain" id="takeaway">
+    <span class="label" data-i18n="ui_takeaway">Takeaway</span>
+    <h2 data-i18n="ui_learned_h">What I learned.</h2>
+    <p class="cs-lede" data-i18n="learned">The most useful step came before any model: auditing the timestamps. It stopped me from reporting a time split that was not really one. It also taught me to publish the less flattering numbers. The hybrid only matches plain EASE overall, and new titles rarely reach a top 10.</p>
+  </section>
+
+  <a class="cs-next" href="/projects/autonomous-data-analyst/">
+    <div><span class="label" data-i18n="ui_next">Next project</span><h2>Autonomous Data Analyst</h2><p data-i18n="next_summary">An AI-assisted analytics workspace: upload a dataset and get a data-quality report, findings and charts — backed by a deterministic profiling engine.</p><span class="button is-solid"><b class="btn-text" data-i18n="ui_view_case">View case study</b> <span>→</span></span></div>
+    <div class="cs-next-img"><img src="/public/resources/projects/autonomous-data-analyst-dashboard.jpg" alt="" loading="lazy" decoding="async" /></div>
+  </a>
+
+  <section class="contact" id="contact">
+    <div class="contact-copy">
+      <span class="label" data-i18n="connectLabel">Let’s connect</span>
+      <h2 data-i18n="connectTitle">Have an idea<br /><em>worth exploring?</em></h2>
+      <div class="contact-actions"><span class="contact-email"><a class="button" href="mailto:abdulhabeeb9731@gmail.com">abdulhabeeb9731@gmail.com <span>↗</span></a><button class="button copy-email" type="button" data-copy="abdulhabeeb9731@gmail.com" aria-label="Copy email address"><span><svg class="ic-copy" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2.2"/><path d="M15.5 8.5V6.7a2.2 2.2 0 0 0-2.2-2.2H6.7a2.2 2.2 0 0 0-2.2 2.2v6.6a2.2 2.2 0 0 0 2.2 2.2h1.8"/></svg><svg class="ic-done" viewBox="0 0 24 24" aria-hidden="true"><path d="m5.5 12.5 4 4 9-9.5"/></svg></span><em class="copy-tip" role="status" aria-live="polite"></em></button></span><a class="button is-ghost" href="https://linkedin.com/in/abdulhabeeb9731" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a></div>
+    </div>
+    <footer>
+      <div class="footer-line"><span>© 2026 Abdul Habeeb</span><i></i><span>Saarbrücken, Germany</span></div>
+      <div class="footer-links"><a href="/#about" data-i18n="profile">Profile</a><a href="/#projects" data-i18n="projects">Projects</a><a href="/#experience" data-i18n="experience">Experience</a><a href="/#workshops" data-i18n="workshops">Workshops</a><a href="/#education" data-i18n="education">Education</a><a href="/#awards" data-i18n="awards">Awards</a><a href="/#volunteering" data-i18n="volunteering">Volunteering</a><a href="/blog/" data-i18n="blog">Blog</a><a href="#top" data-i18n="backTop">Back to top ↑</a></div>
+      <p class="footer-wordmark" aria-hidden="true">Habeeb</p>
+    </footer>
+  </section>
+</main>
+<script>
+const PAGE_DE={"ui_back": "← Alle Projekte", "ui_open": "Projekt öffnen", "ui_open_proto": "Prototyp öffnen", "ui_meta0": "Rolle", "ui_meta1": "Zeitraum", "ui_meta2": "Art", "ui_meta3": "Stack", "ui_overview": "Überblick", "ui_challenge": "Herausforderung &amp; Lösung", "ui_challenge_h": "Was es schwierig machte, <span>und wie ich es angegangen bin.<\/span>", "ui_the_challenge": "Die Herausforderung", "ui_the_solution": "Die Lösung", "ui_features": "Kernfunktionen", "ui_features_h": "Gebaut rund um das, <span>was Menschen wirklich brauchen.<\/span>", "ui_responsive": "Responsiv", "ui_screens": "Ansichten", "ui_screens_h": "Ein genauerer Blick <span>auf das Produkt.<\/span>", "ui_tech": "So funktioniert es", "ui_tech_h": "Unter der Haube.", "ui_client": "Kundenstimmen", "ui_takeaway": "Fazit", "ui_learned_h": "Was ich gelernt habe.", "ui_next": "Nächstes Projekt", "ui_view_case": "Fallstudie ansehen", "sn_top": "Einstieg", "sn_overview": "Überblick", "sn_challenge": "Herausforderung &amp; Lösung", "sn_features": "Kernfunktionen", "sn_screens": "Ansichten", "sn_tech": "So funktioniert es", "sn_client": "Kundenstimmen", "sn_takeaway": "Was ich gelernt habe", "ui_data": "In den Daten", "sn_data": "In den Daten", "home": "Start", "profile": "Profil", "projects": "Projekte", "experience": "Erfahrung", "blog": "Blog", "contact": "Kontakt", "resumeShort": "Lebenslauf", "connectLabel": "Kontakt aufnehmen", "connectTitle": "Eine Idee,<br /><em>die wir erkunden sollten?<\/em>", "workshops": "Workshops", "education": "Ausbildung", "awards": "Auszeichnungen", "volunteering": "Ehrenamt", "backTop": "Nach oben ↑", "label": "Machine Learning · Daten", "summary": "Ein hybrider Anime-Recommender auf Basis von 23,2 Mio. echten Listeneinträgen. Er kommt mit neuen Besuchern und noch unbewerteten Titeln zurecht und wurde auf einem zurückgehaltenen Zeitfenster getestet.", "meta0": "Data Science &amp; ML Engineering", "meta1": "2026", "meta2": "Persönliches Projekt", "meta3": "Python, EASE, Streamlit", "ov_h": "Beliebtheitslisten ignorieren deinen Geschmack. <span>Collaborative Filtering ignoriert neue Serien.<\/span>", "ov_p": "AnimeRec ordnet für jeden Besucher alle infrage kommenden Titel. Das Modell stützt sich darauf, was ähnlichen Zuschauern gefallen hat, und verlagert sich fließend auf Inhaltsangaben und Metadaten, je weniger Verlauf ein Titel hat. Drei kurze Fragen genügen, und deine Top 10 erscheint sofort, ohne neues Training und mit einer Begründung für jede Empfehlung.", "ov_cap": "Eine persönliche Top 10 mit der Begründung für die erste Empfehlung.", "ch_t": "Eine Auswertung, der man vertrauen kann", "ch0": "Collaborative Filtering kann keinen Titel einordnen, den noch niemand gesehen hat.", "ch1": "Der neuere Datensatz wirkte ideal, aber 97,0 % von 9,8 Mio. geprüften „Interaktionsdaten“ waren in Wahrheit Sendetermine oder Platzhalter.", "ch2": "Anime-Konsum folgt der Ausstrahlungssaison, deshalb lässt eine einfache Beliebtheits-Baseline jedes Modell besser aussehen, als es ist.", "so_t": "Echte Zeitstempel, eine härtere Baseline", "so0": "Wechsel zu einem Datensatz mit nutzerbezogenen Änderungszeiten, die Inhaltsangaben kamen per Anime-ID aus dem neueren Datensatz dazu.", "so1": "Globale zeitliche Aufteilung und Ranking über den gesamten Katalog mit 10.720 Titeln, ohne Negative Sampling und mit nur einer Auswertung des Testfensters.", "so2": "Jeder Titel mischt Collaborative- und Inhaltswerte je nach Umfang seines Verlaufs, und die Ergebnisse werden auch gegen aktuelle Beliebtheit berichtet.", "f0t": "Sofortiges Geschmacksprofil", "f0d": "Genres und ein paar Favoriten wählen, und neue Nutzer werden direkt ins Modell eingebunden, ganz ohne neues Training.", "f1t": "Eine Begründung für jede Empfehlung", "f1d": "Empfehlungen sagen, warum sie da sind, etwa „Because you liked One Punch Man“, und jeder Titel öffnet eine Detailkarte.", "f2t": "Platz für neue Titel", "f2d": "Auch ein Titel ohne Verlauf lässt sich anhand von Inhaltsangabe, Genres, Studio, Typ und Jahr bewerten.", "g0": "Onboarding: ein paar Lieblingstitel auswählen", "g1": "Jeder Titel öffnet eine Detailkarte mit Begründung", "g2": "Regale filtern deine Top-Empfehlungen nach Format", "ph_h": "Gemacht fürs Stöbern am Handy", "ph_p": "Auf kleinen Bildschirmen wird die Seitenleiste zu einer schwebenden Leiste am unteren Rand, und die Empfehlungen bleiben in Daumennähe.", "pt0": "Schwebende Navigation unten auf dem Handy", "pt1": "Antworten bleiben im Browser gespeichert, ganz ohne Konto", "pt2": "Fortsetzungen gewählter Titel bleiben standardmäßig ausgeblendet", "t0k": "Daten", "t0v": "23,2 Mio. Interaktionen von 100.000 ausgewählten Nutzern, nachdem protokollierte Filter Massenimporte und bot-artige Konten entfernt hatten.", "t1k": "Modelle", "t1v": "EASE und ALS für Collaborative Filtering sowie all-MiniLM-L6-v2-Satz-Embeddings mit Metadaten für den Inhalt.", "t2k": "Hybrid", "t2v": "Pro Titel verschiebt alpha = n / (n + κ) den Wert von Collaborative- zu Inhaltssignalen, wenn der Verlauf n gegen null geht.", "t3k": "Demo", "t3v": "Eine Streamlit-App in Docker hinter einem Cloudflare Tunnel, die genau das ausgewertete Modell ausliefert.", "learned": "Der wichtigste Schritt kam vor jedem Modell: die Prüfung der Zeitstempel. Sie hat verhindert, dass ich eine zeitliche Aufteilung berichte, die gar keine war. Außerdem habe ich gelernt, auch die weniger schmeichelhaften Zahlen zu veröffentlichen. Das Hybridmodell liegt insgesamt nur gleichauf mit reinem EASE, und neue Titel schaffen es selten in eine Top 10.", "data_h": "Was das Testfenster <span>tatsächlich gezeigt hat.<\/span>", "data_p": "Alle drei Diagramme zeigen den eingefrorenen finalen Lauf: 25.193 Nutzer, den vollständigen Katalog mit 10.720 Titeln und Aktivität von Februar bis April 2018, die kein Modell beim Training oder Tuning gesehen hat.", "c0l": "Modellvergleich", "c0t": "63 % über aktueller Beliebtheit und gleichauf mit EASE.", "c0p": "Das Hybridmodell erreicht 0,1517 NDCG@10, gegenüber 0,0929 für aktuelle Beliebtheit, die stärkere Baseline, und 0,0368 für Beliebtheit insgesamt. Reines EASE liegt mit 0,1521 praktisch gleichauf, der Mehrwert des Hybridmodells liegt also bei Titeln, die EASE nicht bewerten kann.", "c0s": "Quelle: reports/results.md, Testfenster 01.02.2018 bis 01.05.2018. Vorsprung gegenüber aktueller Beliebtheit: 95-%-Bootstrap-KI +60,6 % bis +66,2 %.", "c1l": "Nutzerverlauf", "c1t": "Vorn bei jeder Länge des Verlaufs.", "c1p": "Das Hybridmodell liegt in allen fünf Gruppen vor beiden Baselines. Am kleinsten ist der Abstand bei den 101 Nutzern mit höchstens fünf Titeln, bei denen Beliebtheit noch ein guter Tipp ist.", "c1s": "Quelle: Fehleranalyse in reports/results.md. NDCG@10 nach Anzahl der Titel im bisherigen Verlauf.", "c2l": "Neue Titel", "c2t": "Neue Titel lassen sich ranken, schaffen es aber selten in die Top 10.", "c2p": "Unter Titeln ohne Verlauf funktioniert nur das Inhaltssignal. Umschalten auf den gesamten Katalog zeigt: Sie belegen nur 0,27 % der Empfehlungsplätze, das Problem ist also nur teilweise gelöst.", "c2s": "Quelle: reports/results.md, 341 neue Titel und 938 Nutzer mit einem relevanten neuen Titel. Beide Ansichten nutzen dieselbe Skala.", "next_summary": "Ein KI-gestützter Analytics-Workspace: Datensatz hochladen und einen Datenqualitätsbericht, Erkenntnisse und Diagramme erhalten – gestützt auf eine deterministische Profiling-Engine."};
+const langBtn=document.querySelector('.language-toggle');const origText={};
+document.querySelectorAll('[data-i18n]').forEach(el=>{origText[el.dataset.i18n]=el.innerHTML});
+let lang='en';try{lang=localStorage.getItem('site-language')||((navigator.language||'en').toLowerCase().startsWith('de')?'de':'en')}catch(e){}
+function applyLang(next){lang=next;try{localStorage.setItem('site-language',lang)}catch(e){};document.documentElement.lang=lang;
+ document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;el.innerHTML=lang==='de'&&PAGE_DE[k]?PAGE_DE[k]:origText[k]});
+ if(langBtn){langBtn.textContent=lang==='de'?'EN':'DE';langBtn.setAttribute('aria-label',lang==='de'?'Switch to English':'Auf Deutsch wechseln')}}
+applyLang(lang);window.addEventListener('pageshow',()=>{let s=null;try{s=localStorage.getItem('site-language')}catch(e){};if(s&&s!==lang)applyLang(s)});if(langBtn)langBtn.addEventListener('click',()=>applyLang(lang==='de'?'en':'de'));
+</script>
+<script>
+const themeToggle=document.querySelector('.theme-toggle');
+const applyTheme=dark=>{document.body.classList.toggle('dark',dark);document.documentElement.classList.remove('dark-pre');try{localStorage.setItem('theme',dark?'dark':'light')}catch(e){};themeToggle.setAttribute('aria-pressed',String(dark));themeToggle.innerHTML=dark?'<span>☀</span>':'<span>☾</span>'};
+let initialDark=false;try{initialDark=localStorage.getItem('theme')==='dark'}catch(e){}
+applyTheme(initialDark);
+themeToggle.addEventListener('click',()=>applyTheme(!document.body.classList.contains('dark')));
+window.addEventListener('pageshow',()=>{let t=null;try{t=localStorage.getItem('theme')}catch(e){};if(t&&(t==='dark')!==document.body.classList.contains('dark'))applyTheme(t==='dark')});
+const sideLinks=[...document.querySelectorAll('.cs-sidenav a')];
+const sideIndicator=document.querySelector('.cs-sidenav-indicator');
+let sideY=null;
+function moveSide(link){
+  const to=link.offsetTop,size=link.offsetHeight,from=sideY;
+  sideLinks.forEach(l=>l.classList.toggle('is-active',l===link));
+  const tabIcon=document.querySelector('.cs-sidetab-icon svg');if(tabIcon)tabIcon.innerHTML=link.querySelector('svg').innerHTML;
+  sideIndicator.style.height=size+'px';sideIndicator.style.transform=`translateY(${to}px)`;sideIndicator.style.opacity='1';sideY=to;
+  if(from===null||from===to||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const down=to>from,start=Math.min(from,to),span=Math.abs(to-from)+size;
+  sideIndicator.getAnimations().forEach(a=>a.cancel());
+  sideIndicator.animate([
+    {transform:`translateY(${from}px)`,height:size+'px',width:size+'px',marginLeft:'0px'},
+    {transform:`translateY(${start}px)`,height:span+'px',width:(size-6)+'px',marginLeft:'3px',offset:.42},
+    {transform:`translateY(${to+(down?3:-3)}px)`,height:(size-4)+'px',width:(size+2)+'px',marginLeft:'-1px',offset:.72},
+    {transform:`translateY(${to}px)`,height:size+'px',width:size+'px',marginLeft:'0px'}
+  ],{duration:620,easing:'cubic-bezier(.45,0,.2,1)'});
+}
+let sideLock=0;
+sideLinks.forEach(l=>l.addEventListener('click',()=>{sideLock=Date.now()+1400;moveSide(l)}));
+const sideNav=document.querySelector('.cs-sidenav'),sideTab=document.querySelector('.cs-sidetab');
+sideLinks.forEach((l,i)=>l.style.setProperty('--i',i));
+let sideAnim=null;
+const sideReduce=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
+const sideCircle=()=>{const w=sideNav.offsetWidth,h=sideNav.offsetHeight;return `translate(0,-50%) scale(${48/w},${48/h})`};
+const setSide=open=>{
+  const isOpen=sideNav.classList.contains('is-open')&&!sideNav.classList.contains('is-closing');
+  if(open===isOpen)return;
+  sideTab.setAttribute('aria-expanded',String(open));
+  if(sideAnim)sideAnim.cancel();
+  if(open){
+    sideNav.classList.remove('is-closing');sideNav.classList.add('is-open');document.body.classList.add('cs-side-open');
+    if(sideReduce())return;
+    sideAnim=sideNav.animate([
+      {transform:sideCircle(),borderRadius:'50%'},
+      {transform:'translate(0,-50%) scale(1.06,.95)',borderRadius:'26px',offset:.5},
+      {transform:'translate(0,-50%) scale(.97,1.03)',offset:.72},
+      {transform:'translate(0,-50%) scale(1.01,.995)',offset:.88},
+      {transform:'translate(0,-50%) scale(1)',borderRadius:'26px'}
+    ],{duration:680,easing:'ease-out'});
+  }else{
+    sideNav.classList.add('is-closing');
+    const done=()=>{document.body.classList.remove('cs-side-landing');void document.body.offsetWidth;document.body.classList.add('cs-side-landing');sideNav.classList.remove('is-open','is-closing');document.body.classList.remove('cs-side-open');if(sideAnim){sideAnim.cancel();sideAnim=null}};
+    if(sideReduce())return done();
+    sideAnim=sideNav.animate([
+      {transform:'translate(0,-50%) scale(1)',borderRadius:'26px'},
+      {transform:'translate(0,-50%) scale(1.04,.97)',borderRadius:'26px',offset:.22},
+      {transform:sideCircle(),borderRadius:'50%'}
+    ],{duration:460,easing:'cubic-bezier(.65,0,.35,1)',fill:'forwards'});
+    sideAnim.onfinish=done;
+  }
+};
+sideTab.addEventListener('click',e=>{e.stopPropagation();setSide(!sideNav.classList.contains('is-open'))});
+document.addEventListener('click',e=>{if(sideNav.classList.contains('is-open')&&!sideNav.contains(e.target))setSide(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')setSide(false)});
+let sideTouchX=null;
+sideNav.addEventListener('touchstart',e=>{sideTouchX=e.touches[0].clientX},{passive:true});
+sideNav.addEventListener('touchend',e=>{if(sideTouchX!==null&&e.changedTouches[0].clientX-sideTouchX<-40)setSide(false);sideTouchX=null});
+const sideObserver=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){if(Date.now()<sideLock)return;const l=sideLinks.find(x=>x.hash==='#'+e.target.id);if(l)moveSide(l)}}),{rootMargin:'-45% 0px -50% 0px'});
+sideLinks.forEach(l=>{const t=document.querySelector(l.hash);if(t)sideObserver.observe(t)});
+requestAnimationFrame(()=>moveSide(sideLinks[0]));
+</script>
+<script type="application/json" id="cs-chart-data">{"anime-models": {"rows": [{"id": "hybrid", "ndcg": 0.1517, "recall": 0.1524, "precision": 0.0863}, {"id": "ease", "ndcg": 0.1521, "recall": 0.1521, "precision": 0.0874}, {"id": "als", "ndcg": 0.1292, "recall": 0.13, "precision": 0.0773}, {"id": "recent", "ndcg": 0.0929, "recall": 0.0963, "precision": 0.0534}, {"id": "content", "ndcg": 0.0533, "recall": 0.0537, "precision": 0.0343}, {"id": "popularity", "ndcg": 0.0368, "recall": 0.0362, "precision": 0.025}]}, "anime-history": {"buckets": ["1–5", "6–20", "21–100", "101–500", "501+"], "users": [101, 369, 4154, 16892, 3677], "series": [{"id": "hybrid", "values": [0.2013, 0.2365, 0.1849, 0.1472, 0.1254]}, {"id": "recent", "values": [0.1439, 0.114, 0.0988, 0.0933, 0.0811]}, {"id": "popularity", "values": [0.1826, 0.1084, 0.0604, 0.0313, 0.0239]}]}, "anime-cold": {"rows": [{"id": "hybrid", "cold": 0.1364, "full": 0.0003}, {"id": "content", "cold": 0.1364, "full": 0.0}, {"id": "ease", "cold": 0.0, "full": 0.0}, {"id": "als", "cold": 0.0, "full": 0.0}, {"id": "recent", "cold": 0.0, "full": 0.0}, {"id": "popularity", "cold": 0.0, "full": 0.0}]}}</script>
+<script src="/case-charts.js?v=20261108-anime" defer></script>
+<script src="/public/vendor/lenis.min.js?v=1.1.20" defer></script>
+<script src="/smooth-scroll.js?v=20261101b" defer></script>
+<script src="/section-reveal.js?v=20261101e" defer></script>
+<script src="/footer-fun.js?v=20261101b" defer></script>
+<script src="/copy-email.js?v=20261101a" defer></script>
+</body>
+</html>

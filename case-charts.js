@@ -7,7 +7,7 @@ const DATA = JSON.parse(DATA_EL.textContent);
 const NS = 'http://www.w3.org/2000/svg';
 
 const I18N = {
-  en: { points: 'Points', gap: 'Gap to leader', round: 'Round', pts: 'pts', leader: 'Leader', lap: 'Lap', laps: 'laps',
+  en: { anNdcg: 'NDCG@10', anRecall: 'Recall@10', anPrecision: 'Precision@10', anModel: 'Model', anHybrid: 'Hybrid', anEase: 'EASE', anAls: 'ALS', anRecent: 'Recent popularity', anContent: 'Content only', anPopularity: 'All-time popularity', anTitles: 'Titles in history', anUsers: 'users', anAmongCold: 'Among new titles only', anFullCat: 'Full catalog', points: 'Points', gap: 'Gap to leader', round: 'Round', pts: 'pts', leader: 'Leader', lap: 'Lap', laps: 'laps',
         soft: 'Soft', medium: 'Medium', hard: 'Hard', table: 'View as table', driver: 'Driver', stint: 'Stint', compound: 'Compound',
         quality: 'Data quality score', issues: 'issues found', high: 'High', med: 'Medium', low: 'Low', severity: 'Severity', count: 'Count', types: 'Issue types',
         completeness: 'Completeness', uniqueness: 'Uniqueness', validity: 'Validity', consistency: 'Consistency', dimension: 'Dimension', score: 'Score',
@@ -20,7 +20,7 @@ const I18N = {
         rPumpOn: 'soil below 40 %', rPumpOff: 'soil above 60 %', rPumpHold: 'between 40 and 60 % — keeps its last state', rPumpBlocked: 'reservoir low (> 4.5 cm)',
         rLight: 'brightness follows ambient light', distance: 'distance to water',
         dpModel: 'Model (P50)', dpPrev: 'Same hour, previous day', dpWeek: 'Same hour, last week', dpModelS: 'Model', dpPrevS: 'Previous day', dpWeekS: 'Last week', dpErr: 'Error (MAE)', dpCov: 'Range coverage', dpTarget: 'Target 80%', dpInRange: 'in range', dpHours: 'hours', dpMonth: 'Month', dpInput: 'Input', dpSees: 'Can see', dpWhy: 'Why', dpCut: 'Cutoff 11:30 · auction 12:00', dpD2: 'Two days before', dpD1: 'Day before', dpD0: 'Delivery day', dpIssued: 'Issued', dpPeriod: 'Period', normal: 'Middle 90% of prices', negative: 'Negative prices', spike: 'Highest 5% of prices', dpUnit: 'EUR/MWh' },
-  de: { points: 'Punkte', gap: 'Abstand zur Spitze', round: 'Runde', pts: 'Pkt.', leader: 'Führend', lap: 'Runde', laps: 'Runden',
+  de: { anNdcg: 'NDCG@10', anRecall: 'Recall@10', anPrecision: 'Precision@10', anModel: 'Modell', anHybrid: 'Hybrid', anEase: 'EASE', anAls: 'ALS', anRecent: 'Aktuelle Beliebtheit', anContent: 'Nur Inhalt', anPopularity: 'Beliebtheit insgesamt', anTitles: 'Titel im Verlauf', anUsers: 'Nutzer', anAmongCold: 'Nur unter neuen Titeln', anFullCat: 'Gesamter Katalog', points: 'Punkte', gap: 'Abstand zur Spitze', round: 'Runde', pts: 'Pkt.', leader: 'Führend', lap: 'Runde', laps: 'Runden',
         soft: 'Soft', medium: 'Medium', hard: 'Hard', table: 'Als Tabelle anzeigen', driver: 'Fahrer', stint: 'Stint', compound: 'Mischung',
         quality: 'Datenqualitäts-Score', issues: 'gefundene Probleme', high: 'Hoch', med: 'Mittel', low: 'Niedrig', severity: 'Schwere', count: 'Anzahl', types: 'Problemtypen',
         completeness: 'Vollständigkeit', uniqueness: 'Eindeutigkeit', validity: 'Gültigkeit', consistency: 'Konsistenz', dimension: 'Dimension', score: 'Score',
@@ -577,6 +577,75 @@ function depowerRegimes(fig, D) {
   table(fig, [t('dpPeriod'), t('dpHours'), t('dpModelS'), t('dpPrevS'), t('dpInRange')], D.rows.map(r => [t(r.id), fmt(r.n), fmt(r.model, 2), fmt(r.prev, 2), `${fmt(r.coverage, 1)} %`]));
 }
 
+/* ================= AnimeRec — ranking quality ================= */
+const AN_NAME = { hybrid: 'anHybrid', ease: 'anEase', als: 'anAls', recent: 'anRecent', content: 'anContent', popularity: 'anPopularity' };
+// Labelled horizontal bars. The hybrid carries the accent; every other model stays neutral.
+function animeBars(fig, rows, valueOf, hi) {
+  const plot = fig.querySelector('.cs-chart-plot');
+  plot.replaceChildren();
+  const W = plot.clientWidth, rh = 46, bh = 12, H = rows.length * rh, r = 56;
+  const x = v => (v / hi) * (W - r);
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: 'img', 'aria-label': fig.querySelector('h3')?.textContent || '' }, plot);
+  rows.forEach((row, i) => {
+    const y0 = i * rh, v = valueOf(row), mine = row.id === 'hybrid';
+    el('text', { x: 0, y: y0 + 16, class: 'cs-rowlabel', 'font-weight': mine ? 500 : 400 }, svg).textContent = t(AN_NAME[row.id]);
+    el('rect', { x: 0, y: y0 + 24, width: W - r, height: bh, rx: 4, fill: css('--chart-grid') }, svg);
+    A(el('rect', { x: 0, y: y0 + 24, width: x(v), height: bh, rx: 4, fill: mine ? css('--c1') : css('--muted') }, svg), 'a-growx', 120 + i * 90);
+    A(el('text', { x: W, y: y0 + 34, class: 'cs-tick', 'text-anchor': 'end' }, svg), 'a-fade', 600 + i * 90).textContent = fmt(v, 4);
+  });
+}
+const anModelsState = { metric: 'ndcg' };
+function animeModels(fig, D) {
+  const ctl = fig.querySelector('.cs-chart-ctl');
+  ctl.replaceChildren();
+  const metrics = [['ndcg', 'anNdcg'], ['recall', 'anRecall'], ['precision', 'anPrecision']];
+  toggle(ctl, metrics.map(([k, l]) => [k, t(l)]), anModelsState.metric, v => { anModelsState.metric = v; animeModels(fig, D); });
+  const m = anModelsState.metric;
+  animeBars(fig, [...D.rows].sort((a, b) => b[m] - a[m]), r => r[m], Math.max(...D.rows.map(r => r[m])));
+  table(fig, [t('anModel'), ...metrics.map(([, l]) => t(l))], D.rows.map(r => [t(AN_NAME[r.id]), ...metrics.map(([k]) => fmt(r[k], 4))]));
+}
+const anColdState = { view: 'cold' };
+function animeCold(fig, D) {
+  const ctl = fig.querySelector('.cs-chart-ctl');
+  ctl.replaceChildren();
+  toggle(ctl, [['cold', t('anAmongCold')], ['full', t('anFullCat')]], anColdState.view, v => { anColdState.view = v; animeCold(fig, D); });
+  animeBars(fig, D.rows, r => r[anColdState.view], 0.15);
+  table(fig, [t('anModel'), t('anAmongCold'), t('anFullCat')], D.rows.map(r => [t(AN_NAME[r.id]), fmt(r.cold, 4), fmt(r.full, 4)]));
+}
+function animeHistory(fig, D) {
+  const ctl = fig.querySelector('.cs-chart-ctl'), plot = fig.querySelector('.cs-chart-plot');
+  ctl.replaceChildren(); plot.replaceChildren();
+  const COLOR = { hybrid: '--c1', recent: '--c2', popularity: '--c3' };
+  legend(ctl, D.series.map(s => ({ label: t(AN_NAME[s.id]), color: css(COLOR[s.id]), line: true })));
+  const W = plot.clientWidth, H = Math.round(Math.max(250, Math.min(320, W * 0.62)));
+  const m = { l: 36, r: 14, t: 12, b: 44 }, iw = W - m.l - m.r, ih = H - m.t - m.b, hi = 0.25, last = D.buckets.length - 1;
+  const x = i => m.l + (i / last) * iw, y = v => m.t + (1 - v / hi) * ih;
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: 'img', 'aria-label': fig.querySelector('h3')?.textContent || '' }, plot);
+  for (let k = 0; k <= 5; k++) {
+    const v = k * 0.05;
+    el('line', { x1: m.l, x2: m.l + iw, y1: y(v), y2: y(v), class: k ? 'cs-grid' : 'cs-ax' }, svg);
+    el('text', { x: m.l - 8, y: y(v) + 4, class: 'cs-tick', 'text-anchor': 'end' }, svg).textContent = fmt(v, 2);
+  }
+  D.buckets.forEach((b, i) => el('text', { x: x(i), y: H - 24, class: 'cs-tick', 'text-anchor': i === 0 ? 'start' : i === last ? 'end' : 'middle' }, svg).textContent = b);
+  el('text', { x: m.l + iw / 2, y: H - 4, class: 'cs-tick', 'text-anchor': 'middle' }, svg).textContent = t('anTitles');
+  D.series.forEach((s, n) => {
+    const c = css(COLOR[s.id]);
+    A(el('path', { d: s.values.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(''), class: 'cs-line', stroke: c, pathLength: 1 }, svg), 'a-draw', n * 140);
+    s.values.forEach((v, i) => A(el('circle', { cx: x(i), cy: y(v), r: 3, fill: c }, svg), 'a-pop', 1100 + i * 60));
+  });
+  const tip = tooltip(plot);
+  const cross = el('line', { y1: m.t, y2: m.t + ih, class: 'cs-cross', style: 'display:none' }, svg);
+  const hit = el('rect', { x: m.l - 8, y: m.t, width: iw + 16, height: ih, fill: 'transparent' }, svg);
+  const move = e => {
+    const b = svg.getBoundingClientRect(), i = Math.max(0, Math.min(last, Math.round((e.clientX - b.left - m.l) / iw * last)));
+    cross.setAttribute('x1', x(i)); cross.setAttribute('x2', x(i)); cross.style.display = '';
+    tip.show(D.series.map(s => ({ color: css(COLOR[s.id]), value: fmt(s.values[i], 4), label: t(AN_NAME[s.id]) })), `${D.buckets[i]} · ${fmt(D.users[i])} ${t('anUsers')}`, x(i), e.clientY - b.top);
+  };
+  hit.addEventListener('pointermove', move); hit.addEventListener('pointerdown', move);
+  hit.addEventListener('pointerleave', () => { tip.hide(); cross.style.display = 'none'; });
+  table(fig, [t('anTitles'), t('anUsers'), ...D.series.map(s => t(AN_NAME[s.id]))], D.buckets.map((b, i) => [b, fmt(D.users[i]), ...D.series.map(s => fmt(s.values[i], 4))]));
+}
+
 /* Count a number up from 0 when the figure's entrance plays (or show it final if it already played). */
 function countUp(fig, node, target, dur = 1300, ticks) {
   const run = () => {
@@ -591,7 +660,7 @@ function countUp(fig, node, target, dur = 1300, ticks) {
   fig.addEventListener('cs-animate', run, { once: true });
 }
 
-const RENDER = { 'apex-points': apexPoints, 'apex-stints': apexStints, 'ada-quality': adaQuality, 'ada-segments': adaSegments, 'eden-hysteresis': edenHysteresis, 'eden-controls': edenControls, 'depower-cutoff': depowerCutoff, 'depower-hours': depowerHours, 'depower-months': depowerMonths, 'depower-regimes': depowerRegimes };
+const RENDER = { 'apex-points': apexPoints, 'apex-stints': apexStints, 'ada-quality': adaQuality, 'ada-segments': adaSegments, 'eden-hysteresis': edenHysteresis, 'eden-controls': edenControls, 'depower-cutoff': depowerCutoff, 'depower-hours': depowerHours, 'depower-months': depowerMonths, 'depower-regimes': depowerRegimes, 'anime-models': animeModels, 'anime-history': animeHistory, 'anime-cold': animeCold };
 const figs = [...document.querySelectorAll('.cs-chart[data-chart]')];
 // One-time entrance: charts below the fold wait (marks hidden), then animate as they enter view.
 if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {

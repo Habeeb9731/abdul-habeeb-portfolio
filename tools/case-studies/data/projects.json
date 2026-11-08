@@ -442,6 +442,216 @@
   }
  },
  {
+  "slug": "anime-recommender",
+  "title": "AnimeRec",
+  "label": "Machine learning · Data",
+  "summary": "A hybrid anime recommender built on 23.2M real list interactions. It handles brand-new visitors and titles nobody has rated yet, and was tested on a held-out time window.",
+  "hero": "/public/resources/case-studies/anime-hero.jpg",
+  "thumb": "/public/resources/projects/anime-recommender.jpg",
+  "live": "https://anime.abdulhabeeb.com/",
+  "repo": "https://github.com/Habeeb9731/anime-recommender",
+  "meta": [
+   [
+    "Role",
+    "Data science &amp; ML engineering"
+   ],
+   [
+    "Timeline",
+    "2026"
+   ],
+   [
+    "Type",
+    "Personal project"
+   ],
+   [
+    "Stack",
+    "Python, EASE, Streamlit"
+   ]
+  ],
+  "ov_h": "Popularity lists ignore your taste. <span>Collaborative filtering ignores new shows.</span>",
+  "ov_p": "AnimeRec ranks every eligible title for each visitor. It leans on what similar viewers enjoyed, then shifts smoothly toward synopsis and metadata signals as a title’s history falls to zero. Answer three quick questions and your top 10 appears instantly, with no retraining and a reason attached to each pick.",
+  "ov_img": [
+   "/public/resources/case-studies/anime-overview.jpg?v=2",
+   "A personal top 10, with the reason behind the lead recommendation."
+  ],
+  "challenge": [
+   "An evaluation that could be trusted",
+   [
+    "Collaborative filtering cannot rank a title nobody has watched yet.",
+    "The newer dataset looked ideal, but 97.0% of 9.8M sampled “interaction dates” were really air dates or placeholders.",
+    "Anime viewing follows the airing season, so a plain popularity baseline makes any model look better than it is."
+   ]
+  ],
+  "solution": [
+   "Real timestamps, a harder baseline",
+   [
+    "Switched to a crawl with per-user update times, then joined synopses from the newer dataset by anime ID.",
+    "Split globally by time and ranked the full 10,720-title catalog, with no negative sampling and the test window scored only once.",
+    "Each title blends collaborative and content scores by how much history it has, and results are reported against recent popularity too."
+   ]
+  ],
+  "features": [
+   [
+    "sliders",
+    "Instant taste profile",
+    "Pick genres and a few favourites, and new users are folded into the model on the spot, without retraining."
+   ],
+   [
+    "chat",
+    "A reason for every pick",
+    "Recommendations say why they are there, like “Because you liked One Punch Man”, and every title opens a detail card."
+   ],
+   [
+    "sparkle",
+    "Room for new titles",
+    "A title with no viewing history can still be scored from its synopsis, genres, studio, type and year."
+   ]
+  ],
+  "phone": [
+   "/public/resources/case-studies/anime-mobile.jpg?v=3",
+   "Made for browsing on a phone",
+   "On small screens the side rail becomes a floating bottom pill, and the picks stay within thumb reach."
+  ],
+  "points": [
+   "Floating bottom navigation on phones",
+   "Answers are remembered in the browser, with no account",
+   "Sequels of titles you already picked stay hidden by default"
+  ],
+  "gallery": [
+   [
+    "/public/resources/case-studies/anime-onboarding.jpg",
+    "Onboarding: pick a few titles you loved",
+    false
+   ],
+   [
+    "/public/resources/case-studies/anime-detail.jpg",
+    "Every title opens a detail card with its reason",
+    false
+   ],
+   [
+    "/public/resources/case-studies/anime-browse.jpg",
+    "Shelves filter your top picks by format",
+    true
+   ]
+  ],
+  "tech": [
+   [
+    "Data",
+    "23.2M interactions from 100,000 sampled users, after logged filters removed bulk imports and bot-like accounts."
+   ],
+   [
+    "Models",
+    "EASE and ALS for collaborative filtering, and all-MiniLM-L6-v2 sentence embeddings with metadata for content."
+   ],
+   [
+    "Hybrid",
+    "Per title, alpha = n / (n + κ) moves the score from collaborative to content signals as its history n falls to zero."
+   ],
+   [
+    "Demo",
+    "A Streamlit app in Docker behind a Cloudflare Tunnel, serving the same model that was evaluated."
+   ]
+  ],
+  "stack": [
+   "Python",
+   "NumPy",
+   "SciPy",
+   "Polars",
+   "implicit",
+   "Sentence Transformers",
+   "Streamlit",
+   "Docker",
+   "Cloudflare Tunnel"
+  ],
+  "learned": "The most useful step came before any model: auditing the timestamps. It stopped me from reporting a time split that was not really one. It also taught me to publish the less flattering numbers. The hybrid only matches plain EASE overall, and new titles rarely reach a top 10.",
+  "charts": {
+   "h": "What the test window <span>actually showed.</span>",
+   "p": "All three charts use the frozen final run: 25,193 users, the full catalog of 10,720 titles, and activity from February to April 2018 that no model saw during training or tuning.",
+   "de_h": "Was das Testfenster <span>tatsächlich gezeigt hat.</span>",
+   "de_p": "Alle drei Diagramme zeigen den eingefrorenen finalen Lauf: 25.193 Nutzer, den vollständigen Katalog mit 10.720 Titeln und Aktivität von Februar bis April 2018, die kein Modell beim Training oder Tuning gesehen hat.",
+   "items": [
+    {
+     "id": "anime-models",
+     "wide": true,
+     "l": "Model comparison",
+     "t": "63% above recent popularity, and level with EASE.",
+     "p": "The hybrid scores 0.1517 NDCG@10, against 0.0929 for recent popularity, the stronger baseline, and 0.0368 for all-time popularity. Plain EASE is effectively tied at 0.1521, so the hybrid’s value is reaching titles EASE cannot score.",
+     "s": "Source: reports/results.md, test window 2018-02-01 to 2018-05-01. Lift over recent popularity: 95% bootstrap CI +60.6% to +66.2%.",
+     "de_l": "Modellvergleich",
+     "de_t": "63 % über aktueller Beliebtheit und gleichauf mit EASE.",
+     "de_p": "Das Hybridmodell erreicht 0,1517 NDCG@10, gegenüber 0,0929 für aktuelle Beliebtheit, die stärkere Baseline, und 0,0368 für Beliebtheit insgesamt. Reines EASE liegt mit 0,1521 praktisch gleichauf, der Mehrwert des Hybridmodells liegt also bei Titeln, die EASE nicht bewerten kann.",
+     "de_s": "Quelle: reports/results.md, Testfenster 01.02.2018 bis 01.05.2018. Vorsprung gegenüber aktueller Beliebtheit: 95-%-Bootstrap-KI +60,6 % bis +66,2 %."
+    },
+    {
+     "id": "anime-history",
+     "wide": false,
+     "l": "User history",
+     "t": "Ahead for every length of watch history.",
+     "p": "The hybrid leads both baselines in all five groups. The gap is narrowest for the 101 users with five titles or fewer, where popularity is still a strong guess.",
+     "s": "Source: failure analysis in reports/results.md. NDCG@10 by number of titles in a user’s earlier history.",
+     "de_l": "Nutzerverlauf",
+     "de_t": "Vorn bei jeder Länge des Verlaufs.",
+     "de_p": "Das Hybridmodell liegt in allen fünf Gruppen vor beiden Baselines. Am kleinsten ist der Abstand bei den 101 Nutzern mit höchstens fünf Titeln, bei denen Beliebtheit noch ein guter Tipp ist.",
+     "de_s": "Quelle: Fehleranalyse in reports/results.md. NDCG@10 nach Anzahl der Titel im bisherigen Verlauf."
+    },
+    {
+     "id": "anime-cold",
+     "wide": false,
+     "l": "New titles",
+     "t": "It can rank new titles, but they rarely reach a top 10.",
+     "p": "Among titles with no history, the content signal is the only one that works. Toggle to the full catalog: they take just 0.27% of recommendation slots, so this problem is only partly solved.",
+     "s": "Source: reports/results.md, 341 cold titles and 938 users with a relevant cold title. Both views share one scale.",
+     "de_l": "Neue Titel",
+     "de_t": "Neue Titel lassen sich ranken, schaffen es aber selten in die Top 10.",
+     "de_p": "Unter Titeln ohne Verlauf funktioniert nur das Inhaltssignal. Umschalten auf den gesamten Katalog zeigt: Sie belegen nur 0,27 % der Empfehlungsplätze, das Problem ist also nur teilweise gelöst.",
+     "de_s": "Quelle: reports/results.md, 341 neue Titel und 938 Nutzer mit einem relevanten neuen Titel. Beide Ansichten nutzen dieselbe Skala."
+    }
+   ]
+  },
+  "de": {
+   "label": "Machine Learning · Daten",
+   "summary": "Ein hybrider Anime-Recommender auf Basis von 23,2 Mio. echten Listeneinträgen. Er kommt mit neuen Besuchern und noch unbewerteten Titeln zurecht und wurde auf einem zurückgehaltenen Zeitfenster getestet.",
+   "meta0": "Data Science &amp; ML Engineering",
+   "meta1": "2026",
+   "meta2": "Persönliches Projekt",
+   "meta3": "Python, EASE, Streamlit",
+   "ov_h": "Beliebtheitslisten ignorieren deinen Geschmack. <span>Collaborative Filtering ignoriert neue Serien.</span>",
+   "ov_p": "AnimeRec ordnet für jeden Besucher alle infrage kommenden Titel. Das Modell stützt sich darauf, was ähnlichen Zuschauern gefallen hat, und verlagert sich fließend auf Inhaltsangaben und Metadaten, je weniger Verlauf ein Titel hat. Drei kurze Fragen genügen, und deine Top 10 erscheint sofort, ohne neues Training und mit einer Begründung für jede Empfehlung.",
+   "ov_cap": "Eine persönliche Top 10 mit der Begründung für die erste Empfehlung.",
+   "ch_t": "Eine Auswertung, der man vertrauen kann",
+   "ch0": "Collaborative Filtering kann keinen Titel einordnen, den noch niemand gesehen hat.",
+   "ch1": "Der neuere Datensatz wirkte ideal, aber 97,0 % von 9,8 Mio. geprüften „Interaktionsdaten“ waren in Wahrheit Sendetermine oder Platzhalter.",
+   "ch2": "Anime-Konsum folgt der Ausstrahlungssaison, deshalb lässt eine einfache Beliebtheits-Baseline jedes Modell besser aussehen, als es ist.",
+   "so_t": "Echte Zeitstempel, eine härtere Baseline",
+   "so0": "Wechsel zu einem Datensatz mit nutzerbezogenen Änderungszeiten, die Inhaltsangaben kamen per Anime-ID aus dem neueren Datensatz dazu.",
+   "so1": "Globale zeitliche Aufteilung und Ranking über den gesamten Katalog mit 10.720 Titeln, ohne Negative Sampling und mit nur einer Auswertung des Testfensters.",
+   "so2": "Jeder Titel mischt Collaborative- und Inhaltswerte je nach Umfang seines Verlaufs, und die Ergebnisse werden auch gegen aktuelle Beliebtheit berichtet.",
+   "f0t": "Sofortiges Geschmacksprofil",
+   "f0d": "Genres und ein paar Favoriten wählen, und neue Nutzer werden direkt ins Modell eingebunden, ganz ohne neues Training.",
+   "f1t": "Eine Begründung für jede Empfehlung",
+   "f1d": "Empfehlungen sagen, warum sie da sind, etwa „Because you liked One Punch Man“, und jeder Titel öffnet eine Detailkarte.",
+   "f2t": "Platz für neue Titel",
+   "f2d": "Auch ein Titel ohne Verlauf lässt sich anhand von Inhaltsangabe, Genres, Studio, Typ und Jahr bewerten.",
+   "g0": "Onboarding: ein paar Lieblingstitel auswählen",
+   "g1": "Jeder Titel öffnet eine Detailkarte mit Begründung",
+   "g2": "Regale filtern deine Top-Empfehlungen nach Format",
+   "ph_h": "Gemacht fürs Stöbern am Handy",
+   "ph_p": "Auf kleinen Bildschirmen wird die Seitenleiste zu einer schwebenden Leiste am unteren Rand, und die Empfehlungen bleiben in Daumennähe.",
+   "pt0": "Schwebende Navigation unten auf dem Handy",
+   "pt1": "Antworten bleiben im Browser gespeichert, ganz ohne Konto",
+   "pt2": "Fortsetzungen gewählter Titel bleiben standardmäßig ausgeblendet",
+   "t0k": "Daten",
+   "t0v": "23,2 Mio. Interaktionen von 100.000 ausgewählten Nutzern, nachdem protokollierte Filter Massenimporte und bot-artige Konten entfernt hatten.",
+   "t1k": "Modelle",
+   "t1v": "EASE und ALS für Collaborative Filtering sowie all-MiniLM-L6-v2-Satz-Embeddings mit Metadaten für den Inhalt.",
+   "t2k": "Hybrid",
+   "t2v": "Pro Titel verschiebt alpha = n / (n + κ) den Wert von Collaborative- zu Inhaltssignalen, wenn der Verlauf n gegen null geht.",
+   "t3k": "Demo",
+   "t3v": "Eine Streamlit-App in Docker hinter einem Cloudflare Tunnel, die genau das ausgewertete Modell ausliefert.",
+   "learned": "Der wichtigste Schritt kam vor jedem Modell: die Prüfung der Zeitstempel. Sie hat verhindert, dass ich eine zeitliche Aufteilung berichte, die gar keine war. Außerdem habe ich gelernt, auch die weniger schmeichelhaften Zahlen zu veröffentlichen. Das Hybridmodell liegt insgesamt nur gleichauf mit reinem EASE, und neue Titel schaffen es selten in eine Top 10."
+  }
+ },
+ {
   "slug": "autonomous-data-analyst",
   "title": "Autonomous Data Analyst",
   "label": "Data · Full-stack",

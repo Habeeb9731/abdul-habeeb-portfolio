@@ -25,6 +25,8 @@ COVERS = os.path.join(ROOT, 'public', 'resources', 'blog')
 STATE = os.path.join(HERE, 'autopost-state.json')
 
 MODEL = 'claude-haiku-5-5'
+# USD per million input and output tokens for MODEL (prompts under 100K tokens). Update with MODEL.
+PRICE_PER_MTOK = (0.10, 0.50)
 TAGS = ['Models', 'Research', 'Security', 'Industry', 'Agents', 'Data tools', 'Regulation']
 MAX_AGE_HOURS = 36
 MIN_WORDS = 250
@@ -45,6 +47,20 @@ client = anthropic.Anthropic()
 
 def log(*a):
     print(*a, file=sys.stderr, flush=True)
+
+
+USAGE = []  # (input tokens, output tokens, USD) per API call in this run
+
+
+def track(step, r):
+    """Log one API call's token use and cost, and keep it for the run total."""
+    u = r.usage
+    inp = u.input_tokens + (u.cache_creation_input_tokens or 0) + (u.cache_read_input_tokens or 0)
+    out = u.output_tokens
+    cost = (inp * PRICE_PER_MTOK[0] + out * PRICE_PER_MTOK[1]) / 1e6
+    USAGE.append((inp, out, cost))
+    log(f'tokens {step}: {inp:,} in / {out:,} out, ${cost:.4f}')
+    return r
 
 
 def load_state():
@@ -95,7 +111,7 @@ def rank(cands, recent_titles):
     """Ask the model which headlines are worth a post, best first."""
     lines = '\n'.join(f'{i}. [{c["source"]}] {c["title"]}' for i, c in enumerate(cands))
     covered = '\n'.join(f'- {t}' for t in recent_titles)
-    r = client.messages.parse(
+    r = track('pick', client.messages.parse(
         model=MODEL, max_tokens=4000, output_format=Pick,
         messages=[{'role': 'user', 'content': f"""You choose stories for a blog about AI and data written by a data scientist. Readers want real advances and news with substance: new models, research results, tools for data and ML work, security issues, regulation, and significant industry moves.
 
@@ -107,7 +123,7 @@ Recent posts already on the blog:
 {covered}
 
 Headlines:
-{lines}"""}])
+{lines}"""}]))
     if r.stop_reason == 'refusal' or r.parsed_output is None:
         return []
     return [i for i in r.parsed_output.ranked if 0 <= i < len(cands)]
@@ -149,9 +165,9 @@ Two example posts from the blog, to match tone and structure (their date and cov
 
 
 def write_post(story, text):
-    r = client.messages.create(
+    r = track('write', client.messages.create(
         model=MODEL, max_tokens=16000, system=SYSTEM + style_examples(),
-        messages=[{'role': 'user', 'content': f"Source: {story['source']}\nURL: {story['link']}\nHeadline: {story['title']}\n\nArticle text:\n{text}\n\nWrite the post."}])
+        messages=[{'role': 'user', 'content': f"Source: {story['source']}\nURL: {story['link']}\nHeadline: {story['title']}\n\nArticle text:\n{text}\n\nWrite the post."}]))
     if r.stop_reason != 'end_turn':
         raise ValueError(f'stopped: {r.stop_reason}')
     return ''.join(b.text for b in r.content if b.type == 'text').strip()
@@ -219,11 +235,11 @@ def save_cover(hit, slug):
 
 
 def alt_text(b64):
-    r = client.messages.create(
+    r = track('alt text', client.messages.create(
         model=MODEL, max_tokens=2000,
         messages=[{'role': 'user', 'content': [
             {'type': 'image', 'source': {'type': 'base64', 'media_type': 'image/jpeg', 'data': b64}},
-            {'type': 'text', 'text': 'Write alt text for this photo: one plain sentence under 15 words describing what is visible. No brand names or readable text, no "image of" or "photo of". Output only the sentence.'}]}])
+            {'type': 'text', 'text': 'Write alt text for this photo: one plain sentence under 15 words describing what is visible. No brand names or readable text, no "image of" or "photo of". Output only the sentence.'}]}]))
     alt = ''.join(b.text for b in r.content if b.type == 'text').strip().strip('"').rstrip('.')
     return re.sub(r'\s+', ' ', alt) or 'Abstract technology photo'
 
@@ -287,6 +303,9 @@ def main():
             log(f'skip ({type(e).__name__}: {e}): {story["title"]}')
     save_state(state)
     log(f'done: {written} post(s)')
+    if USAGE:
+        log('tokens total: {:,} in / {:,} out over {} calls, ${:.4f}'.format(
+            sum(u[0] for u in USAGE), sum(u[1] for u in USAGE), len(USAGE), sum(u[2] for u in USAGE)))
 
 
 if __name__ == '__main__':

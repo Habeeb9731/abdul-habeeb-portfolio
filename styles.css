@@ -594,21 +594,35 @@ footer{container-type:inline-size;margin-top:clamp(80px,11vw,140px);padding:18px
 .peek-wrap{position:relative;display:inline-flex}
 .peek{display:none}
 @media(hover:hover) and (pointer:fine) and (min-width:641px){
-  .peek{display:block;position:absolute;z-index:5;top:50%;cursor:pointer;opacity:0;visibility:hidden;transition:opacity .25s ease .6s,transform .4s cubic-bezier(.34,1.45,.5,1) .6s,visibility 0s linear .85s}
+  /* The button fills towards the preview's side and gives a small squeeze, then the preview springs out
+     from behind it. Closing reverses it: the preview slides back behind the button and the fill drains. */
+  .peek{--spring:linear(0, 0.027, 0.101, 0.208, 0.335, 0.473, 0.612, 0.744, 0.863, 0.966, 1.051, 1.116, 1.163, 1.191, 1.204, 1.204, 1.192, 1.173, 1.149, 1.121, 1.092, 1.065, 1.039, 1.016, 0.997, 0.982, 0.97, 0.963, 0.959, 0.958, 0.959, 0.962, 0.967, 0.973, 0.978, 0.984, 0.99, 0.995, 0.999, 1.002, 1);--sink:cubic-bezier(.55,0,.8,.2);display:block;position:absolute;z-index:5;top:50%;cursor:pointer;opacity:0;visibility:hidden;transition:opacity .15s ease .85s,transform .32s var(--sink) .6s,visibility 0s linear 1s}
   .peek img{display:block;width:100%;height:100%;object-fit:cover}
-  /* Shows at once, lingers for 0.6s after the pointer leaves, and stays while the pointer is on the preview. */
-  .peek-wrap:is(:hover,:has(:focus-visible)) .peek{opacity:1;visibility:visible;transition-delay:0s}
-  .peek.is-resume{left:calc(100% + 18px);width:220px;aspect-ratio:600/849;overflow:hidden;border-radius:10px;background:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.35),0 28px 60px -14px rgba(2,6,21,.6);transform:translate(-10px,-50%) rotate(3deg) scale(.94);transform-origin:left center}
-  .peek-wrap:is(:hover,:has(:focus-visible)) .peek.is-resume{transform:translate(0,-50%) rotate(0) scale(1)}
-  .peek.is-projects{right:calc(100% + 24px);width:clamp(160px,21vw,250px);aspect-ratio:520/263;transform:translate(10px,-50%) scale(.94);transform-origin:right center}
-  .peek.is-projects img{position:absolute;inset:0;border-radius:9px;background:#0b1a3d;box-shadow:0 0 0 1px rgba(255,255,255,.35),0 20px 44px -14px rgba(2,6,21,.6);transition:transform .45s cubic-bezier(.34,1.45,.5,1) .6s}
+  /* Opens at once, lingers for 0.6s after the pointer leaves, and stays while the pointer is on the preview. */
+  .peek-wrap:is(:hover,:has(:focus-visible)) .peek{opacity:1;visibility:visible;transition:opacity .1s ease .12s,transform .8s var(--spring) .12s,visibility 0s}
+  .peek-wrap .button{position:relative;z-index:6;isolation:isolate}
+  .peek-wrap .button::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;transition:clip-path .28s var(--sink,ease) .6s}
+  .peek-wrap:is(:hover,:has(:focus-visible)) .button{animation:peekPush .55s cubic-bezier(.3,.7,.2,1) .05s backwards}
+  .peek-wrap:has(.is-resume) .button{transform-origin:right center}
+  .peek-wrap:has(.is-resume) .button::before{background:rgba(255,255,255,.24);clip-path:inset(0 100% 0 0 round 8px)}
+  .peek-wrap:has(.is-projects) .button{transform-origin:left center}
+  .peek-wrap:has(.is-projects) .button::before{background:rgba(37,99,235,.13);clip-path:inset(0 0 0 100% round 8px)}
+  /* After the per-side starting points above, so it wins at equal specificity. */
+  .peek-wrap:is(:hover,:has(:focus-visible)) .button::before{clip-path:inset(0 0 0 0 round 8px);transition:clip-path .3s cubic-bezier(.3,.7,.2,1)}
+  .peek.is-resume{left:calc(100% + 18px);width:220px;aspect-ratio:600/849;overflow:hidden;border-radius:10px;background:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.35),0 28px 60px -14px rgba(2,6,21,.6);transform:translate(-96px,-50%) scale(.22) rotate(-8deg);transform-origin:left center}
+  .peek-wrap:is(:hover,:has(:focus-visible)) .peek.is-resume{transform:translate(0,-50%) scale(1) rotate(0)}
+  .peek.is-projects{right:calc(100% + 24px);width:clamp(160px,21vw,250px);aspect-ratio:520/263;transform:translate(96px,-50%) scale(.22);transform-origin:right center}
+  .peek.is-projects img{position:absolute;inset:0;border-radius:9px;background:#0b1a3d;box-shadow:0 0 0 1px rgba(255,255,255,.35),0 20px 44px -14px rgba(2,6,21,.6);transition:transform .25s var(--sink) .6s}
   .peek-wrap:is(:hover,:has(:focus-visible)) .peek.is-projects{transform:translate(0,-50%) scale(1)}
-  .peek-wrap:is(:hover,:has(:focus-visible)) .peek.is-projects img:nth-child(1){transform:translate(-34px,-30px) rotate(-9deg)}
+  /* The stack fans out just after it lands, back card last. */
+  .peek-wrap:is(:hover,:has(:focus-visible)) .peek.is-projects img{transition:transform .85s var(--spring) .3s}
+  .peek-wrap:is(:hover,:has(:focus-visible)) .peek.is-projects img:nth-child(1){transform:translate(-34px,-30px) rotate(-9deg);transition-delay:.38s}
   .peek-wrap:is(:hover,:has(:focus-visible)) .peek.is-projects img:nth-child(2){transform:translate(-17px,-15px) rotate(-4.5deg)}
-  .peek-wrap:is(:hover,:has(:focus-visible)) .peek.is-projects img{transition-delay:0s}
-  /* After a click the preview closes at once and stays closed until the pointer comes back. */
-  .peek-wrap.is-dismissed .peek,.peek-wrap.is-dismissed .peek img{opacity:0;visibility:hidden;transition-delay:0s,0s,0s}
+  /* After a click the preview fades out at once and stays closed until the pointer comes back. */
+  .peek-wrap.is-dismissed .peek{opacity:0;visibility:hidden;transition:opacity .15s ease,visibility 0s linear .15s}
+  .peek-wrap.is-dismissed .button::before{clip-path:inset(0 0 0 100% round 8px);transition:clip-path .2s ease}
 }
+@keyframes peekPush{0%{transform:translateY(-1px)}35%{transform:translateY(-1px) scale(.95,.97)}70%{transform:translateY(-1px) scale(1.015,1.005)}100%{transform:translateY(-1px)}}
 /* Below this width the centred buttons leave no room beside them for the previews. */
 @media(max-width:800px){.peek{display:none!important}}
-@media(prefers-reduced-motion:reduce){.peek,.peek img{transition:opacity .15s ease!important}.peek.is-resume,.peek.is-projects{transform:translate(0,-50%)!important}}
+@media(prefers-reduced-motion:reduce){.peek-wrap .button{animation:none!important}.peek-wrap .button::before{transition:none!important}.peek,.peek img{transition:opacity .15s ease!important}.peek.is-resume,.peek.is-projects{transform:translate(0,-50%)!important}}

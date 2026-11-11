@@ -165,3 +165,4 @@ section.bl-more{padding-top:clamp(48px,6vw,84px)}
 }
 @media(prefers-reduced-motion:reduce){.bl-slide,.bl-slide > img{transition:none;transform:none}}
 .bl-page .nav-icon.is-active,.bl-page .nav-icon.is-active:hover{background:rgba(255,255,255,.16)}
+@media(max-width:640px){html:has(.bl-progress) .topbar{bottom:30px}.bl-progress{top:auto;bottom:12px;left:16px;right:16px;height:5px}}

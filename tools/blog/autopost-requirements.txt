@@ -1,0 +1,6 @@
+anthropic>=2.8
+feedparser
+trafilatura
+pillow
+pydantic
+requests

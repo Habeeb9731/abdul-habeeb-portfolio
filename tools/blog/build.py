@@ -107,7 +107,7 @@ def render(md):
             elif first.startswith('- '):
                 out.append('<ul>' + ''.join(f'<li>{inline(l[2:])}</li>' for l in lines) + '</ul>')
             elif re.match(r'\d+\. ', first):
-                out.append('<ol>' + ''.join(f'<li>{inline(re.sub(r"^\d+\. ", "", l))}</li>' for l in lines) + '</ol>')
+                out.append('<ol>' + ''.join('<li>' + inline(re.sub(r'^\d+\. ', '', l)) + '</li>' for l in lines) + '</ol>')
             else:
                 out.append(f'<p>{inline(" ".join(lines))}</p>')
     return '\n'.join(out), toc, used
@@ -128,6 +128,7 @@ def load_posts():
         # Readers see when the story happened; `date` stays the real publish date for feeds and structured data.
         p['date_label'] = date.fromisoformat(p.get('event', p['date'])).strftime('%-d %B %Y')
         p['url'] = f'{BASE}/{p["slug"]}/'
+        p['cover_site'] = 'Pixabay' if 'pixabay.com' in p.get('cover_credit', '') else 'Pexels'
         posts.append(p)
     # Newest story first.
     posts.sort(key=lambda p: p.get('event', p['date']), reverse=True)
@@ -274,7 +275,7 @@ def post_page(p, posts):
     <h1>{html.escape(p['title'])}</h1>
     <p>{html.escape(p['excerpt'])}</p>
     <span class="bl-meta"><img src="/public/resources/heroimage.jpg" alt="" /><span>Abdul Habeeb</span><i aria-hidden="true">·</i>{meta_line(p)}</span>
-    <a class="bl-credit" href="{p['cover_credit']}" target="_blank" rel="noopener"><span data-i18n="bl_photo">Photo</span>: Pexels</a>
+    <a class="bl-credit" href="{p['cover_credit']}" target="_blank" rel="noopener"><span data-i18n="bl_photo">Photo</span>: {p['cover_site']}</a>
   </section>
 
   <div class="bl-body">

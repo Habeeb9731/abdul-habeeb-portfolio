@@ -19,7 +19,7 @@ BASE = '/blog'
 # While False, every blog page carries noindex and stays out of the sitemap.
 LAUNCHED = False
 # Bump when blog.css or blog.js change.
-BLOG_VERSION = '20261104k'
+BLOG_VERSION = '20261111a'
 
 spec = importlib.util.spec_from_file_location('case_build', os.path.join(ROOT, 'tools', 'case-studies', 'build.py'))
 cs = importlib.util.module_from_spec(spec)

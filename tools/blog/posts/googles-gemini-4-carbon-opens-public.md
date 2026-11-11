@@ -2,6 +2,7 @@
 title: Google's Gemini 4 Carbon opens to the public, priced under its rivals for now
 excerpt: Google is rolling out Carbon to paying developers and Ultra subscribers, and previewing a multi-agent "swarm" feature. Its per-token prices are low, but the introductory rate ends in November.
 date: 2026-11-11
+published: 2026-11-11T16:15:37Z
 tag: Models
 cover: /public/resources/blog/googles-gemini-4-carbon-opens-public.jpg
 cover_alt: Glowing red, orange, yellow, and green branching lines radiate from bright nodes against a black background

@@ -2,6 +2,7 @@
 title: Gemini Robotics 2.5 hit 96% in European factories, and DeepMind admits the last 4% is hard
 excerpt: Google DeepMind's new robotics model improved on lab tests and reached 96% success in car-parts kitting. DeepMind's own director says the remaining gap is a steep road.
 date: 2026-11-11
+published: 2026-11-11T03:43:59Z
 tag: Models
 cover: /public/resources/blog/gemini-robotics-25-hit-96-european.jpg
 cover_alt: A futuristic circular assembly line with silver cars, robotic arms, and machinery encircling a glowing Earth

@@ -131,7 +131,8 @@ def load_posts():
         p['cover_site'] = 'Pixabay' if 'pixabay.com' in p.get('cover_credit', '') else 'Pexels'
         posts.append(p)
     # Newest story first.
-    posts.sort(key=lambda p: p.get('event', p['date']), reverse=True)
+    # Ties on the same day go to the later `published` time (written by autopost.py), newest first.
+    posts.sort(key=lambda p: (p.get('event', p['date']), p.get('published', '')), reverse=True)
     return posts
 
 

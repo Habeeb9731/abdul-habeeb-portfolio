@@ -287,7 +287,8 @@ def main():
             slug = slug_for(meta['title'], taken)
             hit = find_photo(meta['image_query'], meta['tag'], set(state['photos']))
             alt = alt_text(save_cover(hit, slug))
-            lines = ['---', f'title: {one_line(meta["title"])}', f'excerpt: {one_line(meta["excerpt"])}', f'date: {today}']
+            lines = ['---', f'title: {one_line(meta["title"])}', f'excerpt: {one_line(meta["excerpt"])}', f'date: {today}',
+                     f'published: {datetime.now(ZoneInfo("UTC")).strftime("%Y-%m-%dT%H:%M:%SZ")}']
             if meta.get('event'):
                 lines.append(f'event: {meta["event"]}')
             lines += [f'tag: {meta["tag"]}', f'cover: /public/resources/blog/{slug}.jpg', f'cover_alt: {one_line(alt)}',

@@ -2,6 +2,7 @@
 title: DeepMind's AI checked parts of Signal's protocol with math and found no new flaws
 excerpt: Google DeepMind used agentic AI to formally verify several cryptographic guarantees in the Signal protocol. It was a four-week proof of concept, and it covered only part of the system.
 date: 2026-11-11
+published: 2026-11-11T14:33:22Z
 tag: Research
 cover: /public/resources/blog/deepminds-ai-checked-parts-signals-protocol.jpg
 cover_alt: Illuminated triangular frames display colorful curved grid patterns of light against a dusk-blue sky

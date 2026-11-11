@@ -19,7 +19,7 @@ BASE = '/blog'
 # While False, every blog page carries noindex and stays out of the sitemap.
 LAUNCHED = False
 # Bump when blog.css or blog.js change.
-BLOG_VERSION = '20261111a'
+BLOG_VERSION = '20261111e'
 
 spec = importlib.util.spec_from_file_location('case_build', os.path.join(ROOT, 'tools', 'case-studies', 'build.py'))
 cs = importlib.util.module_from_spec(spec)
@@ -267,7 +267,7 @@ def post_page(p, posts):
         chart_js = ('<script type="application/json" id="cs-chart-data">' + json.dumps(p['charts'], ensure_ascii=False).replace('</', '<\\/') + '</script>\n'
                     f'<script src="/case-charts.js?v={cs.ASSET_VERSION}" defer></script>\n')
     return head(f'{p["title"]} — Abdul Habeeb', p['excerpt'], p['url'], p['cover'], ld, 'article', bool(p['charts'])) + f'''<body>
-<div class="bl-progress" aria-hidden="true"><i></i></div>
+<div class="bl-progress" aria-hidden="true"><i></i><b>0%</b></div>
 <main class="page bl-page bl-post">
   {blog_nav()}
   <section class="bl-post-hero" id="top">

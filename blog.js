@@ -2,15 +2,26 @@
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const bar = document.querySelector('.bl-progress i');
+  const bar = document.querySelector('.bl-progress');
+  const label = bar && bar.querySelector('b');
   const article = document.querySelector('.bl-article');
+  const cover = document.querySelector('.bl-post-hero');
+  // The bar steps aside once "Keep reading" (or, without it, the contact section) fills half the screen.
+  const footer = document.querySelector('.bl-more') || document.querySelector('#contact') || document.querySelector('footer');
   if (bar && article) {
     let raf = 0;
     const update = () => {
       raf = 0;
-      const r = article.getBoundingClientRect();
-      const p = Math.max(0, Math.min(1, -r.top / Math.max(1, r.height - innerHeight)));
+      // Counts from the moment the cover has scrolled away (0%) to the end of the article (100%).
+      const coverBottom = cover ? cover.getBoundingClientRect().bottom : article.getBoundingClientRect().top;
+      const read = -coverBottom;
+      const left = article.getBoundingClientRect().bottom - innerHeight;
+      const p = Math.max(0, Math.min(1, read / Math.max(1, read + left)));
       bar.style.setProperty('--p', p.toFixed(4));
+      const atFooter = footer && footer.getBoundingClientRect().top < innerHeight / 2;
+      bar.classList.toggle('is-started', coverBottom <= 0 && !atFooter);
+      const text = Math.round(p * 100) + '%';
+      if (label && label.textContent !== text) label.textContent = text;
     };
     const queue = () => { if (!raf) raf = requestAnimationFrame(update); };
     addEventListener('scroll', queue, { passive: true });

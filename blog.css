@@ -80,8 +80,11 @@ section.bl-list{padding:clamp(56px,7vw,96px) clamp(10px,4vw,58px) clamp(48px,6vw
 .bl-card p{margin:9px 0 12px;color:var(--muted);font-size:.88rem;line-height:1.55}
 
 /* Article */
-.bl-progress{position:fixed;inset:0 0 auto;z-index:950;height:3px;pointer-events:none}
-.bl-progress i{display:block;height:100%;background:var(--accent);transform:scaleX(var(--p,0));transform-origin:0 50%}
+/* Reading progress: a rounded bar inset from the edges, with the percentage riding on its tip. */
+.bl-progress{position:fixed;top:6px;left:12px;right:12px;z-index:950;height:6px;border-radius:999px;background:color-mix(in srgb,var(--accent) 16%,transparent);pointer-events:none;opacity:0;transition:opacity .25s ease}
+.bl-progress.is-started{opacity:1}
+.bl-progress i{position:absolute;inset:0;border-radius:inherit;background:var(--accent);clip-path:inset(0 calc(100% - var(--p,0) * 100%) 0 0 round 999px)}
+.bl-progress b{position:absolute;top:50%;left:clamp(36px,calc(var(--p,0) * 100%),100%);padding:3px 7px;border-radius:999px;background:var(--accent);color:#fff;font:600 .64rem/1 var(--sans);font-variant-numeric:tabular-nums;box-shadow:0 2px 8px -2px rgba(2,6,21,.35);transform:translate(-100%,-50%)}
 section.bl-post-hero{padding:clamp(100px,9vw,130px) clamp(16px,6vw,96px) clamp(56px,6vw,84px)}
 .bl-back{position:absolute;top:24px;left:24px;z-index:2;padding:8px 14px;border:1px solid rgba(255,255,255,.24);border-radius:999px;background:rgba(255,255,255,.08);color:#fff;font-size:.8rem;text-decoration:none;backdrop-filter:blur(8px);transition:background .2s}
 .bl-back:hover{background:rgba(255,255,255,.18)}

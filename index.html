@@ -61,7 +61,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20261108-navlogos" />
+  <link rel="stylesheet" href="styles.css?v=20261111-peeks3" />
 </head>
 <body>
 <main class="page">
@@ -73,7 +73,7 @@
       <a class="hero-pill" href="#about"><span data-i18n="pillBadge">Hi, I’m</span><b>Abdul Habeeb</b> →</a>
       <h1><span class="hero-role" data-i18n="heroRole">Data Science &amp; Full-Stack Developer · Saarbrücken</span><span class="hero-tagline" data-i18n="heroTitle">I turn complex data into <em>useful, accessible products.</em></span></h1>
       <p class="hero-proof" data-i18n="heroProof"><span>Data Science &amp; AI at Saarland University</span><i class="sep" aria-hidden="true"> · </i><span>Research at FGVT</span><i class="sep" aria-hidden="true"> · </i><span>Client work across Germany, Dubai and India</span></p>
-      <div class="hero-actions"><a class="button is-solid" href="#projects" data-i18n="seeProjects">See projects <span>↘</span></a><a class="button" href="public/resources/Abdul_Habeeb_Resume.pdf#view=FitH" target="_blank" rel="noopener" data-i18n="resume">View resume <span>↗</span></a></div>
+      <div class="hero-actions"><span class="peek-wrap"><a class="button is-solid" href="#projects" data-i18n="seeProjects">See projects <span>↘</span></a><a class="peek is-projects" href="#projects" tabindex="-1" aria-hidden="true"><img alt="" width="520" height="263" data-src="public/resources/projects/peek-anime-recommender.jpg?v=1" /><img alt="" width="520" height="263" data-src="public/resources/projects/peek-apex-f1-analytics.jpg?v=1" /><img alt="" width="520" height="263" data-src="public/resources/projects/peek-depower.jpg?v=1" /></a></span><span class="peek-wrap"><a class="button" href="public/resources/Abdul_Habeeb_Resume.pdf#view=FitH" target="_blank" rel="noopener" data-i18n="resume">View resume <span>↗</span></a><a class="peek is-resume" href="public/resources/Abdul_Habeeb_Resume.pdf#view=FitH" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img alt="" width="600" height="849" data-src="public/resources/resume-preview.jpg?v=1" /></a></span></div>
     </div>
     <div class="hero-trust" aria-label="Companies, clients and products I’ve worked on">
       <div class="trust-track">
@@ -429,5 +429,12 @@ themeToggle.addEventListener('click',event=>{
 <script src="copy-email.js?v=20261101a" defer></script>
 <script src="public/vendor/lenis.min.js?v=1.1.20" defer></script>
 <script src="smooth-scroll.js?v=20261101b" defer></script>
+<script>
+// Hover previews on the hero buttons: load the images only when someone heads for the buttons.
+(()=>{const box=document.querySelector('.hero-actions');if(!box)return;
+const load=()=>box.querySelectorAll('.peek img[data-src]').forEach(img=>{img.src=img.dataset.src;delete img.dataset.src});
+box.addEventListener('pointerenter',load,{once:true});box.addEventListener('focusin',load,{once:true});
+box.querySelectorAll('.peek-wrap').forEach(w=>{w.addEventListener('click',()=>w.classList.add('is-dismissed'));w.addEventListener('pointerleave',()=>w.classList.remove('is-dismissed'))});})();
+</script>
 </body>
 </html>

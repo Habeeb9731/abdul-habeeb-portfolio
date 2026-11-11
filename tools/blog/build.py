@@ -206,7 +206,8 @@ def slide(p, i):
 
 
 def index_page(posts):
-    slides = [p for p in posts if p.get('featured') == 'true'][:3] or posts[:1]
+    # The carousel always shows the three newest posts (posts arrive sorted newest first).
+    slides = posts[:3]
     featured = slides[0]
     title = 'Blog — Abdul Habeeb'
     TAG_DE = {'Security': 'Sicherheit', 'Models': 'Modelle', 'Agents': 'Agenten', 'Data tools': 'Datentools', 'Research': 'Forschung', 'Regulation': 'Regulierung', 'Industry': 'Branche'}

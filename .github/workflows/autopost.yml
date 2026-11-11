@@ -1,10 +1,9 @@
 name: Blog autopost
 
 # Writes one news post per run (see tools/blog/autopost.py), rebuilds the blog and pushes to master,
-# which Cloudflare Pages then deploys. Times are UTC: 07:15, 12:15 and 17:15 in Berlin during winter.
+# which Cloudflare Pages then deploys. The schedule runs on the Hetzner server (systemd timer
+# blog-autopost.timer at 07:15, 12:15 and 17:15 Berlin time); this workflow is a manual backup only.
 on:
-  schedule:
-    - cron: '15 6,11,16 * * *'
   workflow_dispatch:
 
 permissions:

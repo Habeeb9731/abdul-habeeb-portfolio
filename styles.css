@@ -626,3 +626,35 @@ footer{container-type:inline-size;margin-top:clamp(80px,11vw,140px);padding:18px
 /* Below this width the centred buttons leave no room beside them for the previews. */
 @media(max-width:800px){.peek{display:none!important}}
 @media(prefers-reduced-motion:reduce){.peek-wrap .button{animation:none!important}.peek-wrap .button::before{transition:none!important}.peek,.peek img{transition:opacity .15s ease!important}.peek.is-resume,.peek.is-projects{transform:translate(0,-50%)!important}}
+
+/* Ask my portfolio */
+.ask .section-head h2{max-width:none}
+.ask .section-head h2 em{color:var(--accent)}
+.ask-sub{max-width:52ch;margin:14px auto 0;color:var(--muted);font-size:.92rem;line-height:1.55}
+.ask-card{max-width:680px;margin:36px auto 0;padding:14px;border:1px solid var(--line);border-radius:18px;background:var(--card)}
+.ask-log{display:flex;flex-direction:column;gap:10px;max-height:min(420px,60vh);margin-bottom:12px;padding:4px 4px 2px;overflow-y:auto;overscroll-behavior:contain}
+.ask-log[hidden]{display:none}
+.ask-msg{max-width:88%;padding:10px 14px;border-radius:14px;font-size:.92rem;line-height:1.55;overflow-wrap:anywhere;animation:askIn .28s cubic-bezier(.2,.8,.2,1)}
+.ask-msg.is-user{align-self:flex-end;border-bottom-right-radius:5px;background:var(--accent);color:#fff}
+.ask-msg.is-bot{align-self:flex-start;border:1px solid var(--line);border-bottom-left-radius:5px;background:var(--paper);color:var(--ink)}
+.ask-msg.is-note{color:var(--muted)}
+.ask-msg.is-wait{color:var(--muted);animation:askIn .28s cubic-bezier(.2,.8,.2,1),askPulse 1.4s ease-in-out .3s infinite}
+.ask-msg a{color:var(--accent);text-underline-offset:2px}
+.ask-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.ask-chips[hidden]{display:none}
+.ask-chips button{padding:7px 12px;border:1px solid var(--line);border-radius:999px;background:var(--paper);color:var(--ink);font:400 .8rem var(--sans);cursor:pointer;transition:border-color .2s,color .2s,transform .2s}
+.ask-chips button:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+.ask-form{display:flex;align-items:center;gap:8px;padding:5px 5px 5px 16px;border:1px solid var(--line);border-radius:999px;background:var(--paper);transition:border-color .2s,box-shadow .2s}
+.ask-form:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}
+.ask-form input{flex:1;min-width:0;padding:8px 0;border:0;background:none;color:var(--ink);font:400 .95rem var(--sans);outline:none}
+.ask-form input::placeholder{color:var(--muted)}
+.ask-send{display:grid;flex:none;place-items:center;width:38px;height:38px;border:0;border-radius:50%;background:var(--ink);color:var(--paper);cursor:pointer;transition:background .2s,transform .2s}
+.ask-send svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ask-send:hover:not(:disabled){background:var(--accent);color:#fff;transform:translateY(-1px)}
+.ask-send:disabled,.ask-form input:disabled{cursor:not-allowed;opacity:.45}
+.ask-meta{min-height:1.2em;margin:10px 4px 0;color:var(--muted);font-size:.75rem;text-align:center}
+.ask .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@keyframes askIn{from{opacity:0;transform:translateY(6px)}}
+@keyframes askPulse{50%{opacity:.5}}
+@media(max-width:640px){.ask-card{padding:10px;border-radius:16px}.ask-msg{max-width:94%}}
+@media(prefers-reduced-motion:reduce){.ask-msg{animation:none!important}}

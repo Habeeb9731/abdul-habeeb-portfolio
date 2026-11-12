@@ -16,7 +16,7 @@
         ['His role at FGVT?', 'What does he do at FGVT?', 'He’s been a Research Assistant at the FGVT research group (Forschungsgruppe Verkehrstelematik) at htw saar in Saarbrücken since 2025. He analyses transportation data, cleans and structures datasets for statistics and machine learning, and builds visualizations and reports for research partners.', []],
         ['How to contact him?', 'How can I contact him?', 'Email is the quickest way to reach Habeeb. He’s also on LinkedIn and GitHub, or you can use the contact section on this page.', ['c:email', 'c:linkedin', 'c:github', 'c:contact_section']],
       ],
-      contactLabels: { email: 'Email', linkedin: 'LinkedIn', github: 'GitHub', contact_section: 'Contact section' },
+      contactLabels: { email: 'Email', linkedin: 'LinkedIn', github: 'GitHub', contact_section: 'Contact section', resume: 'Resume (PDF)' },
       view: 'View', placeholder: 'Ask something…', open: 'Ask Habeeb’s AI assistant', close: 'Close', clear: 'Clear chat', copy: 'Copy email', copied: 'Copied', send: 'Send question', dismiss: 'Dismiss',
       offTopic: 'I can only answer questions about Habeeb’s skills, projects and experience. Try “Has he used Docker?”',
       limited: 'To prevent abuse, chats are limited. Want to know more? Have a look through his projects, or get in touch with him directly.',
@@ -33,7 +33,7 @@
         ['Seine Rolle bei FGVT?', 'Was macht er bei FGVT?', 'Seit 2025 ist er wissenschaftlicher Mitarbeiter in der Forschungsgruppe Verkehrstelematik (FGVT) der htw saar in Saarbrücken. Er analysiert Verkehrsdaten, bereitet Datensätze für Statistik und maschinelles Lernen auf und erstellt Visualisierungen und Berichte für Forschungspartner.', []],
         ['Wie erreiche ich ihn?', 'Wie kann ich ihn erreichen?', 'Am schnellsten erreichst du Habeeb per E-Mail. Er ist auch auf LinkedIn und GitHub, oder du nutzt den Kontaktbereich auf dieser Seite.', ['c:email', 'c:linkedin', 'c:github', 'c:contact_section']],
       ],
-      contactLabels: { email: 'E-Mail', linkedin: 'LinkedIn', github: 'GitHub', contact_section: 'Kontaktbereich' },
+      contactLabels: { email: 'E-Mail', linkedin: 'LinkedIn', github: 'GitHub', contact_section: 'Kontaktbereich', resume: 'Lebenslauf (PDF)' },
       view: 'Zu', placeholder: 'Frag etwas…', open: 'Habeebs KI-Assistenten fragen', close: 'Schließen', clear: 'Chat leeren', copy: 'E-Mail kopieren', copied: 'Kopiert', send: 'Frage senden', dismiss: 'Ausblenden',
       offTopic: 'Ich beantworte nur Fragen zu Habeebs Fähigkeiten, Projekten und Erfahrung. Probier zum Beispiel „Hat er Docker genutzt?“',
       limited: 'Um Missbrauch zu verhindern, ist der Chat begrenzt. Mehr erfährst du in seinen Projekten, oder du schreibst ihm direkt.',
@@ -43,7 +43,7 @@
   };
   const t = () => TEXT[document.documentElement.lang === 'de' ? 'de' : 'en'];
   const PROJECT_TITLES = { depower: 'depower', 'anime-recommender': 'AnimeRec', 'apex-f1-analytics': 'APEX F1 Analytics', 'autonomous-data-analyst': 'Autonomous Data Analyst' };
-  const CONTACT_LINKS = { email: 'mailto:abdulhabeeb9731@gmail.com', linkedin: 'https://www.linkedin.com/in/abdulhabeeb9731/', github: 'https://github.com/Habeeb9731', contact_section: '#contact' };
+  const CONTACT_LINKS = { email: 'mailto:abdulhabeeb9731@gmail.com', linkedin: 'https://www.linkedin.com/in/abdulhabeeb9731/', github: 'https://github.com/Habeeb9731', contact_section: '#contact', resume: '/public/resources/Abdul_Habeeb_Resume.pdf#view=FitH' };
   const contactButton = id => CONTACT_LINKS[id] && { label: t().contactLabels[id], href: CONTACT_LINKS[id] };
   const store = {
     get: k => { try { return sessionStorage.getItem(k); } catch { return null; } },
@@ -271,7 +271,7 @@
     for (const item of items) {
       if (!item) continue;
       const { label, href } = item;
-      const external = /^https?:/.test(href);
+      const external = /^https?:/.test(href) || /\.pdf(#|$)/.test(href);
       const a = document.createElement('a');
       a.href = href;
       a.textContent = label;

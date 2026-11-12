@@ -656,7 +656,12 @@ footer{container-type:inline-size;margin-top:clamp(80px,11vw,140px);padding:18px
 .pet-title{font-size:1.35rem;font-weight:400;letter-spacing:-.03em;line-height:1.1}
 .pet-sub{margin-top:5px;color:rgba(255,255,255,.62);font-size:.78rem;line-height:1.4}
 .pet-x{display:grid;flex:none;place-items:center;width:32px;height:32px;padding:0;border:1px solid rgba(255,255,255,.2);border-radius:50%;background:rgba(255,255,255,.1);color:#fff;backdrop-filter:blur(8px);cursor:pointer;transition:transform .2s}
-.pet-x:hover{transform:rotate(90deg)}
+.pet-tools{display:flex;flex:none;gap:6px}
+.pet-close:hover{transform:rotate(90deg)}
+.pet-clear{opacity:0;pointer-events:none;transform:scale(.6);transition:opacity .2s,transform .3s cubic-bezier(.3,1.5,.5,1),background .2s}
+.pet.has-chat .pet-clear{opacity:1;pointer-events:auto;transform:none}
+.pet.has-chat .pet-clear:hover{background:rgba(255,255,255,.2);transform:rotate(-45deg)}
+.pet-clear svg{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .pet-stage{position:relative;display:flex;flex-direction:column;min-height:0;flex:1;padding:6px 14px 14px}
 .pet-log{display:flex;flex-direction:column;gap:9px;min-height:0;flex:1;margin:0 -4px;padding:0 4px 12px;overflow-y:auto;overscroll-behavior:contain}
 .pet:not(.has-chat) .pet-log{display:none}

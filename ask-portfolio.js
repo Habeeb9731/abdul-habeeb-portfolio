@@ -8,9 +8,16 @@
       greet: 'Hi! I’m Habeeb’s AI. Got a question about his skills or projects? Ask me.',
       title: 'Ask about Habeeb', sub: 'From his CV and case studies',
       help: 'How can I help you?',
-      // [short label, the question it sends]
-      chips: [['Python for ML?', 'Has he used Python for machine learning?'], ['React projects?', 'Which of his projects use React?'], ['His role at FGVT?', 'What does he do at FGVT?'], ['How to contact him?', 'How can I contact him?']],
-      view: 'View', placeholder: 'Ask something…', open: 'Ask Habeeb’s AI assistant', close: 'Close', send: 'Send question', dismiss: 'Dismiss',
+      // Suggested questions are answered right here, without the API: [label, question, answer, buttons].
+      // Buttons: 'p:<project id>' opens a case study, 'c:<contact>' a way to reach him.
+      chips: [
+        ['Python for ML?', 'Has he used Python for machine learning?', 'Yes. In depower he forecasts Germany’s day-ahead electricity prices every day with LightGBM quantile models in Python, and in AnimeRec he built a hybrid recommender (EASE, ALS and sentence embeddings) on 23.2 million MyAnimeList interactions.', ['p:depower', 'p:anime-recommender']],
+        ['React projects?', 'Which of his projects use React?', 'APEX F1 Analytics and the Autonomous Data Analyst are both built with React and TypeScript. He also built client web apps with React as a front-end developer at Zephyr Technologies.', ['p:apex-f1-analytics', 'p:autonomous-data-analyst']],
+        ['His role at FGVT?', 'What does he do at FGVT?', 'He’s been a Research Assistant at the FGVT research group (Forschungsgruppe Verkehrstelematik) at htw saar in Saarbrücken since 2025. He analyses transportation data, cleans and structures datasets for statistics and machine learning, and builds visualizations and reports for research partners.', []],
+        ['How to contact him?', 'How can I contact him?', 'Email is the quickest way to reach Habeeb. He’s also on LinkedIn and GitHub, or you can use the contact section on this page.', ['c:email', 'c:linkedin', 'c:github', 'c:contact_section']],
+      ],
+      contactLabels: { email: 'Email', linkedin: 'LinkedIn', github: 'GitHub', contact_section: 'Contact section' },
+      view: 'View', placeholder: 'Ask something…', open: 'Ask Habeeb’s AI assistant', close: 'Close', clear: 'Clear chat', send: 'Send question', dismiss: 'Dismiss',
       offTopic: 'I can only answer questions about Habeeb’s skills, projects and experience. Try “Has he used Docker?”',
       limited: 'To prevent abuse, chats are limited. Want to know more? Have a look through his projects, or get in touch with him directly.',
       seeProjects: 'See projects', contact: 'Contact him',
@@ -20,8 +27,14 @@
       greet: 'Hi! Ich bin Habeebs KI. Fragen zu seinen Fähigkeiten oder Projekten? Frag mich.',
       title: 'Frag nach Habeeb', sub: 'Aus Lebenslauf und Fallstudien',
       help: 'Wie kann ich helfen?',
-      chips: [['Python für ML?', 'Hat er Python für maschinelles Lernen genutzt?'], ['React-Projekte?', 'Welche seiner Projekte nutzen React?'], ['Seine Rolle bei FGVT?', 'Was macht er bei FGVT?'], ['Wie erreiche ich ihn?', 'Wie kann ich ihn erreichen?']],
-      view: 'Zu', placeholder: 'Frag etwas…', open: 'Habeebs KI-Assistenten fragen', close: 'Schließen', send: 'Frage senden', dismiss: 'Ausblenden',
+      chips: [
+        ['Python für ML?', 'Hat er Python für maschinelles Lernen genutzt?', 'Ja. In depower prognostiziert er täglich die deutschen Day-Ahead-Strompreise mit LightGBM-Quantilmodellen in Python, und für AnimeRec hat er einen hybriden Recommender (EASE, ALS und Satz-Embeddings) auf 23,2 Millionen MyAnimeList-Interaktionen gebaut.', ['p:depower', 'p:anime-recommender']],
+        ['React-Projekte?', 'Welche seiner Projekte nutzen React?', 'APEX F1 Analytics und der Autonomous Data Analyst sind beide mit React und TypeScript gebaut. Außerdem hat er als Frontend-Entwickler bei Zephyr Technologies Webanwendungen für Kunden mit React umgesetzt.', ['p:apex-f1-analytics', 'p:autonomous-data-analyst']],
+        ['Seine Rolle bei FGVT?', 'Was macht er bei FGVT?', 'Seit 2025 ist er wissenschaftlicher Mitarbeiter in der Forschungsgruppe Verkehrstelematik (FGVT) der htw saar in Saarbrücken. Er analysiert Verkehrsdaten, bereitet Datensätze für Statistik und maschinelles Lernen auf und erstellt Visualisierungen und Berichte für Forschungspartner.', []],
+        ['Wie erreiche ich ihn?', 'Wie kann ich ihn erreichen?', 'Am schnellsten erreichst du Habeeb per E-Mail. Er ist auch auf LinkedIn und GitHub, oder du nutzt den Kontaktbereich auf dieser Seite.', ['c:email', 'c:linkedin', 'c:github', 'c:contact_section']],
+      ],
+      contactLabels: { email: 'E-Mail', linkedin: 'LinkedIn', github: 'GitHub', contact_section: 'Kontaktbereich' },
+      view: 'Zu', placeholder: 'Frag etwas…', open: 'Habeebs KI-Assistenten fragen', close: 'Schließen', clear: 'Chat leeren', send: 'Frage senden', dismiss: 'Ausblenden',
       offTopic: 'Ich beantworte nur Fragen zu Habeebs Fähigkeiten, Projekten und Erfahrung. Probier zum Beispiel „Hat er Docker genutzt?“',
       limited: 'Um Missbrauch zu verhindern, ist der Chat begrenzt. Mehr erfährst du in seinen Projekten, oder du schreibst ihm direkt.',
       seeProjects: 'Zu den Projekten', contact: 'Kontakt',
@@ -29,6 +42,9 @@
     },
   };
   const t = () => TEXT[document.documentElement.lang === 'de' ? 'de' : 'en'];
+  const PROJECT_TITLES = { depower: 'depower', 'anime-recommender': 'AnimeRec', 'apex-f1-analytics': 'APEX F1 Analytics', 'autonomous-data-analyst': 'Autonomous Data Analyst' };
+  const CONTACT_LINKS = { email: 'mailto:abdulhabeeb9731@gmail.com', linkedin: 'https://www.linkedin.com/in/abdulhabeeb9731/', github: 'https://github.com/Habeeb9731', contact_section: '#contact' };
+  const contactButton = id => CONTACT_LINKS[id] && { label: t().contactLabels[id], href: CONTACT_LINKS[id] };
   const store = {
     get: k => { try { return sessionStorage.getItem(k); } catch { return null; } },
     set: (k, v) => { try { sessionStorage.setItem(k, v); } catch { /* private mode */ } },
@@ -69,7 +85,10 @@
     <div class="pet-panel" role="dialog" aria-modal="false" aria-labelledby="petTitle" data-lenis-prevent hidden>
       <div class="pet-head">
         <div><p class="pet-title" id="petTitle"></p><p class="pet-sub"></p></div>
-        <button class="pet-x" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+        <div class="pet-tools">
+          <button class="pet-clear pet-x" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4.5 4.5v4h4"/></svg></button>
+          <button class="pet-close pet-x" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+        </div>
       </div>
       <div class="pet-stage">
         <div class="pet-log" aria-live="polite"></div>
@@ -98,10 +117,12 @@
     input.placeholder = input.disabled ? '' : x.placeholder;
     input.setAttribute('aria-label', x.placeholder);
     petBtn.setAttribute('aria-label', x.open);
-    $('.pet-x').setAttribute('aria-label', x.close);
+    $('.pet-close').setAttribute('aria-label', x.close);
+    $('.pet-clear').setAttribute('aria-label', x.clear);
+    $('.pet-clear').title = x.clear;
     $('.pet-bubble-x').setAttribute('aria-label', x.dismiss);
     send.setAttribute('aria-label', x.send);
-    chips.replaceChildren(...x.chips.map(([label, q]) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = label; b.dataset.q = q; return b; }));
+    chips.replaceChildren(...x.chips.map(([label], i) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = label; b.dataset.i = i; return b; }));
   }
   syncText();
   new MutationObserver(syncText).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
@@ -131,7 +152,7 @@
   }
   petBtn.addEventListener('click', () => (panel.hidden ? open() : close()));
   bubble.addEventListener('click', e => { if (e.target.closest('.pet-bubble-x')) hideBubble(); else open(); });
-  $('.pet-x').addEventListener('click', () => { close(); petBtn.focus({ preventScroll: true }); });
+  $('.pet-close').addEventListener('click', () => { close(); petBtn.focus({ preventScroll: true }); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !panel.hidden) { close(); petBtn.focus({ preventScroll: true }); } });
 
   // --- Eyes follow the cursor; on touch screens they glance around now and then ---
@@ -225,11 +246,15 @@
   function buttons(after, items) {
     const row = document.createElement('div');
     row.className = 'pet-links';
-    for (const { label, href } of items) {
+    for (const item of items) {
+      if (!item) continue;
+      const { label, href } = item;
+      const external = /^https?:/.test(href);
       const a = document.createElement('a');
       a.href = href;
       a.textContent = label;
-      a.insertAdjacentHTML('beforeend', ' <span aria-hidden="true">→</span>');
+      if (external) { a.target = '_blank'; a.rel = 'noopener'; }
+      a.insertAdjacentHTML('beforeend', ` <span aria-hidden="true">${external || href.startsWith('mailto:') ? '↗' : '→'}</span>`);
       if (href.startsWith('#')) a.addEventListener('click', close);
       row.append(a);
     }
@@ -237,14 +262,27 @@
   }
 
   // Out of questions (per visitor or for the whole site today): no counts, just where to go next.
+  function showLimit() {
+    const x = t();
+    buttons(say('bot', x.limited, 'is-note'), [{ label: x.seeProjects, href: '#projects' }, { label: x.contact, href: '#contact' }]);
+  }
   function lock() {
     if (input.disabled) return;
     input.disabled = true;
     send.disabled = true;
     input.placeholder = '';
-    const x = t();
-    buttons(say('bot', x.limited, 'is-note'), [{ label: x.seeProjects, href: '#projects' }, { label: x.contact, href: '#contact' }]);
+    showLimit();
   }
+
+  // Clear: back to the start screen. The daily limit is kept on the server, so a locked chat stays locked.
+  $('.pet-clear').addEventListener('click', () => {
+    if (busy) return;
+    log.replaceChildren();
+    history.length = 0;
+    root.classList.remove('has-chat');
+    if (input.disabled) showLimit();
+    else if (matchMedia('(pointer: fine)').matches) input.focus({ preventScroll: true });
+  });
 
   async function ask(question) {
     question = question.trim().slice(0, 300);
@@ -269,7 +307,8 @@
       if (data.on_topic) {
         const msg = say('bot', data.answer);
         const projects = Array.isArray(data.projects) ? data.projects.filter(p => p && typeof p.url === 'string' && p.url.startsWith('/projects/')) : [];
-        buttons(msg, projects.map(p => ({ label: `${t().view} ${p.title}`, href: p.url })));
+        const contacts = Array.isArray(data.contacts) ? data.contacts : [];
+        buttons(msg, [...projects.map(p => ({ label: `${t().view} ${p.title}`, href: p.url })), ...contacts.map(contactButton)]);
         history.push({ role: 'user', content: question }, { role: 'assistant', content: data.answer });
         history.splice(0, Math.max(0, history.length - 8));
       } else {
@@ -287,5 +326,23 @@
   }
 
   form.addEventListener('submit', e => { e.preventDefault(); ask(input.value); });
-  chips.addEventListener('click', e => { const b = e.target.closest('button'); if (b) ask(b.dataset.q || b.textContent); });
+  // Suggested questions: answered instantly from the text above, free and outside the daily limit.
+  chips.addEventListener('click', e => {
+    const b = e.target.closest('button');
+    if (!b || busy) return;
+    const [, question, answer, links] = t().chips[b.dataset.i];
+    busy = true;
+    say('user', question);
+    const wait = say('bot', '', 'is-wait');
+    wait.innerHTML = '<i></i><i></i><i></i>';
+    setTimeout(() => {
+      wait.remove();
+      buttons(say('bot', answer), links.map(l => l.startsWith('p:')
+        ? { label: `${t().view} ${PROJECT_TITLES[l.slice(2)]}`, href: `/projects/${l.slice(2)}/` }
+        : contactButton(l.slice(2))));
+      history.push({ role: 'user', content: question }, { role: 'assistant', content: answer });
+      history.splice(0, Math.max(0, history.length - 8));
+      busy = false;
+    }, 550);
+  });
 })();

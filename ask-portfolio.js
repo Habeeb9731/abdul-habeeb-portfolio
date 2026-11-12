@@ -10,24 +10,22 @@
       help: 'How can I help you?',
       // [short label, the question it sends]
       chips: [['Python for ML?', 'Has he used Python for machine learning?'], ['React projects?', 'Which of his projects use React?'], ['His role at FGVT?', 'What does he do at FGVT?'], ['How to contact him?', 'How can I contact him?']],
-      placeholder: 'Ask something…', open: 'Ask Habeeb’s AI assistant', close: 'Close', send: 'Send question', dismiss: 'Dismiss',
+      view: 'View', placeholder: 'Ask something…', open: 'Ask Habeeb’s AI assistant', close: 'Close', send: 'Send question', dismiss: 'Dismiss',
       offTopic: 'I can only answer questions about Habeeb’s skills, projects and experience. Try “Has he used Docker?”',
-      visitorLimit: 'That’s the 5 questions for today. For anything else, email Habeeb at abdulhabeeb9731@gmail.com.',
-      dailyLimit: 'I’ve answered a lot of questions today. Please come back tomorrow, or email Habeeb at abdulhabeeb9731@gmail.com.',
+      limited: 'To prevent abuse, chats are limited. Want to know more? Have a look through his projects, or get in touch with him directly.',
+      seeProjects: 'See projects', contact: 'Contact him',
       error: 'Something went wrong on my side. Please try again in a moment, or email abdulhabeeb9731@gmail.com.',
-      left: n => n === 1 ? '1 question left today' : `${n} questions left today`,
     },
     de: {
       greet: 'Hi! Ich bin Habeebs KI. Fragen zu seinen Fähigkeiten oder Projekten? Frag mich.',
       title: 'Frag nach Habeeb', sub: 'Aus Lebenslauf und Fallstudien',
       help: 'Wie kann ich helfen?',
       chips: [['Python für ML?', 'Hat er Python für maschinelles Lernen genutzt?'], ['React-Projekte?', 'Welche seiner Projekte nutzen React?'], ['Seine Rolle bei FGVT?', 'Was macht er bei FGVT?'], ['Wie erreiche ich ihn?', 'Wie kann ich ihn erreichen?']],
-      placeholder: 'Frag etwas…', open: 'Habeebs KI-Assistenten fragen', close: 'Schließen', send: 'Frage senden', dismiss: 'Ausblenden',
+      view: 'Zu', placeholder: 'Frag etwas…', open: 'Habeebs KI-Assistenten fragen', close: 'Schließen', send: 'Frage senden', dismiss: 'Ausblenden',
       offTopic: 'Ich beantworte nur Fragen zu Habeebs Fähigkeiten, Projekten und Erfahrung. Probier zum Beispiel „Hat er Docker genutzt?“',
-      visitorLimit: 'Das waren die 5 Fragen für heute. Für alles Weitere schreib Habeeb an abdulhabeeb9731@gmail.com.',
-      dailyLimit: 'Heute wurden schon viele Fragen gestellt. Komm morgen wieder oder schreib Habeeb an abdulhabeeb9731@gmail.com.',
+      limited: 'Um Missbrauch zu verhindern, ist der Chat begrenzt. Mehr erfährst du in seinen Projekten, oder du schreibst ihm direkt.',
+      seeProjects: 'Zu den Projekten', contact: 'Kontakt',
       error: 'Da ist etwas schiefgelaufen. Versuch es gleich noch einmal oder schreib an abdulhabeeb9731@gmail.com.',
-      left: n => n === 1 ? 'Heute noch 1 Frage' : `Heute noch ${n} Fragen`,
     },
   };
   const t = () => TEXT[document.documentElement.lang === 'de' ? 'de' : 'en'];
@@ -36,22 +34,39 @@
     set: (k, v) => { try { sessionStorage.setItem(k, v); } catch { /* private mode */ } },
   };
 
-  const eye = (x) => `<g class="pet-eye" data-cx="${x}" data-cy="47"><ellipse cx="${x}" cy="47" rx="10.5" ry="12.5" fill="#fff"/><g class="pet-pupil"><ellipse cx="${x}" cy="47" rx="6.4" ry="8" fill="#141629"/><circle cx="${x - 2.2}" cy="43.6" r="2.3" fill="#fff"/></g></g>`;
+  // A soft 3D cloud: the puffy outline is a gooey union of circles used as a mask, and the volume comes
+  // from layered gradients inside it (light from the top left, a pink glow low down, darker edges).
+  const eye = (x) => `<g class="pet-eye" data-cx="${x}" data-cy="46">
+      <ellipse cx="${x}" cy="47.6" rx="11.2" ry="13" fill="#3b4f9e" opacity=".28" filter="url(#petSoft)"/>
+      <ellipse cx="${x}" cy="46" rx="10.4" ry="12.4" fill="url(#petWhite)"/>
+      <g class="pet-pupil"><ellipse cx="${x}" cy="46.6" rx="6.2" ry="7.8" fill="url(#petIris)"/><ellipse cx="${x - 2.1}" cy="42.8" rx="2.1" ry="2.5" fill="#fff"/><circle cx="${x + 2.4}" cy="50" r=".9" fill="#fff" opacity=".55"/></g>
+    </g>`;
   const cloud = `<svg class="pet-body" viewBox="0 0 100 92" aria-hidden="true">
     <defs>
-      <linearGradient id="petFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#73c3f8"/><stop offset=".5" stop-color="#9fb6f6"/><stop offset=".85" stop-color="#f3a2cd"/></linearGradient>
-      <radialGradient id="petShine" cx=".32" cy=".22" r=".55"><stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
-      <filter id="petGoo"><feGaussianBlur in="SourceGraphic" stdDeviation="3.2"/><feColorMatrix values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 22 -9"/></filter>
+      <filter id="petGoo" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="4.6"/><feColorMatrix values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 26 -11"/></filter>
+      <filter id="petSoft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.4"/></filter>
+      <filter id="petBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4.5"/></filter>
+      <mask id="petMask" maskUnits="userSpaceOnUse" x="-10" y="-10" width="120" height="112"><g filter="url(#petGoo)" fill="#fff"><circle cx="37" cy="27" r="19"/><circle cx="63" cy="26" r="20"/><circle cx="20" cy="50" r="17.5"/><circle cx="80" cy="49" r="17.5"/><circle cx="34" cy="72" r="18.5"/><circle cx="66" cy="72" r="18.5"/><circle cx="50" cy="50" r="33"/></g></mask>
+      <linearGradient id="petBase" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#78c6fb"/><stop offset=".42" stop-color="#8dbaf8"/><stop offset=".7" stop-color="#b9a9f1"/><stop offset="1" stop-color="#f3a4cf"/></linearGradient>
+      <radialGradient id="petBlush" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ff9cc9" stop-opacity=".95"/><stop offset=".6" stop-color="#f7a6d2" stop-opacity=".5"/><stop offset="1" stop-color="#f7a6d2" stop-opacity="0"/></radialGradient>
+      <radialGradient id="petVolume" cx=".44" cy=".36" r=".68"><stop offset="0" stop-color="#fff" stop-opacity=".12"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#2c3f9a" stop-opacity=".48"/></radialGradient>
+      <radialGradient id="petWhite" cx=".45" cy=".35" r=".7"><stop offset=".55" stop-color="#fff"/><stop offset="1" stop-color="#dfe3f3"/></radialGradient>
+      <radialGradient id="petIris" cx=".42" cy=".35" r=".75"><stop offset="0" stop-color="#2d3352"/><stop offset="1" stop-color="#05061a"/></radialGradient>
     </defs>
-    <g filter="url(#petGoo)"><g class="pet-shape"><circle cx="35" cy="26" r="17"/><circle cx="64" cy="25" r="18"/><circle cx="18" cy="49" r="16"/><circle cx="82" cy="48" r="16"/><circle cx="33" cy="72" r="17"/><circle cx="67" cy="72" r="17"/><circle cx="50" cy="50" r="31"/></g></g>
-    <ellipse cx="38" cy="30" rx="26" ry="18" fill="url(#petShine)"/>
+    <g mask="url(#petMask)">
+      <rect x="-10" y="-10" width="120" height="112" fill="url(#petBase)"/>
+      <ellipse cx="52" cy="80" rx="40" ry="22" fill="url(#petBlush)"/>
+      <rect x="-10" y="-10" width="120" height="112" fill="url(#petVolume)"/>
+      <ellipse cx="36" cy="22" rx="20" ry="10" fill="#fff" opacity=".55" filter="url(#petBlur)"/>
+      <ellipse cx="70" cy="86" rx="22" ry="7" fill="#fff" opacity=".22" filter="url(#petBlur)"/>
+    </g>
     ${eye(37)}${eye(63)}
   </svg>`;
 
   const root = document.createElement('div');
   root.className = 'pet';
   root.innerHTML = `
-    <div class="pet-panel" role="dialog" aria-modal="false" aria-labelledby="petTitle" hidden>
+    <div class="pet-panel" role="dialog" aria-modal="false" aria-labelledby="petTitle" data-lenis-prevent hidden>
       <div class="pet-head">
         <div><p class="pet-title" id="petTitle"></p><p class="pet-sub"></p></div>
         <button class="pet-x" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
@@ -63,7 +78,6 @@
           <input type="text" maxlength="300" autocomplete="off" />
           <button class="pet-send" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></button>
         </form>
-        <p class="pet-meta"></p>
       </div>
     </div>
     <div class="pet-bubble" hidden><p></p><button class="pet-bubble-x" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17"/></svg></button></div>
@@ -73,7 +87,7 @@
   const $ = s => root.querySelector(s);
   const panel = $('.pet-panel'), bubble = $('.pet-bubble'), petBtn = $('.pet-button');
   const log = $('.pet-log'), intro = $('.pet-intro'), chips = $('.pet-chips');
-  const form = $('.pet-form'), input = form.querySelector('input'), send = $('.pet-send'), meta = $('.pet-meta');
+  const form = $('.pet-form'), input = form.querySelector('input'), send = $('.pet-send');
 
   function syncText() {
     const x = t();
@@ -81,14 +95,13 @@
     $('.pet-sub').textContent = x.sub;
     $('.pet-help').textContent = x.help;
     bubble.querySelector('p').textContent = x.greet;
-    input.placeholder = x.placeholder;
+    input.placeholder = input.disabled ? '' : x.placeholder;
     input.setAttribute('aria-label', x.placeholder);
     petBtn.setAttribute('aria-label', x.open);
     $('.pet-x').setAttribute('aria-label', x.close);
     $('.pet-bubble-x').setAttribute('aria-label', x.dismiss);
     send.setAttribute('aria-label', x.send);
     chips.replaceChildren(...x.chips.map(([label, q]) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = label; b.dataset.q = q; return b; }));
-    if (meta.dataset.count > 0) meta.textContent = x.left(+meta.dataset.count);
   }
   syncText();
   new MutationObserver(syncText).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
@@ -154,8 +167,28 @@
   }
 
   // --- Chat ---
+  // While the cursor is over the panel the page behind never scrolls. The wheel only moves the
+  // conversation, and only while it has room to move in that direction.
+  panel.addEventListener('wheel', e => {
+    const canScroll = log.contains(e.target) && (e.deltaY < 0 ? log.scrollTop > 0 : log.scrollTop + log.clientHeight < log.scrollHeight - 1);
+    if (!canScroll) e.preventDefault();
+  }, { passive: false });
   const history = [];
   let busy = false;
+
+  // Owner pass: opening the site once with ?ask_owner=<key> stores the key in this browser, and the
+  // chat sends it so the server skips the limits. ?ask_owner=off removes it.
+  let ownerKey = null;
+  try {
+    const url = new URL(location.href);
+    const given = url.searchParams.get('ask_owner');
+    if (given) {
+      if (given === 'off') localStorage.removeItem('ask-owner'); else localStorage.setItem('ask-owner', given);
+      url.searchParams.delete('ask_owner');
+      window.history.replaceState(window.history.state, '', url.pathname + url.search + url.hash);
+    }
+    ownerKey = localStorage.getItem('ask-owner');
+  } catch { /* storage blocked */ }
 
   // Plain text with links and email addresses made clickable; never parsed as HTML.
   function fill(el, text) {
@@ -188,12 +221,29 @@
     return el;
   }
 
-  function lock(reason) {
+  // A row of pill buttons under a message: [{ label, href }]. Links to sections on this page close the panel.
+  function buttons(after, items) {
+    const row = document.createElement('div');
+    row.className = 'pet-links';
+    for (const { label, href } of items) {
+      const a = document.createElement('a');
+      a.href = href;
+      a.textContent = label;
+      a.insertAdjacentHTML('beforeend', ' <span aria-hidden="true">→</span>');
+      if (href.startsWith('#')) a.addEventListener('click', close);
+      row.append(a);
+    }
+    if (row.children.length) { after.after(row); log.scrollTop = log.scrollHeight; }
+  }
+
+  // Out of questions (per visitor or for the whole site today): no counts, just where to go next.
+  function lock() {
+    if (input.disabled) return;
     input.disabled = true;
     send.disabled = true;
-    meta.textContent = '';
-    meta.dataset.count = '0';
-    if (reason) say('bot', reason, 'is-note');
+    input.placeholder = '';
+    const x = t();
+    buttons(say('bot', x.limited, 'is-note'), [{ label: x.seeProjects, href: '#projects' }, { label: x.contact, href: '#contact' }]);
   }
 
   async function ask(question) {
@@ -209,25 +259,23 @@
     try {
       const res = await fetch('/api/ask', {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: { 'content-type': 'application/json', ...(ownerKey ? { 'x-ask-owner': ownerKey } : {}) },
         body: JSON.stringify({ question, history }),
       });
       const data = await res.json().catch(() => ({}));
       wait.remove();
-      if (res.status === 429) return lock(data.error === 'daily_limit' ? t().dailyLimit : t().visitorLimit);
+      if (res.status === 429) return lock();
       if (!res.ok) { say('bot', t().error, 'is-note'); return; }
       if (data.on_topic) {
-        say('bot', data.answer);
+        const msg = say('bot', data.answer);
+        const projects = Array.isArray(data.projects) ? data.projects.filter(p => p && typeof p.url === 'string' && p.url.startsWith('/projects/')) : [];
+        buttons(msg, projects.map(p => ({ label: `${t().view} ${p.title}`, href: p.url })));
         history.push({ role: 'user', content: question }, { role: 'assistant', content: data.answer });
         history.splice(0, Math.max(0, history.length - 8));
       } else {
         say('bot', t().offTopic, 'is-note');
       }
-      if (typeof data.remaining === 'number') {
-        if (data.remaining <= 0) return lock(t().visitorLimit);
-        meta.dataset.count = data.remaining;
-        meta.textContent = t().left(data.remaining);
-      }
+      if (data.remaining === 0) lock();
     } catch {
       wait.remove();
       say('bot', t().error, 'is-note');

@@ -636,8 +636,7 @@ footer{container-type:inline-size;margin-top:clamp(80px,11vw,140px);padding:18px
 .pet.is-in .pet-button{opacity:1;transform:none}
 .pet-button::after{content:'';position:absolute;left:18%;right:18%;bottom:-6px;height:9px;border-radius:50%;background:rgba(80,90,160,.22);filter:blur(4px);animation:petShadow 3.2s ease-in-out infinite}
 .pet-button:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:24px}
-.pet-body{display:block;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 8px 14px rgba(120,130,220,.35));animation:petFloat 3.2s ease-in-out infinite}
-.pet-shape{fill:url(#petFill)}
+.pet-body{display:block;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 10px 16px rgba(110,120,220,.3)) drop-shadow(0 2px 3px rgba(80,90,180,.18));animation:petFloat 3.2s ease-in-out infinite}
 .pet-button:hover .pet-body{animation-play-state:paused;transform:translateY(-3px) scale(1.06);transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
 .pet-eye{transform-box:fill-box;transform-origin:center;transition:transform .09s ease}
 .pet.is-blinking .pet-eye{transform:scaleY(.1)}
@@ -658,7 +657,7 @@ footer{container-type:inline-size;margin-top:clamp(80px,11vw,140px);padding:18px
 .pet-sub{margin-top:5px;color:rgba(255,255,255,.62);font-size:.78rem;line-height:1.4}
 .pet-x{display:grid;flex:none;place-items:center;width:32px;height:32px;padding:0;border:1px solid rgba(255,255,255,.2);border-radius:50%;background:rgba(255,255,255,.1);color:#fff;backdrop-filter:blur(8px);cursor:pointer;transition:transform .2s}
 .pet-x:hover{transform:rotate(90deg)}
-.pet-stage{position:relative;display:flex;flex-direction:column;min-height:0;flex:1;padding:6px 14px 8px}
+.pet-stage{position:relative;display:flex;flex-direction:column;min-height:0;flex:1;padding:6px 14px 14px}
 .pet-log{display:flex;flex-direction:column;gap:9px;min-height:0;flex:1;margin:0 -4px;padding:0 4px 12px;overflow-y:auto;overscroll-behavior:contain}
 .pet:not(.has-chat) .pet-log{display:none}
 .pet-intro{padding:30px 2px 16px}
@@ -675,6 +674,12 @@ footer{container-type:inline-size;margin-top:clamp(80px,11vw,140px);padding:18px
 .dark .pet-msg.is-note{color:var(--pet-muted)}
 .pet-msg a{color:var(--accent);text-underline-offset:2px}
 .dark .pet-msg a{color:var(--accent-soft)}
+.pet-links{display:flex;flex-wrap:wrap;gap:6px;align-self:flex-start;max-width:90%;margin-top:-3px;animation:petMsg .3s cubic-bezier(.2,.8,.2,1) .08s backwards}
+.pet-links a{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border:1px solid rgba(37,99,235,.18);border-radius:999px;background:rgba(255,255,255,.94);color:#1d4ed8;font-size:.78rem;font-weight:500;text-decoration:none;box-shadow:0 6px 16px -10px rgba(30,50,140,.5);transition:background .2s,color .2s,transform .2s}
+.dark .pet-links a{border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.1);color:#fff}
+.pet-links a span{transition:transform .2s}
+.pet-links a:hover{background:#2563eb;color:#fff;transform:translateY(-1px)}
+.pet-links a:hover span{transform:translateX(2px)}
 .pet-msg.is-wait{display:flex;gap:4px;padding:13px 14px}
 .pet-msg.is-wait i{width:6px;height:6px;border-radius:50%;background:#9aa0b4;animation:petDot 1s ease-in-out infinite}
 .pet-msg.is-wait i:nth-child(2){animation-delay:.15s}
@@ -689,7 +694,6 @@ footer{container-type:inline-size;margin-top:clamp(80px,11vw,140px);padding:18px
 .pet-send svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .pet-send:hover:not(:disabled){background:#5b6fd6;color:#fff;transform:translateY(-1px)}
 .pet-send:disabled,.pet-form input:disabled{cursor:not-allowed;opacity:.5}
-.pet-meta{margin:8px 0 0;color:var(--muted);font-size:.68rem;text-align:center;opacity:.75}
 @keyframes petFloat{50%{transform:translateY(-5px)}}
 @keyframes petShadow{50%{transform:scaleX(.82);opacity:.7}}
 @keyframes petThink{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg) translateY(-3px)}}

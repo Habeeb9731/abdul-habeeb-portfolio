@@ -11,7 +11,16 @@ Resume (PDF): https://abdulhabeeb.com/public/resources/Abdul_Habeeb_Resume.pdf
 
 Data Science and Full-Stack Developer with experience building responsive web applications and data-driven solutions. Works across Python, SQL, JavaScript, React, Vue.js, Node.js, FastAPI, PostgreSQL, data analysis, data visualization and machine learning fundamentals. Likes turning complex systems and datasets into tools people can understand and use with confidence.
 
-## Experience
+## Why work with him
+
+- Ships complete products, not notebooks: depower runs every day in production on his own server, from data pipeline and model to a public website, with its forecast errors published openly.
+- Combines data science with full-stack engineering, so he can take an idea from raw data to a tool people actually use (Python and machine learning on one side, React, Node.js and FastAPI on the other).
+- Honest about results: his case studies report baselines, limits and what didn't work, not just the best numbers.
+- Real-world experience on both sides: research data work at FGVT and product development as a Werkstudent at Moltomedia, plus client websites delivered in Germany, Dubai and India.
+- Clients describe him as quick, responsive and easy to work with, and as someone who understands what they need from the first call.
+- Strong academic record (bachelor's grade 1.4 on the German scale, master's in Data Science and AI at Saarland University) and hackathon wins in Estonia and Germany working in international teams.
+
+
 
 ### FGVT Research Group (Forschungsgruppe Verkehrstelematik), htw saar — Research Assistant, Saarbrücken, 2025 to now
 - Analyses research and transportation data for FGVT projects and evidence-based decisions.

@@ -68,9 +68,15 @@
   </url>
   <url>
     <loc>https://abdulhabeeb.com/blog/</loc>
-    <lastmod>2026-11-11</lastmod>
+    <lastmod>2026-11-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://abdulhabeeb.com/blog/grok-builds-share-links-exposed-business/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abdulhabeeb.com/blog/googles-gemini-4-carbon-opens-public/</loc>

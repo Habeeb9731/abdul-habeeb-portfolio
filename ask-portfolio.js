@@ -130,7 +130,17 @@
   // --- Pop up after 2 seconds, greet once per visit ---
   setTimeout(() => {
     root.classList.add('is-in');
-    if (!store.get('pet-greeted')) setTimeout(() => { if (panel.hidden) { bubble.hidden = false; requestAnimationFrame(() => bubble.classList.add('is-in')); } }, 500);
+    if (!store.get('pet-greeted')) setTimeout(() => {
+      if (!panel.hidden) return;
+      bubble.hidden = false;
+      requestAnimationFrame(() => bubble.classList.add('is-in'));
+      // The greeting fades after 10 seconds, or once the pointer leaves it if someone is reading it then.
+      setTimeout(() => {
+        if (bubble.hidden) return;
+        if (bubble.matches(':hover')) bubble.addEventListener('pointerleave', hideBubble, { once: true });
+        else hideBubble();
+      }, 10000);
+    }, 500);
   }, 2000);
 
   const hideBubble = () => { bubble.classList.remove('is-in'); store.set('pet-greeted', '1'); setTimeout(() => { bubble.hidden = true; }, 250); };

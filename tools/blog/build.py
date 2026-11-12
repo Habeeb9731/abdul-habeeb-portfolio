@@ -17,9 +17,11 @@ ROOT = os.path.abspath(os.path.join(HERE, '..', '..'))
 SITE = 'https://abdulhabeeb.com'
 BASE = '/blog'
 # While False, every blog page carries noindex and stays out of the sitemap.
-LAUNCHED = False
+LAUNCHED = True
 # Bump when blog.css or blog.js change.
 BLOG_VERSION = '20261112a'
+# Bump to make link previews refetch every share image (after changing og_image).
+OG_VERSION = '1'
 
 spec = importlib.util.spec_from_file_location('case_build', os.path.join(ROOT, 'tools', 'case-studies', 'build.py'))
 cs = importlib.util.module_from_spec(spec)
@@ -158,6 +160,8 @@ def head(title, desc, url, image, ld, kind='website', charts=False):
     e = html.escape
     if image.endswith('.svg'):
         image = '/public/resources/og-card.jpg'
+    dims = (f'  <meta property="og:image:width" content="{OG_W}" />\n  <meta property="og:image:height" content="{OG_H}" />\n'
+            if image.startswith(OG_DIR) else '')
     return f'''<!doctype html>
 <html lang="en">
 <head>
@@ -172,7 +176,7 @@ def head(title, desc, url, image, ld, kind='website', charts=False):
   <meta property="og:description" content="{e(desc)}" />
   <meta property="og:url" content="{SITE}{url}" />
   <meta property="og:image" content="{SITE}{image}" />
-  <meta name="twitter:card" content="summary_large_image" />
+{dims}  <meta name="twitter:card" content="summary_large_image" />
   <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -219,7 +223,7 @@ def index_page(posts):
     desc = 'What\'s happening in AI and data, checked at the source, with the caveats left in.'
     ld = {"@context": "https://schema.org", "@type": "Blog", "name": "Abdul Habeeb's blog", "description": desc, "url": f"{SITE}{BASE}/", "inLanguage": "en", "author": AUTHOR,
           "blogPost": [{"@type": "BlogPosting", "headline": p['title'], "url": f"{SITE}{p['url']}", "datePublished": p['date']} for p in posts]}
-    return head(title, desc, f'{BASE}/', featured['cover'], ld) + f'''<body>
+    return head(title, desc, f'{BASE}/', og_path(featured), ld) + f'''<body>
 <main class="page bl-page">
   {blog_nav()}
   <section class="bl-carousel" id="top" aria-roledescription="carousel" aria-label="Featured posts">
@@ -254,7 +258,7 @@ def post_page(p, posts):
     url = f'{SITE}{p["url"]}'
     ld = {"@context": "https://schema.org", "@graph": [
         {"@type": "BlogPosting", "headline": p['title'], "description": p['excerpt'], "url": url, "mainEntityOfPage": url,
-         "image": SITE + ('/public/resources/og-card.jpg' if p['cover'].endswith('.svg') else p['cover']), "datePublished": p['date'], "dateModified": p['date'], "inLanguage": "en", "author": AUTHOR},
+         "image": [SITE + og_path(p), SITE + p['cover']], "datePublished": p['date'], "dateModified": p['date'], "inLanguage": "en", "author": AUTHOR},
         {"@type": "BreadcrumbList", "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "Home", "item": f"{SITE}/"},
             {"@type": "ListItem", "position": 2, "name": "Blog", "item": f"{SITE}{BASE}/"},
@@ -266,7 +270,7 @@ def post_page(p, posts):
     if p['charts']:
         chart_js = ('<script type="application/json" id="cs-chart-data">' + json.dumps(p['charts'], ensure_ascii=False).replace('</', '<\\/') + '</script>\n'
                     f'<script src="/case-charts.js?v={cs.ASSET_VERSION}" defer></script>\n')
-    return head(f'{p["title"]} — Abdul Habeeb', p['excerpt'], p['url'], p['cover'], ld, 'article', bool(p['charts'])) + f'''<body>
+    return head(f'{p["title"]} — Abdul Habeeb', p['excerpt'], p['url'], og_path(p), ld, 'article', bool(p['charts'])) + f'''<body>
 <div class="bl-progress" aria-hidden="true"><i></i><b>0%</b></div>
 <main class="page bl-page bl-post">
   {blog_nav()}
@@ -312,10 +316,103 @@ def feed(posts):
             f'{items}</channel></rss>\n')
 
 
+OG_DIR = '/public/resources/blog/og/'
+OG_W, OG_H = 1200, 630
+FONT = os.path.join(HERE, 'fonts', 'DMSans.ttf')
+
+
+def og_path(p):
+    return f'{OG_DIR}{p["slug"]}.jpg?v={OG_VERSION}'
+
+
+def og_image(p, dest):
+    """The link-preview card: the post's cover with its headline, 1200x630."""
+    from PIL import Image, ImageDraw, ImageFont
+    img = Image.open(os.path.join(ROOT, p['cover'].lstrip('/'))).convert('RGB')
+    # Fill the card, keeping the same focal point as the cover on the site (cover_pos: "center 30%").
+    scale = max(OG_W / img.width, OG_H / img.height)
+    img = img.resize((math.ceil(img.width * scale), math.ceil(img.height * scale)), Image.LANCZOS)
+    m = re.search(r'(\d+)%', p.get('cover_pos', ''))
+    fy = int(m.group(1)) / 100 if m else 0.5
+    x, y = (img.width - OG_W) // 2, round((img.height - OG_H) * fy)
+    img = img.crop((x, y, x + OG_W, y + OG_H))
+    # Darken towards the bottom so the headline reads on any photo.
+    shade = Image.new('L', (1, OG_H))
+    for j in range(OG_H):
+        t = j / OG_H
+        shade.putpixel((0, j), round(255 * min(1, 0.22 + 0.68 * t ** 1.4 + 0.3 * (1 - t) ** 5)))
+    img = Image.composite(Image.new('RGB', img.size, (6, 9, 20)), img, shade.resize(img.size))
+    d = ImageDraw.Draw(img)
+
+    def font(size, weight):
+        f = ImageFont.truetype(FONT, size)
+        try:
+            f.set_variation_by_axes([min(max(size, 9), 40), weight])
+        except Exception:
+            pass
+        return f
+
+    pad = 64
+    size = 60
+    while True:
+        f = font(size, 600)
+        words, lines, line = p['title'].split(), [], ''
+        for w in words:
+            test = (line + ' ' + w).strip()
+            if d.textlength(test, font=f) <= OG_W - 2 * pad:
+                line = test
+            else:
+                lines.append(line); line = w
+        lines.append(line)
+        if len(lines) <= 3 or size <= 40:
+            break
+        size -= 4
+    if len(lines) > 4:
+        lines = lines[:4]
+        while d.textlength(lines[-1] + '…', font=f) > OG_W - 2 * pad:
+            lines[-1] = lines[-1].rsplit(' ', 1)[0]
+        lines[-1] += '…'
+    lh = round(size * 1.16)
+    top = OG_H - pad - lh * len(lines) - 8
+    # Tag pill above the headline.
+    tf = font(24, 600)
+    tag = p['tag'].upper()
+    tw = d.textlength(tag, font=tf)
+    d.rounded_rectangle((pad, top - 70, pad + tw + 36, top - 26), radius=22, fill=(37, 99, 235))
+    d.text((pad + 18, top - 48), tag, font=tf, fill='white', anchor='lm')
+    for i, l in enumerate(lines):
+        d.text((pad, top + i * lh), l, font=f, fill='white')
+    # Site name, top left.
+    sf = font(26, 500)
+    d.text((pad, pad - 6), 'abdulhabeeb.com/blog', font=sf, fill=(255, 255, 255, 230))
+    os.makedirs(os.path.dirname(dest), exist_ok=True)
+    img.save(dest, 'JPEG', quality=84, optimize=True, progressive=True)
+
+
+def sitemap(posts):
+    """The site's sitemap with the blog entries replaced; the other entries are kept as written."""
+    path = os.path.join(ROOT, 'sitemap.xml')
+    xml = open(path, encoding='utf-8').read()
+    xml = re.sub(r'  <url>\n    <loc>' + re.escape(SITE + BASE) + r'/.*?</url>\n', '', xml, flags=re.S)
+    if not LAUNCHED:
+        return xml
+    entry = lambda loc, mod, freq, pri: f'  <url>\n    <loc>{loc}</loc>\n    <lastmod>{mod}</lastmod>\n    <changefreq>{freq}</changefreq>\n    <priority>{pri}</priority>\n  </url>\n'
+    blog = entry(f'{SITE}{BASE}/', max(p['date'] for p in posts), 'daily', '0.7')
+    blog += ''.join(entry(f'{SITE}{p["url"]}', p['date'], 'monthly', '0.6') for p in posts)
+    return xml.replace('</urlset>', blog + '</urlset>')
+
+
 def main():
     check = '--check' in sys.argv
     posts = load_posts()
-    files = {os.path.join('blog', 'index.html'): index_page(posts), os.path.join('blog', 'feed.xml'): feed(posts)}
+    # Link-preview cards are drawn once per post; delete one to redraw it.
+    missing = [p for p in posts if not os.path.exists(os.path.join(ROOT, OG_DIR.strip('/'), p['slug'] + '.jpg'))]
+    if missing and check:
+        print('missing share images: ' + ', '.join(p['slug'] for p in missing))
+        sys.exit(1)
+    for p in missing:
+        og_image(p, os.path.join(ROOT, OG_DIR.strip('/'), p['slug'] + '.jpg'))
+    files = {os.path.join('blog', 'index.html'): index_page(posts), os.path.join('blog', 'feed.xml'): feed(posts), 'sitemap.xml': sitemap(posts)}
     for p in posts:
         files[os.path.join('blog', p['slug'], 'index.html')] = post_page(p, posts)
     changed = []

@@ -17,7 +17,7 @@
         ['How to contact him?', 'How can I contact him?', 'Email is the quickest way to reach Habeeb. He’s also on LinkedIn and GitHub, or you can use the contact section on this page.', ['c:email', 'c:linkedin', 'c:github', 'c:contact_section']],
       ],
       contactLabels: { email: 'Email', linkedin: 'LinkedIn', github: 'GitHub', contact_section: 'Contact section' },
-      view: 'View', placeholder: 'Ask something…', open: 'Ask Habeeb’s AI assistant', close: 'Close', clear: 'Clear chat', send: 'Send question', dismiss: 'Dismiss',
+      view: 'View', placeholder: 'Ask something…', open: 'Ask Habeeb’s AI assistant', close: 'Close', clear: 'Clear chat', copy: 'Copy email', copied: 'Copied', send: 'Send question', dismiss: 'Dismiss',
       offTopic: 'I can only answer questions about Habeeb’s skills, projects and experience. Try “Has he used Docker?”',
       limited: 'To prevent abuse, chats are limited. Want to know more? Have a look through his projects, or get in touch with him directly.',
       seeProjects: 'See projects', contact: 'Contact him',
@@ -34,7 +34,7 @@
         ['Wie erreiche ich ihn?', 'Wie kann ich ihn erreichen?', 'Am schnellsten erreichst du Habeeb per E-Mail. Er ist auch auf LinkedIn und GitHub, oder du nutzt den Kontaktbereich auf dieser Seite.', ['c:email', 'c:linkedin', 'c:github', 'c:contact_section']],
       ],
       contactLabels: { email: 'E-Mail', linkedin: 'LinkedIn', github: 'GitHub', contact_section: 'Kontaktbereich' },
-      view: 'Zu', placeholder: 'Frag etwas…', open: 'Habeebs KI-Assistenten fragen', close: 'Schließen', clear: 'Chat leeren', send: 'Frage senden', dismiss: 'Ausblenden',
+      view: 'Zu', placeholder: 'Frag etwas…', open: 'Habeebs KI-Assistenten fragen', close: 'Schließen', clear: 'Chat leeren', copy: 'E-Mail kopieren', copied: 'Kopiert', send: 'Frage senden', dismiss: 'Ausblenden',
       offTopic: 'Ich beantworte nur Fragen zu Habeebs Fähigkeiten, Projekten und Erfahrung. Probier zum Beispiel „Hat er Docker genutzt?“',
       limited: 'Um Missbrauch zu verhindern, ist der Chat begrenzt. Mehr erfährst du in seinen Projekten, oder du schreibst ihm direkt.',
       seeProjects: 'Zu den Projekten', contact: 'Kontakt',
@@ -242,6 +242,28 @@
     return el;
   }
 
+  // Copies the email address and confirms for a moment.
+  function copyButton(address) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'pet-copy';
+    const label = () => { b.textContent = t().copy; b.insertAdjacentHTML('beforeend', ' <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2.2"/><path d="M15.5 8.5V6.7a2.2 2.2 0 0 0-2.2-2.2H6.7a2.2 2.2 0 0 0-2.2 2.2v6.6a2.2 2.2 0 0 0 2.2 2.2h1.8"/></svg>'); };
+    label();
+    b.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(address); }
+      catch {
+        const ta = Object.assign(document.createElement('textarea'), { value: address });
+        document.body.append(ta); ta.select(); document.execCommand('copy'); ta.remove();
+      }
+      b.textContent = t().copied;
+      b.insertAdjacentHTML('beforeend', ' <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5.5 12.5 4 4 9-9"/></svg>');
+      b.classList.add('is-done');
+      clearTimeout(b._t);
+      b._t = setTimeout(() => { b.classList.remove('is-done'); label(); }, 1600);
+    });
+    return b;
+  }
+
   // A row of pill buttons under a message: [{ label, href }]. Links to sections on this page close the panel.
   function buttons(after, items) {
     const row = document.createElement('div');
@@ -257,6 +279,7 @@
       a.insertAdjacentHTML('beforeend', ` <span aria-hidden="true">${external || href.startsWith('mailto:') ? '↗' : '→'}</span>`);
       if (href.startsWith('#')) a.addEventListener('click', close);
       row.append(a);
+      if (href.startsWith('mailto:')) row.append(copyButton(href.slice(7)));
     }
     if (row.children.length) { after.after(row); log.scrollTop = log.scrollHeight; }
   }

@@ -68,9 +68,15 @@
   </url>
   <url>
     <loc>https://abdulhabeeb.com/blog/</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://abdulhabeeb.com/blog/apple-wants-up-200000-people-grade/</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abdulhabeeb.com/blog/faas-ai-routing-tool-goes-nationwide/</loc>

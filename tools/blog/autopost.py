@@ -10,7 +10,7 @@ Usage:
 Needs ANTHROPIC_API_KEY and PIXABAY_KEY in the environment.
 """
 import argparse, base64, calendar, io, json, os, re, sys, time
-from datetime import datetime
+from datetime import date, datetime
 from typing import List
 from zoneinfo import ZoneInfo
 
@@ -29,6 +29,9 @@ MODEL = 'claude-haiku-5-5'
 PRICE_PER_MTOK = (0.10, 0.50)
 TAGS = ['Models', 'Research', 'Security', 'Industry', 'Agents', 'Data tools', 'Regulation']
 MAX_AGE_HOURS = 36
+# A feed entry can be new while the news itself is old (a follow-up or a late write-up). Stories whose
+# event is older than this are skipped for the next headline, so the blog stays current.
+MAX_EVENT_AGE_DAYS = 3
 MIN_WORDS = 250
 COVER_WIDTH = 1300
 UA = 'abdulhabeeb.com blog bot (+https://abdulhabeeb.com/blog/)'
@@ -284,6 +287,12 @@ def main():
             if not meta:
                 state['stories'].append(story['link'])
                 continue
+            if meta.get('event'):
+                age = (date.fromisoformat(today) - date.fromisoformat(meta['event'])).days
+                if age > MAX_EVENT_AGE_DAYS:
+                    log(f'skip (event {meta["event"]} is {age} days old): {story["title"]}')
+                    state['stories'].append(story['link'])
+                    continue
             slug = slug_for(meta['title'], taken)
             hit = find_photo(meta['image_query'], meta['tag'], set(state['photos']))
             alt = alt_text(save_cover(hit, slug))

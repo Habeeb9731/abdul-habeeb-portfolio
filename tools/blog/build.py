@@ -19,7 +19,7 @@ BASE = '/blog'
 # While False, every blog page carries noindex and stays out of the sitemap.
 LAUNCHED = True
 # Bump when blog.css or blog.js change.
-BLOG_VERSION = '20261112a'
+BLOG_VERSION = '20261116a'
 # Bump to make link previews refetch every share image (after changing og_image).
 OG_VERSION = '1'
 
@@ -127,14 +127,15 @@ def load_posts():
         p['slug'] = name[:-3]
         p['html'], p['toc'], p['charts'] = render(md)
         p['minutes'] = max(1, math.ceil(len(re.sub(r'```.*?```', '', md, flags=re.S).split()) / 200))
-        # Readers see when the story happened; `date` stays the real publish date for feeds and structured data.
-        p['date_label'] = date.fromisoformat(p.get('event', p['date'])).strftime('%-d %B %Y')
+        # Posts are dated and ordered by when they were published, like any blog; `event` (when the story
+        # happened) is kept in the front matter but not used for ordering, so a new post never lands below older ones.
+        p['date_label'] = date.fromisoformat(p['date']).strftime('%-d %B %Y')
         p['url'] = f'{BASE}/{p["slug"]}/'
         p['cover_site'] = 'Pixabay' if 'pixabay.com' in p.get('cover_credit', '') else 'Pexels'
         posts.append(p)
-    # Newest story first.
+    # Newest post first.
     # Ties on the same day go to the later `published` time (written by autopost.py), newest first.
-    posts.sort(key=lambda p: (p.get('event', p['date']), p.get('published', '')), reverse=True)
+    posts.sort(key=lambda p: (p['date'], p.get('published', '')), reverse=True)
     return posts
 
 
@@ -198,7 +199,7 @@ def meta_line(p):
 
 def card(p, hero=False):
     extra = ' data-hero="1"' if hero else ''
-    return (f'<a class="bl-card bl-reveal" data-tag="{html.escape(p["tag"])}" data-date="{p.get("event", p["date"])}"{extra} href="{p["url"]}"><span class="bl-card-img"><img src="{p["cover"]}" alt="{html.escape(p["cover_alt"])}" style="object-position:{p["cover_pos"]}" loading="lazy" decoding="async" /><span class="label">{p["tag"]}</span></span>'
+    return (f'<a class="bl-card bl-reveal" data-tag="{html.escape(p["tag"])}" data-date="{p["date"]}"{extra} href="{p["url"]}"><span class="bl-card-img"><img src="{p["cover"]}" alt="{html.escape(p["cover_alt"])}" style="object-position:{p["cover_pos"]}" loading="lazy" decoding="async" /><span class="label">{p["tag"]}</span></span>'
             f'<h3>{html.escape(p["title"])}</h3><p>{html.escape(p["excerpt"])}</p><span class="bl-meta">{meta_line(p)}</span></a>')
 
 

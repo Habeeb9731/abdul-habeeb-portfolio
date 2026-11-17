@@ -706,7 +706,8 @@ footer{container-type:inline-size;margin-top:clamp(80px,11vw,140px);padding:18px
 .dark .pet-links a{border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.1);color:#fff}
 .pet-links a span{transition:transform .2s}
 .pet-links .pet-copy{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border:1px solid rgba(37,99,235,.18);border-radius:999px;background:rgba(255,255,255,.94);color:#1d4ed8;font:500 .78rem var(--sans);cursor:pointer;box-shadow:0 6px 16px -10px rgba(30,50,140,.5);transition:background .2s,color .2s,transform .2s}
-.pet-links .pet-copy svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pet-links .pi{flex:none;width:14px;height:14px;margin-left:-2px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.pet-links .pi .f{fill:currentColor;stroke:none}
 .pet-links .pet-copy:hover{background:#2563eb;color:#fff;transform:translateY(-1px)}
 .pet-links .pet-copy.is-done{border-color:rgba(22,163,74,.3);background:#ecfdf3;color:#15803d}
 .dark .pet-links .pet-copy{border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.1);color:#fff}

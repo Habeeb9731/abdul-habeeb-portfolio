@@ -252,12 +252,28 @@
     return el;
   }
 
+  // Small leading icons for the buttons under answers, picked from where each button goes.
+  const ICONS = {
+    mail: '<rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4.5 7 7.5 6 7.5-6"/>',
+    copy: '<rect x="8.5" y="8.5" width="11" height="11" rx="2.2"/><path d="M15.5 8.5V6.7a2.2 2.2 0 0 0-2.2-2.2H6.7a2.2 2.2 0 0 0-2.2 2.2v6.6a2.2 2.2 0 0 0 2.2 2.2h1.8"/>',
+    check: '<path d="m5.5 12.5 4 4 9-9"/>',
+    resume: '<path d="M14 3.5H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-10z"/><path d="M14 3.5v5h5M9 13h6M9 16.5h4"/>',
+    project: '<rect x="3.5" y="5" width="17" height="12" rx="2"/><path d="M8 20h8M12 17v3"/>',
+    grid: '<rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/>',
+    contact: '<path d="M20 11.5a7.5 7.5 0 0 1-11 6.6L4.5 19.5l1.4-4.2A7.5 7.5 0 1 1 20 11.5Z"/>',
+    linkedin: '<path class="f" d="M5.3 9h2.9v9.5H5.3zM6.75 4.5a1.7 1.7 0 1 1 0 3.4 1.7 1.7 0 0 1 0-3.4ZM10 9h2.8v1.3h.04c.39-.74 1.34-1.5 2.76-1.5 2.95 0 3.5 1.94 3.5 4.46v5.24h-2.9v-4.64c0-1.1-.02-2.53-1.54-2.53-1.55 0-1.78 1.2-1.78 2.45v4.72H10z"/>',
+    github: '<path class="f" d="M12 3.3a8.8 8.8 0 0 0-2.78 17.15c.44.08.6-.19.6-.42v-1.5c-2.45.53-2.97-1.18-2.97-1.18-.4-1.02-.98-1.29-.98-1.29-.8-.55.06-.54.06-.54.88.06 1.35.91 1.35.91.79 1.35 2.07.96 2.57.73.08-.57.31-.96.56-1.18-1.96-.22-4.01-.98-4.01-4.35 0-.96.34-1.75.91-2.37-.09-.22-.39-1.12.09-2.33 0 0 .74-.24 2.42.9a8.4 8.4 0 0 1 4.4 0c1.68-1.14 2.42-.9 2.42-.9.48 1.21.18 2.11.09 2.33.57.62.91 1.41.91 2.37 0 3.38-2.06 4.13-4.02 4.34.32.27.6.81.6 1.63v2.42c0 .23.16.5.6.42A8.8 8.8 0 0 0 12 3.3Z"/>',
+  };
+  const icon = name => `<svg class="pi" viewBox="0 0 24 24" aria-hidden="true">${ICONS[name]}</svg>`;
+  const iconFor = href => href.startsWith('mailto:') ? 'mail' : /linkedin\.com/.test(href) ? 'linkedin' : /github\.com/.test(href) ? 'github'
+    : /\.pdf(#|$)/.test(href) ? 'resume' : href.startsWith('/projects/') ? 'project' : href === '#projects' ? 'grid' : 'contact';
+
   // Copies the email address and confirms for a moment.
   function copyButton(address) {
     const b = document.createElement('button');
     b.type = 'button';
     b.className = 'pet-copy';
-    const label = () => { b.textContent = t().copy; b.insertAdjacentHTML('beforeend', ' <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2.2"/><path d="M15.5 8.5V6.7a2.2 2.2 0 0 0-2.2-2.2H6.7a2.2 2.2 0 0 0-2.2 2.2v6.6a2.2 2.2 0 0 0 2.2 2.2h1.8"/></svg>'); };
+    const label = () => { b.innerHTML = icon('copy'); b.append(t().copy); };
     label();
     b.addEventListener('click', async () => {
       try { await navigator.clipboard.writeText(address); }
@@ -265,8 +281,8 @@
         const ta = Object.assign(document.createElement('textarea'), { value: address });
         document.body.append(ta); ta.select(); document.execCommand('copy'); ta.remove();
       }
-      b.textContent = t().copied;
-      b.insertAdjacentHTML('beforeend', ' <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5.5 12.5 4 4 9-9"/></svg>');
+      b.innerHTML = icon('check');
+      b.append(t().copied);
       b.classList.add('is-done');
       clearTimeout(b._t);
       b._t = setTimeout(() => { b.classList.remove('is-done'); label(); }, 1600);
@@ -284,7 +300,8 @@
       const external = /^https?:/.test(href) || /\.pdf(#|$)/.test(href);
       const a = document.createElement('a');
       a.href = href;
-      a.textContent = label;
+      a.innerHTML = icon(iconFor(href));
+      a.append(label);
       if (external) { a.target = '_blank'; a.rel = 'noopener'; }
       a.insertAdjacentHTML('beforeend', ` <span aria-hidden="true">${external || href.startsWith('mailto:') ? '↗' : '→'}</span>`);
       if (href.startsWith('#')) a.addEventListener('click', close);

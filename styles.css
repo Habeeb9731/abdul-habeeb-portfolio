@@ -44,7 +44,7 @@ html[lang="de"] .hero h1{max-width:21ch;font-size:clamp(2.2rem,4.5vw,4.3rem);tex
 .hero-role{display:block;margin:0 auto clamp(18px,2vw,24px);color:rgba(255,255,255,.72);font-size:clamp(.78rem,1.1vw,.9rem);font-weight:400;line-height:1.4;letter-spacing:.02em}
 .hero-role span{white-space:nowrap}
 .hero-role .sep{font-style:normal}
-@media(max-width:640px){.hero-role span{display:block}.hero-role .sep{display:none}}
+@media(max-width:640px){.hero-role span:first-child{display:block}.hero-role .sep:first-of-type{display:none}}
 .hero-tagline{display:block}
 .hero-tagline .rw{display:inline-block}
 .hero-tagline.is-pending .rw{opacity:0}

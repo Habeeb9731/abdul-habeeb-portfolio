@@ -25,7 +25,7 @@ DATA = os.path.join(HERE, 'data')
 NOT_FOUND_VERSION = '20261101c'
 
 # Bump when styles.css / case-study.css / case-charts.js change, so browsers fetch the new files.
-ASSET_VERSION = '20261108-anime'
+ASSET_VERSION = '20261117-ask'
 
 
 def load(name):
@@ -134,6 +134,8 @@ def page(p, nxt):
     if p.get('repo'):
         links += f'<a class="button is-ghost" href="{p["repo"]}" target="_blank" rel="noopener">Repository <span>↗</span></a>'
     meta = ''.join(f'<div><dt data-i18n="ui_meta{i}">{k}</dt><dd data-i18n="meta{i}">{v}</dd></div>' for i, (k, v) in enumerate(p['meta']))
+    # Four feature cards sit in a 2x2 (or one row on wide screens) instead of leaving one alone on a row.
+    cards_class = 'cs-cards is-four' if len(p['features']) == 4 else 'cs-cards'
     feats = ''.join(f'<article class="cs-card">{icon(i)}<h3 data-i18n="f{n}t">{t}</h3><p data-i18n="f{n}d">{d}</p></article>' for n, (i, t, d) in enumerate(p['features']))
     ch_t, ch_l = p['challenge']
     so_t, so_l = p['solution']
@@ -246,7 +248,7 @@ def page(p, nxt):
   <section class="cs-panel" id="features">
     <span class="label" data-i18n="ui_features">Key features</span>
     <h2 data-i18n="ui_features_h">Built around <span>what people actually need.</span></h2>
-    <div class="cs-cards">{feats}</div>
+    <div class="{cards_class}">{feats}</div>
     {phone}
   </section>
 

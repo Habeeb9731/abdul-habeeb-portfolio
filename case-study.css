@@ -27,6 +27,8 @@
 .cs-shot figcaption{padding:14px 18px;border-top:1px solid var(--line);color:var(--muted);font-size:.82rem}
 
 .cs-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:clamp(32px,4vw,52px)}
+.cs-cards.is-four{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(min-width:1180px){.cs-cards.is-four{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .cs-card{display:flex;flex-direction:column;align-items:flex-start;min-height:220px;padding:22px;border-radius:16px;background:var(--paper)}
 .cs-panel .cs-card{background:var(--paper)}
 .cs-plain .cs-card{background:var(--card)}
@@ -85,7 +87,7 @@
   .cs-meta{grid-template-columns:repeat(2,minmax(0,1fr))}
   .cs-meta div:nth-child(3){border-left:0}
   .cs-meta div:nth-child(n+3){border-top:1px solid var(--line)}
-  .cs-cards{grid-template-columns:1fr}
+  .cs-cards,.cs-cards.is-four{grid-template-columns:1fr}
   .cs-card{min-height:0}
   .cs-card h3{padding-top:28px}
   .cs-split,.cs-gallery,.cs-phone,.cs-list,.cs-next{grid-template-columns:1fr}

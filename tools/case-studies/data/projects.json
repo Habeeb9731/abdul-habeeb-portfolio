@@ -23,7 +23,7 @@
    ],
    [
     "Stack",
-    "Python, LightGBM, Next.js"
+    "Python, LightGBM, Next.js, Claude Haiku"
    ]
   ],
   "ov_h": "Any forecast can look good in hindsight. <span>depower commits to its numbers before the market does.</span>",
@@ -63,6 +63,11 @@
     "bolt",
     "EV charging calculator",
     "Finds the cheapest hours to charge within your plug-in window and estimates the saving, on wholesale prices only."
+   ],
+   [
+    "chat",
+    "Ask depower",
+    "A chat assistant on Claude Haiku that answers from the live forecast and the project notes, in English and German, with a small mascot that opens it."
    ]
   ],
   "phone": [
@@ -117,6 +122,10 @@
    [
     "Deployment",
     "Docker containers on a Hetzner server, run by systemd timers at 10:20, 10:45 and 11:10 Berlin time. GitHub Actions runs CI."
+   ],
+   [
+    "Assistant",
+    "Claude Haiku through a Cloudflare Worker that summarises the published forecast and track record for each question. Structured output filters off-topic requests, visitors get five questions a day, and the four suggested questions are answered in the browser for free."
    ]
   ],
   "stack": [
@@ -128,6 +137,8 @@
    "Next.js",
    "Recharts",
    "shadcn/ui",
+   "Claude Haiku",
+   "Cloudflare Workers",
    "Docker",
    "systemd",
    "Hetzner",
@@ -196,7 +207,7 @@
    "meta0": "Data Science &amp; Full-Stack-Entwicklung",
    "meta1": "2026",
    "meta2": "Persönliches Projekt",
-   "meta3": "Python, LightGBM, Next.js",
+   "meta3": "Python, LightGBM, Next.js, Claude Haiku",
    "ov_h": "Im Nachhinein sieht jede Prognose gut aus. <span>depower legt sich fest, bevor der Markt es tut.</span>",
    "ov_p": "Die deutschen Großhandelspreise für jede Stunde von morgen werden heute um 12:00 Uhr in einer Auktion festgelegt. Jeden Morgen davor prognostiziert depower alle 24 Preise samt wahrscheinlichem Bereich pro Stunde, auf Basis von Netzdaten von SMARD und ECMWF-Wetterprognosen. Jede Prognose wird einmal protokolliert und kann nicht überschrieben werden. Sobald die echten Preise veröffentlicht sind, wird sie öffentlich bewertet. Die Live-Prognosen starteten am 3. November 2026, für die Lieferung am Folgetag.",
    "ov_cap": "Die erste Live-Prognose vom 3. November 2026 für den Folgetag, daneben die simulierte Backtest-Bilanz.",
@@ -233,7 +244,11 @@
    "t3v": "Statischer Next.js-Export mit shadcn/ui und Recharts, auf Englisch und Deutsch.",
    "t4k": "Deployment",
    "t4v": "Docker-Container auf einem Hetzner-Server, gestartet von systemd-Timern um 10:20, 10:45 und 11:10 Uhr Berliner Zeit. GitHub Actions übernimmt die CI.",
-   "learned": "Im ersten Backtest deckten meine P10–P90-Bereiche nur 58,5 % der echten Preise ab, obwohl es 80 % sein sollten. Die Kalibrierung brachte das auf 77,9 %, aber ich habe diese Korrektur erst nach dem Ergebnis gewählt, daher ist die Zahl womöglich etwas geschönt, und das Projekt sagt das auch. Daraus habe ich gelernt: Vertrauen gewinnt eine Prognose weniger durch ihren Fehlerwert als dadurch, dass sie zeigt, was sie sehen konnte, wo sie scheitert und was ein einfacher Vergleichswert geschafft hätte."
+   "learned": "Im ersten Backtest deckten meine P10–P90-Bereiche nur 58,5 % der echten Preise ab, obwohl es 80 % sein sollten. Die Kalibrierung brachte das auf 77,9 %, aber ich habe diese Korrektur erst nach dem Ergebnis gewählt, daher ist die Zahl womöglich etwas geschönt, und das Projekt sagt das auch. Daraus habe ich gelernt: Vertrauen gewinnt eine Prognose weniger durch ihren Fehlerwert als dadurch, dass sie zeigt, was sie sehen konnte, wo sie scheitert und was ein einfacher Vergleichswert geschafft hätte.",
+   "f3t": "Ask depower",
+   "f3d": "Ein Chat-Assistent mit Claude Haiku, der aus der Live-Prognose und den Projektnotizen antwortet, auf Deutsch und Englisch, mit einem kleinen Maskottchen, das ihn öffnet.",
+   "t5k": "Assistent",
+   "t5v": "Claude Haiku über einen Cloudflare Worker, der für jede Frage die veröffentlichte Prognose und Bilanz zusammenfasst. Strukturierte Ausgaben filtern themenfremde Anfragen, Besucher haben fünf Fragen pro Tag, und die vier Vorschlagsfragen werden kostenlos direkt im Browser beantwortet."
   }
  },
  {

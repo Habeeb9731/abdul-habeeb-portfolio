@@ -209,6 +209,8 @@ a.case-logo:hover{border-color:#e4e4df;background:#ecece7}
 a.case-logo.is-dark:hover{border-color:#2b2c29;background:#2b2c29}
 .case-logo.is-seal img{max-height:84px}
 .grade{padding:1px 7px;border-radius:6px;background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent);font-weight:500;white-space:nowrap}
+.grade.degree{padding:2px 8px;font-weight:400}
+.nowrap{white-space:nowrap}
 .dark .grade{color:var(--accent-soft);background:color-mix(in srgb,var(--accent) 24%,transparent)}
 .case-logo.is-cropped{overflow:hidden}
 .case-logo.is-cropped img{max-height:none;width:46%;transform:scale(1.9)}

@@ -4,7 +4,7 @@ Data Science and Full-Stack Developer, 25, based in Saarbrücken, Germany. Prono
 Master's student in Data Science and AI at Saarland University (Universität des Saarlandes), 2024 to now.
 Bachelor's in Computer Science, Visvesvaraya Technological University, India, 2019 to 2023. Grade: CGPA 1.4 converted to the German scale.
 
-Contact: abdulhabeeb9731@gmail.com · https://abdulhabeeb.com/#contact · https://www.linkedin.com/in/abdulhabeeb9731/ · https://github.com/Habeeb9731
+Contact: hello@abdulhabeeb.com (or abdulhabeeb9731@gmail.com) · https://abdulhabeeb.com/#contact · https://www.linkedin.com/in/abdulhabeeb9731/ · https://github.com/Habeeb9731
 Resume (PDF): https://abdulhabeeb.com/public/resources/Abdul_Habeeb_Resume.pdf
 
 ## Summary

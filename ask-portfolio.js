@@ -21,7 +21,7 @@
       offTopic: 'I can only answer questions about Habeeb’s skills, projects and experience. Try “Has he used Docker?”',
       limited: 'To prevent abuse, chats are limited. Come back later to ask more, or in the meantime have a look through his projects or get in touch with him directly.',
       seeProjects: 'See projects', contact: 'Contact him',
-      error: 'Something went wrong on my side. Please try again in a moment, or email abdulhabeeb9731@gmail.com.',
+      error: 'Something went wrong on my side. Please try again in a moment, or email hello@abdulhabeeb.com.',
     },
     de: {
       greet: 'Hi! Ich bin Habeebs KI. Fragen zu seinen Fähigkeiten oder Projekten? Frag mich.',
@@ -38,12 +38,12 @@
       offTopic: 'Ich beantworte nur Fragen zu Habeebs Fähigkeiten, Projekten und Erfahrung. Probier zum Beispiel „Hat er Docker genutzt?“',
       limited: 'Um Missbrauch zu verhindern, ist der Chat begrenzt. Komm später wieder, um mehr zu fragen, oder schau dir in der Zwischenzeit seine Projekte an oder schreib ihm direkt.',
       seeProjects: 'Zu den Projekten', contact: 'Kontakt',
-      error: 'Da ist etwas schiefgelaufen. Versuch es gleich noch einmal oder schreib an abdulhabeeb9731@gmail.com.',
+      error: 'Da ist etwas schiefgelaufen. Versuch es gleich noch einmal oder schreib an hello@abdulhabeeb.com.',
     },
   };
   const t = () => TEXT[document.documentElement.lang === 'de' ? 'de' : 'en'];
   const PROJECT_TITLES = { depower: 'depower', 'anime-recommender': 'AnimeRec', 'apex-f1-analytics': 'APEX F1 Analytics', 'autonomous-data-analyst': 'Autonomous Data Analyst' };
-  const CONTACT_LINKS = { email: 'mailto:abdulhabeeb9731@gmail.com', linkedin: 'https://www.linkedin.com/in/abdulhabeeb9731/', github: 'https://github.com/Habeeb9731', contact_section: '#contact', resume: '/public/resources/Abdul_Habeeb_Resume.pdf#view=FitH' };
+  const CONTACT_LINKS = { email: 'mailto:hello@abdulhabeeb.com', linkedin: 'https://www.linkedin.com/in/abdulhabeeb9731/', github: 'https://github.com/Habeeb9731', contact_section: '#contact', resume: '/public/resources/Abdul_Habeeb_Resume.pdf#view=FitH' };
   const contactButton = id => CONTACT_LINKS[id] && { label: t().contactLabels[id], href: CONTACT_LINKS[id] };
   const store = {
     get: k => { try { return sessionStorage.getItem(k); } catch { return null; } },

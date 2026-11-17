@@ -547,29 +547,22 @@ footer{container-type:inline-size;margin-top:clamp(80px,11vw,140px);padding:18px
 .copy-email.is-tip .copy-tip{opacity:1;transform:translate(-50%,0)}
 .copy-email:focus-visible{outline:2px solid #fff;outline-offset:2px}
 
-/* Profile: the Email pill reveals the address and a copy button on hover (laptop and desktop only) */
-.social-email{display:inline-flex;align-items:center}
-.se-addr,.social-copy{display:none}
-@media(min-width:1141px) and (hover:hover) and (pointer:fine){
-  .social-links{flex-wrap:nowrap}
-  .social-links > a,.social-email{flex:none}
-  .social-email a{gap:0}
-  .social-email a svg{margin-right:8px}
-  .se-label,.se-addr{display:grid;transition:grid-template-columns .45s cubic-bezier(.22,1,.36,1),opacity .25s ease}
-  .se-label{grid-template-columns:1fr}
-  .se-addr{grid-template-columns:0fr;opacity:0}
-  .se-label > span,.se-addr > span{min-width:0;overflow:hidden;white-space:nowrap}
-  .social-copy{position:relative;z-index:1;display:block;flex:none;width:0;height:30px;margin:0;padding:0;border:0;border-radius:50%;background:#fff;color:var(--accent);cursor:pointer;opacity:0;visibility:hidden;transition:width .45s cubic-bezier(.22,1,.36,1),margin .45s cubic-bezier(.22,1,.36,1),opacity .25s ease,visibility .25s}
-  .social-copy > span{position:absolute;inset:0;display:grid;place-items:center;border-radius:50%;transition:background .2s,color .2s}
-  .social-copy.is-copied > span{color:#fff}
-  .social-copy:focus-visible{outline:2px solid #fff;outline-offset:2px}
-  .social-email:is(:hover,.is-open,.is-measure,:has(:focus-visible)) .se-label{grid-template-columns:0fr;opacity:0}
-  .social-email:is(:hover,.is-open,.is-measure,:has(:focus-visible)) .se-addr{grid-template-columns:1fr;opacity:1}
-  .social-email:is(:hover,.is-open,.is-measure,:has(:focus-visible)) .social-copy{width:30px;margin:0 5px 0 -6px;opacity:1;visibility:visible}
-  .social-email.is-measure{position:absolute;visibility:hidden;pointer-events:none}
-  .social-email.is-measure,.social-email.is-measure *{transition:none!important}
-}
-@media(prefers-reduced-motion:reduce){.se-label,.se-addr,.social-copy{transition:none!important}}
+/* Profile: the Email chip opens a small menu with both addresses, stacked */
+.social-email{position:relative;display:inline-flex;align-items:center}
+.se-menu{position:absolute;left:0;top:calc(100% + 8px);z-index:30;display:grid;gap:2px;min-width:max-content;padding:6px;border-radius:18px;background:var(--accent);box-shadow:0 18px 36px -16px rgba(37,99,235,.6);opacity:0;visibility:hidden;transform:translateY(-6px) scale(.97);transform-origin:top left;transition:opacity .18s ease,transform .32s cubic-bezier(.22,1,.36,1),visibility 0s linear .32s}
+.se-menu::before{content:"";position:absolute;inset:-10px 0 auto;height:10px}
+.social-email.is-open .se-menu{opacity:1;visibility:visible;transform:none;transition:opacity .18s ease,transform .32s cubic-bezier(.22,1,.36,1),visibility 0s}
+.se-row{display:flex;align-items:center;gap:10px;padding:4px 4px 4px 12px;border-radius:13px;transition:background .2s}
+.se-row:hover{background:rgba(255,255,255,.12)}
+.social-links .se-menu a{display:inline-flex;align-items:center;gap:6px;flex:1;height:auto;padding:6px 0;border:0;border-radius:0;background:none;color:#fff;font-size:.86rem;white-space:nowrap}
+.social-links .se-menu a i{font-style:normal;opacity:.7;transition:transform .2s}
+.social-links .se-menu a:hover i{transform:translate(2px,-2px);opacity:1}
+.se-copy{position:relative;flex:none;width:30px;height:30px;padding:0;border:0;border-radius:50%;background:#fff;color:var(--accent);cursor:pointer}
+.se-copy > span{position:absolute;inset:0;display:grid;place-items:center;border-radius:50%;color:var(--accent);transition:background .2s,color .2s}
+.se-copy.is-copied > span{color:#fff}
+.se-copy:focus-visible{outline:2px solid #fff;outline-offset:2px}
+@media(max-width:640px){.se-menu{left:auto;right:0;transform-origin:top right}}
+@media(prefers-reduced-motion:reduce){.se-menu{transition:none!important}}
 
 /* Logo strip: own products */
 .hero-trust img.is-depower{height:62px;filter:brightness(0)}

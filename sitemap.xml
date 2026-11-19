@@ -68,9 +68,15 @@
   </url>
   <url>
     <loc>https://abdulhabeeb.com/blog/</loc>
-    <lastmod>2026-11-18</lastmod>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://abdulhabeeb.com/blog/banks-telling-customers-ai-agents-account/</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abdulhabeeb.com/blog/us-closing-remoteaccess-route-advanced-ai/</loc>

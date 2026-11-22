@@ -68,9 +68,15 @@
   </url>
   <url>
     <loc>https://abdulhabeeb.com/blog/</loc>
-    <lastmod>2026-11-21</lastmod>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://abdulhabeeb.com/blog/anthropic-mathematician-claims-riemann-hypothesis-proof/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abdulhabeeb.com/blog/planted-secrets-leaked-through-ai-routers/</loc>

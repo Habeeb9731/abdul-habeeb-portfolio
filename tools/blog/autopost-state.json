@@ -20,7 +20,9 @@
   "https://arstechnica.com/security/2026/11/a-leaky-ai-supply-chain-is-exposing-secret-user-data-at-an-alarming-rate/",
   "https://www.theverge.com/tech/1039554/un-regulations-killer-robots",
   "https://techcrunch.com/2026/11/21/signal-restricts-mobile-screenshots-as-it-confronts-existential-threat-of-ai-surveillance/",
-  "https://techcrunch.com/2026/11/20/ai-claimed-a-solution-to-the-167-year-old-riemann-hypothesis-and-a-human-did-too/"
+  "https://techcrunch.com/2026/11/20/ai-claimed-a-solution-to-the-167-year-old-riemann-hypothesis-and-a-human-did-too/",
+  "https://www.theverge.com/ai-artificial-intelligence/1040134/anthropic-claude-ship-ai-pull-requests",
+  "https://huggingface.co/blog/allenai/robotrack"
  ],
  "photos": [
   2612056,
@@ -36,6 +38,7 @@
   1583534,
   3254289,
   1587863,
-  4126483
+  4126483,
+  2791670
  ]
 }

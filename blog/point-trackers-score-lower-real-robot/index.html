@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Point trackers score lower on real robot video than benchmarks suggested — Abdul Habeeb</title>
+  <meta name="description" content="Ai2&#x27;s RoboTrack benchmark tests point trackers on messy, real manipulation footage. Every tracker it tested scored lower there, and a new model trained on simulated data scores higher." />
+  <link rel="canonical" href="https://abdulhabeeb.com/blog/point-trackers-score-lower-real-robot/" />
+  <link rel="alternate" type="application/rss+xml" title="Abdul Habeeb's blog" href="/blog/feed.xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Point trackers score lower on real robot video than benchmarks suggested — Abdul Habeeb" />
+  <meta property="og:description" content="Ai2&#x27;s RoboTrack benchmark tests point trackers on messy, real manipulation footage. Every tracker it tested scored lower there, and a new model trained on simulated data scores higher." />
+  <meta property="og:url" content="https://abdulhabeeb.com/blog/point-trackers-score-lower-real-robot/" />
+  <meta property="og:image" content="https://abdulhabeeb.com/public/resources/blog/og/point-trackers-score-lower-real-robot.jpg?v=1" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BlogPosting", "headline": "Point trackers score lower on real robot video than benchmarks suggested", "description": "Ai2's RoboTrack benchmark tests point trackers on messy, real manipulation footage. Every tracker it tested scored lower there, and a new model trained on simulated data scores higher.", "url": "https://abdulhabeeb.com/blog/point-trackers-score-lower-real-robot/", "mainEntityOfPage": "https://abdulhabeeb.com/blog/point-trackers-score-lower-real-robot/", "image": ["https://abdulhabeeb.com/public/resources/blog/og/point-trackers-score-lower-real-robot.jpg?v=1", "https://abdulhabeeb.com/public/resources/blog/point-trackers-score-lower-real-robot.jpg"], "datePublished": "2026-11-24", "dateModified": "2026-11-24", "inLanguage": "en", "author": {"@type": "Person", "@id": "https://abdulhabeeb.com/#person", "name": "Abdul Habeeb", "url": "https://abdulhabeeb.com/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://abdulhabeeb.com/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://abdulhabeeb.com/blog/"}, {"@type": "ListItem", "position": 3, "name": "Point trackers score lower on real robot video than benchmarks suggested", "item": "https://abdulhabeeb.com/blog/point-trackers-score-lower-real-robot/"}]}]}</script>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css?v=20261117-ask" />
+  <link rel="stylesheet" href="/blog.css?v=20261116a" />
+  <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark-pre')}catch(e){}</script>
+</head>
+<body>
+<div class="bl-progress" aria-hidden="true"><i></i><b>0%</b></div>
+<main class="page bl-page bl-post">
+  <header class="topbar">
+      <nav aria-label="Main"><a class="nav-icon" href="/#profile"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></svg><span class="nav-tip" data-i18n="home">Home</span></a><a class="nav-icon" href="/#projects"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="12" rx="2"/><path d="M8 20h8M12 17v3"/></svg><span class="nav-tip" data-i18n="projects">Projects</span></a><a class="nav-icon" href="/#experience"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="M9 7.5V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.5M3.5 13h17"/></svg><span class="nav-tip" data-i18n="experience">Experience</span></a><a class="nav-icon" href="/#contact"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4.5 7 7.5 6 7.5-6"/></svg><span class="nav-tip" data-i18n="contact">Contact</span></a><a class="nav-icon" href="/public/resources/Abdul_Habeeb_Resume.pdf#view=FitH" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3.5H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-10z"/><path d="M14 3.5v5h5M9 13h6M9 16.5h4"/></svg><span class="nav-tip" data-i18n="resumeShort">Resume</span></a><a class="nav-icon is-active" href="/blog/" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1-4.2L15.8 5a2.1 2.1 0 0 1 3 3L8.2 18.8 4 20Z"/><path d="M13.8 7l3 3M12.5 20H20"/></svg><span class="nav-tip" data-i18n="blog">Blog</span></a><i class="nav-divider"></i><button class="language-toggle" type="button" aria-label="Switch language">DE</button><button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false"><span>☾</span></button></nav>
+  </header>
+  <section class="bl-post-hero" id="top">
+    <img class="bl-post-bg" src="/public/resources/blog/point-trackers-score-lower-real-robot.jpg" alt="Orange industrial robot arm blurred in background behind a black control panel with red emergency stop button and colored push buttons" style="object-position:center" />
+    <a class="bl-back" href="/blog/" data-i18n="bl_all">← All posts</a>
+    <span class="label">Research</span>
+    <h1>Point trackers score lower on real robot video than benchmarks suggested</h1>
+    <p>Ai2&#x27;s RoboTrack benchmark tests point trackers on messy, real manipulation footage. Every tracker it tested scored lower there, and a new model trained on simulated data scores higher.</p>
+    <span class="bl-meta"><img src="/public/resources/heroimage.jpg" alt="" /><span>Abdul Habeeb</span><i aria-hidden="true">·</i><span>24 November 2026</span><i aria-hidden="true">·</i><span>3 <span data-i18n="bl_min">min read</span></span></span>
+    <a class="bl-credit" href="https://pixabay.com/photos/robot-arm-technology-robot-arm-2791670/" target="_blank" rel="noopener"><span data-i18n="bl_photo">Photo</span>: Pixabay</a>
+  </section>
+
+  <div class="bl-body">
+    <nav class="bl-toc" aria-label="Contents"><span data-i18n="bl_contents">Contents</span><a href="#the-benchmark">The benchmark</a><a href="#trackers-score-lower-on-it">Trackers score lower on it</a><a href="#simulated-training-data">Simulated training data</a><a href="#a-wet-lab-test">A wet-lab test</a><a href="#limits-ai2-names">Limits Ai2 names</a><a href="#my-read">My read</a></nav>
+    <article class="bl-article">
+      <p class="bl-lang" data-i18n="bl_lang">This post is written in English.</p>
+<p>Robots often rely on point trackers, which follow specific spots on an object through a video. Current trackers score well on established robotics benchmarks, but <a href="https://huggingface.co/blog/allenai/robotrack" target="_blank" rel="noopener">Ai2's RoboTrack release</a> asks whether those scores hold up in the cluttered scenes, odd viewpoints and hand-object interactions that robots meet in practice.</p>
+<h2 id="the-benchmark">The benchmark</h2>
+<p>RoboTrack-Bench contains 307 real videos from DROID, Ego-Exo4D, MolmoAct 2 and EgoVerse. They include robot arms and human hands, cluttered scenes, and first- and third-person views. Ai2 says humans annotated all 2,522 point tracks and a second group checked each one frame by frame. A subset of 33 video pairs was recorded from two cameras at once, for work on matching points across views.</p>
+<h2 id="trackers-score-lower-on-it">Trackers score lower on it</h2>
+<p>Ai2 tested four trackers: CoTracker3, BootsTAPNext, AllTracker and CoWTracker. Each one scored lower on RoboTrack-Bench than on RoboTAP, the other real-video robotics benchmark it used. The drop ranged from 3.0 to 6.6 AJ. The strongest tracker, CoWTracker, fell from 70.5 to 63.9.</p>
+<p>The results also changed the rankings. CoWTracker's lead over CoTracker3 shrank from 4.7 AJ on RoboTAP to 2.1 on RoboTrack-Bench. BootsTAPNext, which trained on 15 million real videos, scored 60.2 on RoboTrack-Bench, below the Kubric-only AllTracker's 61.4.</p>
+<h2 id="simulated-training-data">Simulated training data</h2>
+<p>Ai2 extended its MolmoSpaces simulator to generate dense point tracks for simulated robot arms picking up everyday objects. The resulting RoboTrack-15M dataset has 3,000 videos from 300 simulated homes, with 5,000 tracks per video. Ai2 reports that the first version gave no gain. Changing where points were sampled, so they stayed on the robot and the handled objects, brought the data closer to real footage.</p>
+<p>Ai2 released two models. RoboTracker, built on AllTracker, rose from 62.6 to 63.4 AJ on RoboTrack-Bench. RoboTracker-Warp, built on CoWTracker, rose from 63.9 to 66.0. Ai2 says RoboTracker-Warp is the top model on four of five benchmarks, with DAVIS as the exception. RoboTracker-Warp's weights are for noncommercial use only.</p>
+<h2 id="a-wet-lab-test">A wet-lab test</h2>
+<p>Ai2 also tested point tracking on pipetting, where a robot must line a pipette tip up with a vial opening. Using one teleoperated demonstration per task, it compared optical flow, object masks and point tracking across 20 vial layouts. Point tracking completed the full transfer in 17 trials, against 8 for masks and 5 for optical flow. With partial occlusion, point tracking succeeded in 7 of 10 trials, and the mask-based method succeeded once.</p>
+<h2 id="limits-ai2-names">Limits Ai2 names</h2>
+<p>Ai2 says the trackers still struggle with long occlusions, with finding points when they reappear, and with small objects against busy backgrounds. Its simulations cover picking up everyday objects, not the precise handling used in pipetting, which Ai2 lists as a next step.</p>
+<h2 id="my-read">My read</h2>
+<p>The most useful result here is the gap itself. If trackers drop several AJ points on real manipulation footage, the older benchmarks may be overstating how ready these systems are. The gains from simulated data are real but modest, about 1 to 2 AJ on the benchmark, so the training data is not a fix on its own. The pipetting test is encouraging, though it covers one lab setup and one task, and it compares point tracking only against two methods. If you use off-the-shelf trackers in a robot, check them on footage from your own setup before trusting them.</p>
+      <aside class="bl-author"><img src="/public/resources/heroimage.jpg" alt="" /><div><strong>Abdul Habeeb</strong><p data-i18n="bl_bio">Data science and full-stack developer in Saarbrücken. I write about what's happening in AI and data, with links to the sources.</p><a href="/#profile" data-i18n="bl_about">More about me</a></div></aside>
+    </article>
+  </div>
+
+  <section class="bl-list bl-more">
+    <div class="bl-list-head"><h2 data-i18n="bl_more">Keep reading</h2><a href="/blog/" data-i18n="bl_all">← All posts</a></div>
+    <div class="bl-grid is-two"><a class="bl-card bl-reveal" data-tag="Research" data-date="2026-11-22" href="/blog/anthropic-mathematician-claims-riemann-hypothesis-proof/"><span class="bl-card-img"><img src="/public/resources/blog/anthropic-mathematician-claims-riemann-hypothesis-proof.jpg" alt="A person in a denim jacket holds an open book in front of a blue background covered with math and physics diagrams" style="object-position:center" loading="lazy" decoding="async" /><span class="label">Research</span></span><h3>Anthropic mathematician claims Riemann hypothesis proof, and Lean checks are underway</h3><p>Levent Alpöge says he has a Lean-compilable solution to the Riemann hypothesis, worked out with Claude. Some mathematicians say it compiles, but the proof is still being read and no one has explained it yet.</p><span class="bl-meta"><span>22 November 2026</span><i aria-hidden="true">·</i><span>3 <span data-i18n="bl_min">min read</span></span></span></a><a class="bl-card bl-reveal" data-tag="Research" data-date="2026-11-16" href="/blog/apple-wants-up-200000-people-grade/"><span class="bl-card-img"><img src="/public/resources/blog/apple-wants-up-200000-people-grade.jpg" alt="A hand holds a smartphone showing a blue and red circular logo on its screen" style="object-position:center" loading="lazy" decoding="async" /><span class="label">Research</span></span><h3>Apple wants up to 200,000 people to grade its health AI answers</h3><p>Apple&#x27;s new Health AI Usage Study asks US iPhone users to ask medical questions in a separate app and rate the replies. Apple says the health data they share won&#x27;t train AI models.</p><span class="bl-meta"><span>16 November 2026</span><i aria-hidden="true">·</i><span>3 <span data-i18n="bl_min">min read</span></span></span></a></div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="contact-copy">
+      <span class="label" data-i18n="connectLabel">Let’s connect</span>
+      <h2 data-i18n="connectTitle">Have an idea<br /><em>worth exploring?</em></h2>
+      <div class="contact-actions"><span class="contact-email"><a class="button" href="mailto:abdulhabeeb9731@gmail.com">abdulhabeeb9731@gmail.com <span>↗</span></a><button class="button copy-email" type="button" data-copy="abdulhabeeb9731@gmail.com" aria-label="Copy email address"><span><svg class="ic-copy" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2.2"/><path d="M15.5 8.5V6.7a2.2 2.2 0 0 0-2.2-2.2H6.7a2.2 2.2 0 0 0-2.2 2.2v6.6a2.2 2.2 0 0 0 2.2 2.2h1.8"/></svg><svg class="ic-done" viewBox="0 0 24 24" aria-hidden="true"><path d="m5.5 12.5 4 4 9-9.5"/></svg></span><em class="copy-tip" role="status" aria-live="polite"></em></button></span><span class="contact-email"><a class="button" href="mailto:hello@abdulhabeeb.com">hello@abdulhabeeb.com <span>↗</span></a><button class="button copy-email" type="button" data-copy="hello@abdulhabeeb.com" aria-label="Copy email address"><span><svg class="ic-copy" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2.2"/><path d="M15.5 8.5V6.7a2.2 2.2 0 0 0-2.2-2.2H6.7a2.2 2.2 0 0 0-2.2 2.2v6.6a2.2 2.2 0 0 0 2.2 2.2h1.8"/></svg><svg class="ic-done" viewBox="0 0 24 24" aria-hidden="true"><path d="m5.5 12.5 4 4 9-9.5"/></svg></span><em class="copy-tip" role="status" aria-live="polite"></em></button></span><a class="button is-ghost" href="https://linkedin.com/in/abdulhabeeb9731" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a></div>
+    </div>
+    <footer>
+      <div class="footer-line"><span>© 2026 Abdul Habeeb</span><i></i><span>Saarbrücken, Germany</span></div>
+      <div class="footer-links"><a href="/" data-i18n="home">Home</a><a href="/#projects" data-i18n="projects">Projects</a><a href="/#experience" data-i18n="experience">Experience</a><a href="/#workshops" data-i18n="workshops">Workshops</a><a href="/#education" data-i18n="education">Education</a><a href="/#awards" data-i18n="awards">Awards</a><a href="/#volunteering" data-i18n="volunteering">Volunteering</a><a href="/blog/" data-i18n="blog">Blog</a><a href="#top" data-i18n="backTop">Back to top ↑</a></div>
+      <p class="footer-wordmark" aria-hidden="true">Habeeb</p>
+    </footer>
+  </section>
+</main>
+<script>
+const PAGE_DE={"home": "Start", "projects": "Projekte", "experience": "Erfahrung", "blog": "Blog", "contact": "Kontakt", "resumeShort": "Lebenslauf", "connectLabel": "Kontakt aufnehmen", "connectTitle": "Eine Idee,<br /><em>die wir erkunden sollten?<\/em>", "workshops": "Workshops", "education": "Ausbildung", "awards": "Auszeichnungen", "volunteering": "Ehrenamt", "backTop": "Nach oben ↑", "bl_label": "Blog", "bl_title": "Was gerade in KI und Daten passiert.", "bl_sub": "Die Nachrichten, die deine Zeit wert sind, an der Quelle geprüft und mit allen Einschränkungen.", "bl_featured": "Empfohlen", "bl_recent": "Neueste Beiträge", "bl_rss": "RSS-Feed", "bl_all": "← Alle Beiträge", "bl_contents": "Inhalt", "bl_more": "Weiterlesen", "bl_lang": "Dieser Beitrag ist auf Englisch verfasst.", "bl_bio": "Data-Science- und Full-Stack-Entwickler in Saarbrücken. Ich schreibe darüber, was in KI und Daten passiert, mit Links zu den Quellen.", "bl_about": "Mehr über mich", "bl_alltopics": "Alle", "bl_sortby": "Sortieren", "bl_newest": "Neueste", "bl_oldest": "Älteste", "bl_none": "Keine Beiträge gefunden.", "bl_showmore": "Mehr anzeigen", "bl_photo": "Foto", "bl_min": "Min. Lesezeit", "bl_tag_security": "Sicherheit", "bl_tag_research": "Forschung", "bl_tag_models": "Modelle", "bl_tag_industry": "Branche", "bl_tag_agents": "Agenten", "bl_tag_data-tools": "Datentools", "bl_tag_regulation": "Regulierung"};
+const langBtn=document.querySelector('.language-toggle');const origText={};
+document.querySelectorAll('[data-i18n]').forEach(el=>{origText[el.dataset.i18n]=el.innerHTML});
+let lang='en';try{lang=localStorage.getItem('site-language')||((navigator.language||'en').toLowerCase().startsWith('de')?'de':'en')}catch(e){}
+function applyLang(next){lang=next;try{localStorage.setItem('site-language',lang)}catch(e){};document.documentElement.lang=lang;
+ document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;el.innerHTML=lang==='de'&&PAGE_DE[k]?PAGE_DE[k]:origText[k]});
+ if(langBtn){langBtn.textContent=lang==='de'?'EN':'DE';langBtn.setAttribute('aria-label',lang==='de'?'Switch to English':'Auf Deutsch wechseln')}}
+applyLang(lang);window.addEventListener('pageshow',()=>{let s=null;try{s=localStorage.getItem('site-language')}catch(e){};if(s&&s!==lang)applyLang(s)});if(langBtn)langBtn.addEventListener('click',()=>applyLang(lang==='de'?'en':'de'));
+</script>
+<script>
+const themeToggle=document.querySelector('.theme-toggle');
+const applyTheme=dark=>{document.body.classList.toggle('dark',dark);document.documentElement.classList.remove('dark-pre');try{localStorage.setItem('theme',dark?'dark':'light')}catch(e){};themeToggle.setAttribute('aria-pressed',String(dark));themeToggle.innerHTML=dark?'<span>☀</span>':'<span>☾</span>'};
+let initialDark=false;try{initialDark=localStorage.getItem('theme')==='dark'}catch(e){}
+applyTheme(initialDark);
+themeToggle.addEventListener('click',()=>applyTheme(!document.body.classList.contains('dark')));
+window.addEventListener('pageshow',()=>{let t=null;try{t=localStorage.getItem('theme')}catch(e){};if(t&&(t==='dark')!==document.body.classList.contains('dark'))applyTheme(t==='dark')});
+</script>
+<script src="/public/vendor/lenis.min.js?v=1.1.20" defer></script>
+<script src="/smooth-scroll.js?v=20261101b" defer></script>
+<script src="/section-reveal.js?v=20261101e" defer></script>
+<script src="/footer-fun.js?v=20261101b" defer></script>
+<script src="/copy-email.js?v=20261101a" defer></script>
+<script src="/blog.js?v=20261116a" defer></script>
+</body>
+</html>

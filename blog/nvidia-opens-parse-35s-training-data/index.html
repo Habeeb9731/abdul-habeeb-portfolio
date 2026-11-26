@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NVIDIA opens Parse 3.5&#x27;s training data and reports large speedups on its own tests — Abdul Habeeb</title>
+  <meta name="description" content="NVIDIA releases three synthetic datasets and a fine-tuning recipe for its document parser, and reports faster inference. The benchmarks are NVIDIA&#x27;s own, run on its own hardware setup." />
+  <link rel="canonical" href="https://abdulhabeeb.com/blog/nvidia-opens-parse-35s-training-data/" />
+  <link rel="alternate" type="application/rss+xml" title="Abdul Habeeb's blog" href="/blog/feed.xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="NVIDIA opens Parse 3.5&#x27;s training data and reports large speedups on its own tests — Abdul Habeeb" />
+  <meta property="og:description" content="NVIDIA releases three synthetic datasets and a fine-tuning recipe for its document parser, and reports faster inference. The benchmarks are NVIDIA&#x27;s own, run on its own hardware setup." />
+  <meta property="og:url" content="https://abdulhabeeb.com/blog/nvidia-opens-parse-35s-training-data/" />
+  <meta property="og:image" content="https://abdulhabeeb.com/public/resources/blog/og/nvidia-opens-parse-35s-training-data.jpg?v=1" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BlogPosting", "headline": "NVIDIA opens Parse 3.5's training data and reports large speedups on its own tests", "description": "NVIDIA releases three synthetic datasets and a fine-tuning recipe for its document parser, and reports faster inference. The benchmarks are NVIDIA's own, run on its own hardware setup.", "url": "https://abdulhabeeb.com/blog/nvidia-opens-parse-35s-training-data/", "mainEntityOfPage": "https://abdulhabeeb.com/blog/nvidia-opens-parse-35s-training-data/", "image": ["https://abdulhabeeb.com/public/resources/blog/og/nvidia-opens-parse-35s-training-data.jpg?v=1", "https://abdulhabeeb.com/public/resources/blog/nvidia-opens-parse-35s-training-data.jpg"], "datePublished": "2026-11-26", "dateModified": "2026-11-26", "inLanguage": "en", "author": {"@type": "Person", "@id": "https://abdulhabeeb.com/#person", "name": "Abdul Habeeb", "url": "https://abdulhabeeb.com/"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://abdulhabeeb.com/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://abdulhabeeb.com/blog/"}, {"@type": "ListItem", "position": 3, "name": "NVIDIA opens Parse 3.5's training data and reports large speedups on its own tests", "item": "https://abdulhabeeb.com/blog/nvidia-opens-parse-35s-training-data/"}]}]}</script>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css?v=20261117-ask" />
+  <link rel="stylesheet" href="/blog.css?v=20261116a" />
+  <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark-pre')}catch(e){}</script>
+</head>
+<body>
+<div class="bl-progress" aria-hidden="true"><i></i><b>0%</b></div>
+<main class="page bl-page bl-post">
+  <header class="topbar">
+      <nav aria-label="Main"><a class="nav-icon" href="/#profile"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></svg><span class="nav-tip" data-i18n="home">Home</span></a><a class="nav-icon" href="/#projects"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="12" rx="2"/><path d="M8 20h8M12 17v3"/></svg><span class="nav-tip" data-i18n="projects">Projects</span></a><a class="nav-icon" href="/#experience"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="M9 7.5V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.5M3.5 13h17"/></svg><span class="nav-tip" data-i18n="experience">Experience</span></a><a class="nav-icon" href="/#contact"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4.5 7 7.5 6 7.5-6"/></svg><span class="nav-tip" data-i18n="contact">Contact</span></a><a class="nav-icon" href="/public/resources/Abdul_Habeeb_Resume.pdf#view=FitH" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3.5H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-10z"/><path d="M14 3.5v5h5M9 13h6M9 16.5h4"/></svg><span class="nav-tip" data-i18n="resumeShort">Resume</span></a><a class="nav-icon is-active" href="/blog/" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1-4.2L15.8 5a2.1 2.1 0 0 1 3 3L8.2 18.8 4 20Z"/><path d="M13.8 7l3 3M12.5 20H20"/></svg><span class="nav-tip" data-i18n="blog">Blog</span></a><i class="nav-divider"></i><button class="language-toggle" type="button" aria-label="Switch language">DE</button><button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false"><span>☾</span></button></nav>
+  </header>
+  <section class="bl-post-hero" id="top">
+    <img class="bl-post-bg" src="/public/resources/blog/nvidia-opens-parse-35s-training-data.jpg" alt="Several sheets of aged, cream-colored paper are layered diagonally, covered in dense cursive handwriting in dark ink" style="object-position:center" />
+    <a class="bl-back" href="/blog/" data-i18n="bl_all">← All posts</a>
+    <span class="label">Models</span>
+    <h1>NVIDIA opens Parse 3.5&#x27;s training data and reports large speedups on its own tests</h1>
+    <p>NVIDIA releases three synthetic datasets and a fine-tuning recipe for its document parser, and reports faster inference. The benchmarks are NVIDIA&#x27;s own, run on its own hardware setup.</p>
+    <span class="bl-meta"><img src="/public/resources/heroimage.jpg" alt="" /><span>Abdul Habeeb</span><i aria-hidden="true">·</i><span>26 November 2026</span><i aria-hidden="true">·</i><span>4 <span data-i18n="bl_min">min read</span></span></span>
+    <a class="bl-credit" href="https://pixabay.com/photos/paper-writing-old-antique-write-623167/" target="_blank" rel="noopener"><span data-i18n="bl_photo">Photo</span>: Pixabay</a>
+  </section>
+
+  <div class="bl-body">
+    <nav class="bl-toc" aria-label="Contents"><span data-i18n="bl_contents">Contents</span><a href="#better-charts-and-tables">Better charts and tables</a><a href="#three-open-datasets">Three open datasets</a><a href="#training-supervised-fine-tuning-then-rlvr">Training: supervised fine-tuning, then RLVR</a><a href="#speed">Speed</a><a href="#fine-tuning-recipe">Fine-tuning recipe</a><a href="#my-read">My read</a></nav>
+    <article class="bl-article">
+      <p class="bl-lang" data-i18n="bl_lang">This post is written in English.</p>
+<p>NVIDIA has published a follow-up to its Nemotron 3.5 Parse release. Parse is a compact model that turns page images into structured data for retrieval-augmented generation (RAG) and agents. The <a href="https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin" target="_blank" rel="noopener">follow-up post on Hugging Face</a> covers open training data, a fine-tuning recipe, and a faster inference setup. Everything below is NVIDIA's account, so the numbers are its claims.</p>
+<h2 id="better-charts-and-tables">Better charts and tables</h2>
+<p>Parse extracts page content in reading order, labels each piece (headings, paragraphs, tables, charts), and returns bounding boxes. NVIDIA says this version reads charts and tables more reliably in ambiguous cases. One example is a bar chart with no printed values, where the model works out values from the axes and bar heights.</p>
+<h2 id="three-open-datasets">Three open datasets</h2>
+<p>NVIDIA says it is open-sourcing three datasets used in Parse 3.5 training:</p>
+<ul><li>Synthetic Charts V1, with 9.98M examples</li><li>Synthetic Tables V1, with 1M examples</li><li>OCR Synthetic Multilingual v2, with 7.9M examples</li></ul>
+<p>Each release includes images, annotations, generation documentation and the training format. The post does not state the licence for these datasets, so check that before commercial use.</p>
+<h2 id="training-supervised-fine-tuning-then-rlvr">Training: supervised fine-tuning, then RLVR</h2>
+<p>NVIDIA trained Parse 3.5 in two phases. First came supervised fine-tuning (SFT) across text, layout, tables, charts and multilingual documents. Then came reinforcement learning with verifiable rewards (RLVR), using Group Relative Policy Optimization (GRPO). The rewards score extractions for correct chart values, usable structure, and finishing without repeating content.</p>
+<p>In a controlled comparison, loop-flagged pages fell from 126 to 29, about 77% fewer in NVIDIA's words. Outputs that hit the 9,000-token limit fell from 185 to 35. The overall score rose from 66.24 to 71.38. These are development checkpoints, not the released model.</p>
+<h2 id="speed">Speed</h2>
+<p>The post lists several architecture changes, including dynamic image sizing, a compressed visual prefix for the decoder, and grouped-query attention. It also describes DFlash2, a speculative decoding method where a small draft model proposes up to 32 tokens for Parse to verify.</p>
+<p>On one H200 in BF16, using 2,078 pages, NVIDIA reports DFlash2 at 7.62× the throughput of Parse 3.5 without speculation at concurrency 1, and 1.52× at concurrency 512. At 512, it reports 20.44 pages per second with DFlash2, against 2.98 for Parse 2.0.</p>
+<p>NVIDIA also describes optional extra passes for dense tables and small chart details. In its reference evaluation, double and triple pass added 2.18 and 2.46 ParseBench points over single pass.</p>
+<h2 id="fine-tuning-recipe">Fine-tuning recipe</h2>
+<p>The post includes a worked example using a synthetic dental form. On this task, NVIDIA reports estimated first-attempt success rising from 0.00% for the base model to 95.85% after SFT and 96.58% after RLVR. The recipe uses NeMo Automodel for SFT, NeMo RL for GRPO, and vLLM for generating candidate answers. Users supply their own image and label pairs plus a verifier.</p>
+<h2 id="my-read">My read</h2>
+<p>The most useful part for most teams is the recipe and the verifier idea. If your documents differ from the defaults, the reward components give you a concrete way to define a correct extraction. The hard part is writing good checks for your schema, not the training loop.</p>
+<p>The speed figures need context. The 7.62× and 1.52× numbers compare DFlash2 with NVIDIA's own Parse 3.5 baseline, not with Parse 2.0. The comparison with Parse 2.0 is 6.86× at concurrency 512, and that is a single hardware setup on a single page set. The multi-pass gains are small, so the extra passes are worth it only for documents where a few points matter.</p>
+<p>The post mentions community work on Thai, Persian and Arabic, but gives no results for them. Treat multilingual claims as untested until you run your own pages.</p>
+      <aside class="bl-author"><img src="/public/resources/heroimage.jpg" alt="" /><div><strong>Abdul Habeeb</strong><p data-i18n="bl_bio">Data science and full-stack developer in Saarbrücken. I write about what's happening in AI and data, with links to the sources.</p><a href="/#profile" data-i18n="bl_about">More about me</a></div></aside>
+    </article>
+  </div>
+
+  <section class="bl-list bl-more">
+    <div class="bl-list-head"><h2 data-i18n="bl_more">Keep reading</h2><a href="/blog/" data-i18n="bl_all">← All posts</a></div>
+    <div class="bl-grid is-two"><a class="bl-card bl-reveal" data-tag="Models" data-date="2026-11-11" href="/blog/googles-gemini-4-carbon-opens-public/"><span class="bl-card-img"><img src="/public/resources/blog/googles-gemini-4-carbon-opens-public.jpg" alt="Glowing red, orange, yellow, and green branching lines radiate from bright nodes against a black background" style="object-position:center" loading="lazy" decoding="async" /><span class="label">Models</span></span><h3>Google&#x27;s Gemini 4 Carbon opens to the public, priced under its rivals for now</h3><p>Google is rolling out Carbon to paying developers and Ultra subscribers, and previewing a multi-agent &quot;swarm&quot; feature. Its per-token prices are low, but the introductory rate ends in November.</p><span class="bl-meta"><span>11 November 2026</span><i aria-hidden="true">·</i><span>3 <span data-i18n="bl_min">min read</span></span></span></a><a class="bl-card bl-reveal" data-tag="Models" data-date="2026-11-11" href="/blog/gemini-robotics-25-hit-96-european/"><span class="bl-card-img"><img src="/public/resources/blog/gemini-robotics-25-hit-96-european.jpg" alt="A futuristic circular assembly line with silver cars, robotic arms, and machinery encircling a glowing Earth" style="object-position:center" loading="lazy" decoding="async" /><span class="label">Models</span></span><h3>Gemini Robotics 2.5 hit 96% in European factories, and DeepMind admits the last 4% is hard</h3><p>Google DeepMind&#x27;s new robotics model improved on lab tests and reached 96% success in car-parts kitting. DeepMind&#x27;s own director says the remaining gap is a steep road.</p><span class="bl-meta"><span>11 November 2026</span><i aria-hidden="true">·</i><span>3 <span data-i18n="bl_min">min read</span></span></span></a></div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="contact-copy">
+      <span class="label" data-i18n="connectLabel">Let’s connect</span>
+      <h2 data-i18n="connectTitle">Have an idea<br /><em>worth exploring?</em></h2>
+      <div class="contact-actions"><span class="contact-email"><a class="button" href="mailto:abdulhabeeb9731@gmail.com">abdulhabeeb9731@gmail.com <span>↗</span></a><button class="button copy-email" type="button" data-copy="abdulhabeeb9731@gmail.com" aria-label="Copy email address"><span><svg class="ic-copy" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2.2"/><path d="M15.5 8.5V6.7a2.2 2.2 0 0 0-2.2-2.2H6.7a2.2 2.2 0 0 0-2.2 2.2v6.6a2.2 2.2 0 0 0 2.2 2.2h1.8"/></svg><svg class="ic-done" viewBox="0 0 24 24" aria-hidden="true"><path d="m5.5 12.5 4 4 9-9.5"/></svg></span><em class="copy-tip" role="status" aria-live="polite"></em></button></span><span class="contact-email"><a class="button" href="mailto:hello@abdulhabeeb.com">hello@abdulhabeeb.com <span>↗</span></a><button class="button copy-email" type="button" data-copy="hello@abdulhabeeb.com" aria-label="Copy email address"><span><svg class="ic-copy" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="11" rx="2.2"/><path d="M15.5 8.5V6.7a2.2 2.2 0 0 0-2.2-2.2H6.7a2.2 2.2 0 0 0-2.2 2.2v6.6a2.2 2.2 0 0 0 2.2 2.2h1.8"/></svg><svg class="ic-done" viewBox="0 0 24 24" aria-hidden="true"><path d="m5.5 12.5 4 4 9-9.5"/></svg></span><em class="copy-tip" role="status" aria-live="polite"></em></button></span><a class="button is-ghost" href="https://linkedin.com/in/abdulhabeeb9731" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a></div>
+    </div>
+    <footer>
+      <div class="footer-line"><span>© 2026 Abdul Habeeb</span><i></i><span>Saarbrücken, Germany</span></div>
+      <div class="footer-links"><a href="/" data-i18n="home">Home</a><a href="/#projects" data-i18n="projects">Projects</a><a href="/#experience" data-i18n="experience">Experience</a><a href="/#workshops" data-i18n="workshops">Workshops</a><a href="/#education" data-i18n="education">Education</a><a href="/#awards" data-i18n="awards">Awards</a><a href="/#volunteering" data-i18n="volunteering">Volunteering</a><a href="/blog/" data-i18n="blog">Blog</a><a href="#top" data-i18n="backTop">Back to top ↑</a></div>
+      <p class="footer-wordmark" aria-hidden="true">Habeeb</p>
+    </footer>
+  </section>
+</main>
+<script>
+const PAGE_DE={"home": "Start", "projects": "Projekte", "experience": "Erfahrung", "blog": "Blog", "contact": "Kontakt", "resumeShort": "Lebenslauf", "connectLabel": "Kontakt aufnehmen", "connectTitle": "Eine Idee,<br /><em>die wir erkunden sollten?<\/em>", "workshops": "Workshops", "education": "Ausbildung", "awards": "Auszeichnungen", "volunteering": "Ehrenamt", "backTop": "Nach oben ↑", "bl_label": "Blog", "bl_title": "Was gerade in KI und Daten passiert.", "bl_sub": "Die Nachrichten, die deine Zeit wert sind, an der Quelle geprüft und mit allen Einschränkungen.", "bl_featured": "Empfohlen", "bl_recent": "Neueste Beiträge", "bl_rss": "RSS-Feed", "bl_all": "← Alle Beiträge", "bl_contents": "Inhalt", "bl_more": "Weiterlesen", "bl_lang": "Dieser Beitrag ist auf Englisch verfasst.", "bl_bio": "Data-Science- und Full-Stack-Entwickler in Saarbrücken. Ich schreibe darüber, was in KI und Daten passiert, mit Links zu den Quellen.", "bl_about": "Mehr über mich", "bl_alltopics": "Alle", "bl_sortby": "Sortieren", "bl_newest": "Neueste", "bl_oldest": "Älteste", "bl_none": "Keine Beiträge gefunden.", "bl_showmore": "Mehr anzeigen", "bl_photo": "Foto", "bl_min": "Min. Lesezeit", "bl_tag_security": "Sicherheit", "bl_tag_research": "Forschung", "bl_tag_models": "Modelle", "bl_tag_industry": "Branche", "bl_tag_agents": "Agenten", "bl_tag_data-tools": "Datentools", "bl_tag_regulation": "Regulierung"};
+const langBtn=document.querySelector('.language-toggle');const origText={};
+document.querySelectorAll('[data-i18n]').forEach(el=>{origText[el.dataset.i18n]=el.innerHTML});
+let lang='en';try{lang=localStorage.getItem('site-language')||((navigator.language||'en').toLowerCase().startsWith('de')?'de':'en')}catch(e){}
+function applyLang(next){lang=next;try{localStorage.setItem('site-language',lang)}catch(e){};document.documentElement.lang=lang;
+ document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;el.innerHTML=lang==='de'&&PAGE_DE[k]?PAGE_DE[k]:origText[k]});
+ if(langBtn){langBtn.textContent=lang==='de'?'EN':'DE';langBtn.setAttribute('aria-label',lang==='de'?'Switch to English':'Auf Deutsch wechseln')}}
+applyLang(lang);window.addEventListener('pageshow',()=>{let s=null;try{s=localStorage.getItem('site-language')}catch(e){};if(s&&s!==lang)applyLang(s)});if(langBtn)langBtn.addEventListener('click',()=>applyLang(lang==='de'?'en':'de'));
+</script>
+<script>
+const themeToggle=document.querySelector('.theme-toggle');
+const applyTheme=dark=>{document.body.classList.toggle('dark',dark);document.documentElement.classList.remove('dark-pre');try{localStorage.setItem('theme',dark?'dark':'light')}catch(e){};themeToggle.setAttribute('aria-pressed',String(dark));themeToggle.innerHTML=dark?'<span>☀</span>':'<span>☾</span>'};
+let initialDark=false;try{initialDark=localStorage.getItem('theme')==='dark'}catch(e){}
+applyTheme(initialDark);
+themeToggle.addEventListener('click',()=>applyTheme(!document.body.classList.contains('dark')));
+window.addEventListener('pageshow',()=>{let t=null;try{t=localStorage.getItem('theme')}catch(e){};if(t&&(t==='dark')!==document.body.classList.contains('dark'))applyTheme(t==='dark')});
+</script>
+<script src="/public/vendor/lenis.min.js?v=1.1.20" defer></script>
+<script src="/smooth-scroll.js?v=20261101b" defer></script>
+<script src="/section-reveal.js?v=20261101e" defer></script>
+<script src="/footer-fun.js?v=20261101b" defer></script>
+<script src="/copy-email.js?v=20261101a" defer></script>
+<script src="/blog.js?v=20261116a" defer></script>
+</body>
+</html>

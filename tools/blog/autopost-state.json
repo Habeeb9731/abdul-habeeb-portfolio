@@ -23,7 +23,8 @@
   "https://techcrunch.com/2026/11/20/ai-claimed-a-solution-to-the-167-year-old-riemann-hypothesis-and-a-human-did-too/",
   "https://www.theverge.com/ai-artificial-intelligence/1040134/anthropic-claude-ship-ai-pull-requests",
   "https://huggingface.co/blog/allenai/robotrack",
-  "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities"
+  "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities",
+  "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin"
  ],
  "photos": [
   2612056,
@@ -41,6 +42,7 @@
   1587863,
   4126483,
   2791670,
-  2420845
+  2420845,
+  623167
  ]
 }

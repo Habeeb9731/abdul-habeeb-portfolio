@@ -68,9 +68,15 @@
   </url>
   <url>
     <loc>https://abdulhabeeb.com/blog/</loc>
-    <lastmod>2026-11-26</lastmod>
+    <lastmod>2026-11-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://abdulhabeeb.com/blog/four-small-agents-learned-share-facts/</loc>
+    <lastmod>2026-11-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://abdulhabeeb.com/blog/nvidia-opens-parse-35s-training-data/</loc>

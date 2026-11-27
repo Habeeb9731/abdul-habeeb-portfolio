@@ -24,7 +24,8 @@
   "https://www.theverge.com/ai-artificial-intelligence/1040134/anthropic-claude-ship-ai-pull-requests",
   "https://huggingface.co/blog/allenai/robotrack",
   "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities",
-  "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin"
+  "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin",
+  "https://huggingface.co/blog/training-swarms"
  ],
  "photos": [
   2612056,
@@ -43,6 +44,7 @@
   4126483,
   2791670,
   2420845,
-  623167
+  623167,
+  3524352
  ]
 }

@@ -297,7 +297,7 @@
    [
     "Telemetry loads two drivers for a five-minute window at a time, filtered at the API and downsampled before charting.",
     "Requests are cached and cancelled when abandoned (TanStack Query); selections live in the URL so views are shareable.",
-    "Ask Apex runs server-side behind GitHub sign-in, with a daily per-user question limit stored in SQLite."
+    "Ask Apex runs on the server with Claude Haiku. It answers from a snapshot of the current view, drops off-topic questions, and gives each visitor five questions a day, with no sign-in and no stored IP addresses."
    ]
   ],
   "features": [
@@ -314,7 +314,7 @@
    [
     "sparkle",
     "Ask Apex",
-    "An AI race analyst that answers questions about the data — key kept server-side, usage rate-limited."
+    "An AI race analyst on Claude Haiku that reads what the dashboard is showing, answers in plain language and can open the right page or switch Grand Prix for you. No sign-in needed."
    ]
   ],
   "phone": [
@@ -360,7 +360,7 @@
    ],
    [
     "Backend",
-    "Node server for GitHub OAuth and the AI analyst; usage counts in SQLite."
+    "Node server with an OpenF1 cache that refreshes after each race weekend, plus Ask Apex on Claude Haiku. Visitor limits and question logs live in SQLite."
    ],
    [
     "Deployment",
@@ -374,8 +374,7 @@
    "TanStack Query",
    "Node.js",
    "SQLite",
-   "OpenAI API",
-   "GitHub OAuth",
+   "Claude Haiku",
    "Docker",
    "Cloudflare"
   ],
@@ -429,13 +428,13 @@
    "so_t": "Weniger laden, mehr zwischenspeichern, verständlich erklären",
    "so0": "Die Telemetrie lädt jeweils zwei Fahrer für ein Fünf-Minuten-Fenster, wird bereits an der API gefiltert und vor dem Diagramm herunterskaliert.",
    "so1": "Anfragen werden zwischengespeichert und bei Verlassen abgebrochen (TanStack Query); Auswahlen liegen in der URL, damit Ansichten teilbar sind.",
-   "so2": "Ask Apex läuft serverseitig hinter der GitHub-Anmeldung, mit einem täglichen Fragenlimit pro Nutzer, gespeichert in SQLite.",
+   "so2": "Ask Apex läuft serverseitig mit Claude Haiku. Es antwortet anhand eines Schnappschusses der aktuellen Ansicht, verwirft themenfremde Fragen und gibt jedem Besucher fünf Fragen pro Tag – ohne Anmeldung und ohne gespeicherte IP-Adressen.",
    "f0t": "Rennexplorer",
    "f0d": "Session-Klassement, Positionswechsel und Runde-für-Runde-Verlauf für jeden Grand Prix.",
    "f1t": "Fahrervergleich",
    "f1d": "Direkter Rundenzeiten- und Leistungsvergleich für beliebige zwei Fahrer.",
    "f2t": "Ask Apex",
-   "f2d": "Ein KI-Rennanalyst, der Fragen zu den Daten beantwortet – Schlüssel serverseitig, Nutzung ratenbegrenzt.",
+   "f2d": "Ein KI-Rennanalyst mit Claude Haiku, der liest, was das Dashboard gerade zeigt, verständlich antwortet und die passende Seite öffnen oder den Grand Prix wechseln kann. Ohne Anmeldung.",
    "g0": "Rennexplorer mit Klassement und Positionswechseln",
    "g1": "Fahrervergleich – Rundenzeiten nebeneinander",
    "g2": "Reifenstrategie – jeder Stint und jede Mischung im Rennen",
@@ -450,7 +449,7 @@
    "t1k": "Frontend",
    "t1v": "React + TypeScript auf Vite, TanStack Query für Caching und Abbruch.",
    "t2k": "Backend",
-   "t2v": "Node-Server für GitHub-OAuth und den KI-Analysten; Nutzungszähler in SQLite.",
+   "t2v": "Node-Server mit einem OpenF1-Cache, der nach jedem Rennwochenende aktualisiert wird, dazu Ask Apex mit Claude Haiku. Besucherlimits und Fragenprotokoll liegen in SQLite.",
    "t3k": "Deployment",
    "t3v": "Docker, ausgeliefert über einen Cloudflare Tunnel unter apex.abdulhabeeb.com.",
    "learned": "Die Arbeit mit echten Sportdaten besteht vor allem darin, zu entscheiden, was <em>nicht</em> geladen wird. Das Design um fensterbasierte, herunterskalierte Anfragen herum machte das Dashboard schnell – und lehrte mich, API-Limits als Designvorgabe und nicht als Nachgedanken zu behandeln."

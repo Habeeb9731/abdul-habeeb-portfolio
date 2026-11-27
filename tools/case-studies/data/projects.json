@@ -479,11 +479,11 @@
    ],
    [
     "Stack",
-    "Python, EASE, Streamlit"
+    "Python, EASE, Streamlit, Claude Haiku"
    ]
   ],
   "ov_h": "Popularity lists ignore your taste. <span>Collaborative filtering ignores new shows.</span>",
-  "ov_p": "AnimeRec ranks every eligible title for each visitor. It leans on what similar viewers enjoyed, then shifts smoothly toward synopsis and metadata signals as a title’s history falls to zero. Answer three quick questions and your top 10 appears instantly, with no retraining and a reason attached to each pick.",
+  "ov_p": "AnimeRec ranks every eligible title for each visitor. It leans on what similar viewers enjoyed, then shifts smoothly toward synopsis and metadata signals as a title’s history falls to zero. Describe your taste to the AI or answer a few quick questions, and your top 10 appears instantly, with no retraining and a reason attached to each pick.",
   "ov_img": [
    "/public/resources/case-studies/anime-overview.jpg?v=2",
    "A personal top 10, with the reason behind the lead recommendation."
@@ -519,6 +519,11 @@
     "sparkle",
     "Room for new titles",
     "A title with no viewing history can still be scored from its synopsis, genres, studio, type and year."
+   ],
+   [
+    "brain",
+    "Ask AnimeRec",
+    "Describe your taste in your own words or ask the mascot for ideas. Claude Haiku suggests titles, each one is checked against the catalog, and one tap hands them to the recommender."
    ]
   ],
   "phone": [
@@ -562,6 +567,10 @@
     "Per title, alpha = n / (n + κ) moves the score from collaborative to content signals as its history n falls to zero."
    ],
    [
+    "Assistant",
+    "Claude Haiku through a Cloudflare Worker. Its suggestions are matched against the 10,720-title catalog, so it can’t recommend a show the demo doesn’t have, and structured output drops off-topic questions. 5 questions per visitor a day, on a key capped at $2 a month."
+   ],
+   [
     "Demo",
     "A Streamlit app in Docker behind a Cloudflare Tunnel, serving the same model that was evaluated."
    ]
@@ -574,6 +583,8 @@
    "implicit",
    "Sentence Transformers",
    "Streamlit",
+   "Claude Haiku",
+   "Cloudflare Workers",
    "Docker",
    "Cloudflare Tunnel"
   ],
@@ -628,9 +639,9 @@
    "meta0": "Data Science &amp; ML Engineering",
    "meta1": "2026",
    "meta2": "Persönliches Projekt",
-   "meta3": "Python, EASE, Streamlit",
+   "meta3": "Python, EASE, Streamlit, Claude Haiku",
    "ov_h": "Beliebtheitslisten ignorieren deinen Geschmack. <span>Collaborative Filtering ignoriert neue Serien.</span>",
-   "ov_p": "AnimeRec ordnet für jeden Besucher alle infrage kommenden Titel. Das Modell stützt sich darauf, was ähnlichen Zuschauern gefallen hat, und verlagert sich fließend auf Inhaltsangaben und Metadaten, je weniger Verlauf ein Titel hat. Drei kurze Fragen genügen, und deine Top 10 erscheint sofort, ohne neues Training und mit einer Begründung für jede Empfehlung.",
+   "ov_p": "AnimeRec ordnet für jeden Besucher alle infrage kommenden Titel. Das Modell stützt sich darauf, was ähnlichen Zuschauern gefallen hat, und verlagert sich fließend auf Inhaltsangaben und Metadaten, je weniger Verlauf ein Titel hat. Beschreib der KI deinen Geschmack oder beantworte ein paar kurze Fragen, und deine Top 10 erscheint sofort, ohne neues Training und mit einer Begründung für jede Empfehlung.",
    "ov_cap": "Eine persönliche Top 10 mit der Begründung für die erste Empfehlung.",
    "ch_t": "Eine Auswertung, der man vertrauen kann",
    "ch0": "Collaborative Filtering kann keinen Titel einordnen, den noch niemand gesehen hat.",
@@ -660,9 +671,13 @@
    "t1v": "EASE und ALS für Collaborative Filtering sowie all-MiniLM-L6-v2-Satz-Embeddings mit Metadaten für den Inhalt.",
    "t2k": "Hybrid",
    "t2v": "Pro Titel verschiebt alpha = n / (n + κ) den Wert von Collaborative- zu Inhaltssignalen, wenn der Verlauf n gegen null geht.",
-   "t3k": "Demo",
-   "t3v": "Eine Streamlit-App in Docker hinter einem Cloudflare Tunnel, die genau das ausgewertete Modell ausliefert.",
-   "learned": "Der wichtigste Schritt kam vor jedem Modell: die Prüfung der Zeitstempel. Sie hat verhindert, dass ich eine zeitliche Aufteilung berichte, die gar keine war. Außerdem habe ich gelernt, auch die weniger schmeichelhaften Zahlen zu veröffentlichen. Das Hybridmodell liegt insgesamt nur gleichauf mit reinem EASE, und neue Titel schaffen es selten in eine Top 10."
+   "t3k": "Assistent",
+   "t3v": "Claude Haiku über einen Cloudflare Worker. Seine Vorschläge werden mit dem Katalog von 10.720 Titeln abgeglichen, er kann also keine Serie empfehlen, die die Demo nicht kennt, und strukturierte Ausgaben filtern themenfremde Fragen heraus. 5 Fragen pro Besucher und Tag, mit einem Schlüssel, der auf 2 $ im Monat begrenzt ist.",
+   "learned": "Der wichtigste Schritt kam vor jedem Modell: die Prüfung der Zeitstempel. Sie hat verhindert, dass ich eine zeitliche Aufteilung berichte, die gar keine war. Außerdem habe ich gelernt, auch die weniger schmeichelhaften Zahlen zu veröffentlichen. Das Hybridmodell liegt insgesamt nur gleichauf mit reinem EASE, und neue Titel schaffen es selten in eine Top 10.",
+   "f3t": "Ask AnimeRec",
+   "f3d": "Beschreib deinen Geschmack in eigenen Worten oder frag das Maskottchen nach Ideen. Claude Haiku schlägt Titel vor, jeder wird mit dem Katalog abgeglichen, und ein Tippen übergibt sie an den Recommender.",
+   "t4k": "Demo",
+   "t4v": "Eine Streamlit-App in Docker hinter einem Cloudflare Tunnel, die genau das ausgewertete Modell ausliefert."
   }
  },
  {

@@ -25,7 +25,8 @@
   "https://huggingface.co/blog/allenai/robotrack",
   "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities",
   "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin",
-  "https://huggingface.co/blog/training-swarms"
+  "https://huggingface.co/blog/training-swarms",
+  "https://huggingface.co/blog/video-trainium3"
  ],
  "photos": [
   2612056,
@@ -45,6 +46,7 @@
   2791670,
   2420845,
   623167,
-  3524352
+  3524352,
+  4223911
  ]
 }
